@@ -1,6 +1,32 @@
 # donghu-rrs
 
-> Donghu subscription number project with vue.js
+> Donghu subscription number project with vue.js. 
+> Documentation can be found at [https://vuejs-templates.github.io/webpack/](https://vuejs-templates.github.io/webpack/)
+
+## Project Structure
+```bash
+.
+├── build/                      # webpack config files
+│   └── ...
+├── config/
+│   ├── index.js                # main project config
+│   └── ...
+├── src/
+│   ├── main.js                 # app entry file
+│   ├── App.vue                 # main app component
+│   ├── components/             # ui components
+│   │   └── ...
+│   └── assets/                 # module assets (processed by webpack)
+│       └── ...
+├── static/                     # pure static assets (directly copied)
+├── .babelrc                    # babel config
+├── .postcssrc.js               # postcss config
+├── .eslintrc.js                # eslint config
+├── .editorconfig               # editor config
+├── index.html                  # index.html template
+└── package.json                # build scripts and dependencies
+```
+
 
 ## Build Setup
 
