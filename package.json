@@ -1,10 +1,10 @@
 {
   "name": "donghu-rrs",
+  
   "version": "1.0.0",
   "description": "Donghu subscription number project with vue.js",
   "author": "threetown <threetowns@163.com>",
   "private": true,
-  
   "scripts": {
     "dev": "node build/dev-server.js",
     "start": "node build/dev-server.js",
