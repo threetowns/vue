@@ -1,6 +1,5 @@
 {
   "name": "donghu-rrs",
-  
   "version": "1.0.0",
   "description": "Donghu subscription number project with vue.js",
   "author": "threetown <threetowns@163.com>",
@@ -12,7 +11,9 @@
   },
   "dependencies": {
     "vue": "^2.3.3",
-    "vue-router": "^2.6.0"
+    "vue-router": "^2.6.0",
+    "vux": "^2.5.8",
+    "vux-loader": "^1.1.5"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",
