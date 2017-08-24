@@ -2,6 +2,7 @@ import App from '../App'
 
 const index = r => require.ensure([], () => r(require('../views/index/index')), 'index')
 const login = r => require.ensure([], () => r(require('../views/login/login')), 'login')
+const join = r => require.ensure([], () => r(require('../views/join/join')), 'join')
 
 export default [{
     path: '/',
@@ -21,6 +22,11 @@ export default [{
         {
             path: '/login',
             component: login
+        },
+        //注册页
+        {
+            path: '/join',
+            component: join
         }
     ]
 }]
