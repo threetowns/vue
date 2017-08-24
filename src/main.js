@@ -11,6 +11,15 @@ const router = new VueRouter({
   mode: 'history'
 })
 
+router.beforeEach((to, from, next) => {
+  if(to.meta.title){
+      document.title = to.meta.title
+  }else{
+      document.title = '东湖大数据交易中心'
+  }
+  next()
+})
+
 /* eslint-disable no-new */
 new Vue({
   router

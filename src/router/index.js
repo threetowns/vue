@@ -3,6 +3,7 @@ import App from '../App'
 const index = r => require.ensure([], () => r(require('../views/index/index')), 'index')
 const login = r => require.ensure([], () => r(require('../views/login/login')), 'login')
 const join = r => require.ensure([], () => r(require('../views/join/join')), 'join')
+const forget = r => require.ensure([], () => r(require('../views/forget/forget')), 'forget')
 
 export default [{
     path: '/',
@@ -16,17 +17,26 @@ export default [{
         //首页
         {
             path: '/index',
-            component: index
+            component: index,
+            meta: { title: '首页'}
         },
         //登录注册页
         {
             path: '/login',
-            component: login
+            component: login,
+            meta: { title: '登录'}
         },
         //注册页
         {
             path: '/join',
-            component: join
+            component: join,
+            meta: { title: '注册'}
+        },
+        //找回密码页
+        {
+            path: '/forget',
+            component: forget,
+            meta: { title: '找回密码'}
         }
     ]
 }]
