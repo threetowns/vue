@@ -18,10 +18,11 @@
         <i class="icon-lock"></i>
         <input type="password" class="login-text" placeholder="请输入密码">
       </div>
-      <button class="login-button" type="button">注册</button>
-      <div class="login-tips">
-        <router-link to="/login" class="to-login">返回登录</router-link>
-      </div>
+    </div>
+
+    <button class="login-button" type="button">注册</button>
+    <div class="login-tips">
+      <router-link to="/login" class="to-login">返回登录</router-link>
     </div>
 
   </div>

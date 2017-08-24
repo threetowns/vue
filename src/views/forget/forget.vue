@@ -7,7 +7,6 @@
         <i class="icon-card"></i>
         <input type="text" class="login-text" placeholder="请输入手机号或者邮箱地址">
       </div>
-      <button class="login-button" type="button">下一步</button>
     </div>
 
     <div class="login-form" v-else>
@@ -20,8 +19,10 @@
         <i class="icon-lock"></i>
         <input type="password" class="login-text" placeholder="请输入密码">
       </div>
-      <button class="login-button" type="button">完成</button>
     </div>
+
+    <button class="login-button" type="button" v-if="!isNext">下一步</button>
+    <button class="login-button" type="button" v-else>完成</button>
 
   </div>
 </template>

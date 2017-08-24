@@ -4,17 +4,18 @@
     <div class="login-form">
       <div class="login-items">
         <i class="icon-card"></i>
-        <input type="text" class="login-text" placeholder="请输入手机号或者邮箱地址" value="a">
+        <input type="text" class="login-text" placeholder="请输入手机号或者邮箱地址">
       </div>
-      <div class="login-items" style="margin-bottom: .62rem;">
+      <div class="login-items">
         <i class="icon-lock"></i>
         <input type="password" class="login-text" placeholder="请输入密码">
       </div>
-      <button class="login-button" type="button">登录</button>
-      <div class="login-tips">
-        <router-link to="/join" class="to-join">快速注册</router-link>
-        <router-link to="/forget" class="to-forget">忘记密码？</router-link>
-      </div>
+    </div>
+
+    <button class="login-button" type="button">登录</button>
+    <div class="login-tips">
+      <router-link to="/join" class="to-join">快速注册</router-link>
+      <router-link to="/forget" class="to-forget">忘记密码？</router-link>
     </div>
 
   </div>
