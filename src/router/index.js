@@ -24,7 +24,10 @@ export default [{
         {
             path: '/login',
             component: login,
-            meta: { title: '登录'}
+            meta: {
+              title: '登录'
+              /*, keepAlive: true*/
+            }
         },
         //注册页
         {
