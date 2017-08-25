@@ -10,5 +10,7 @@
     </transition>
   </div>
 </template>
-
+<style lang="less">
+	@import url("assets/styles/common");
+</style>
 
