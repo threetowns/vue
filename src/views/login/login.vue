@@ -52,6 +52,7 @@
     methods:{
       checkLogin(){
         let self = this;
+
         if (!this.userAccount) {
           this.$vux.alert.show({ title: '温馨提示', content: self.placeholder.userAccount })
           return false;
@@ -65,6 +66,8 @@
 
         let phone = this.isPhone ? this.userAccount : '';
         let email = this.isEmail ? this.userAccount : '';
+
+        this.$vux.loading.show()
         Ajax.post('/data/userinfo/wxLogin',{
           "phone": phone,
           "email": email,
@@ -75,6 +78,7 @@
           }else{
             self.$vux.alert.show({ title: '温馨提示', content: res.msg })
           }
+          self.$vux.loading.hide()
         })
       }
     }
