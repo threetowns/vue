@@ -1,0 +1,47 @@
+body {
+    background-color: #ebebeb;
+}
+
+@import url("../../assets/styles/less");
+.precision {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    .screen {
+        margin-bottom: -0.20rem;
+        .nav_a {
+            display: flex;
+            border-bottom: 1px solid @colorc;
+            a {
+                display: block;
+                flex: 1;
+                height: 0.80rem;
+                line-height: 0.80rem;
+                padding-left: 0.30rem;
+                text-align: center;
+                background-color: @colorf;
+                color: @color3;
+                font-size: 0.30rem;
+                font-weight: bold;
+                i {
+                    display: inline-block;
+                    width: 0.11rem;
+                    height: 0.13rem;
+                    margin-left: 0.15rem;
+                    background: url(./xia.png) no-repeat;
+                    .bg100;
+                }
+                &.active {
+                    color: #15aafb;
+                    i {
+                        background-image: url(./shang.png);
+                    }
+                }
+            }
+        }
+    }
+}
