@@ -9,8 +9,21 @@ body{font-size: 12px;}
 
 @themes: '../images';
 @loginBlue: #15aafb;
+@sentBlue: #eef9ff;
 @white: #fff;
+@gray: #ddd;
 @basicfontSize: .36rem;
+
+.button-default() {
+    background: @gray;
+    color: @white;
+    border: 1px solid @gray;
+}
+.button-sent() {
+    background: @sentBlue;
+    color: @loginBlue;
+    border:1px solid @loginBlue;
+}
 
 .login-layout{
   padding: .3rem .59rem;
@@ -41,12 +54,13 @@ body{font-size: 12px;}
     font-size: .28rem;
     height: .58rem;
     line-height: .58rem;
-    color: @loginBlue;
-    background: #eef9ff;
     padding: 0 .16rem;
     border-radius: .1rem;
-    border: 1px solid @loginBlue;
     transform: translateY(-50%);
+    .button-default();
+    &.sentSmsOk{
+      .button-sent();
+    }
   }
   .login-tips{
     margin-top: .26rem;
