@@ -23,6 +23,7 @@
 
 <script>
   import { md5 } from 'vux';
+  import Ajax from 'assets/js/common';
 
 
   export default {
@@ -41,10 +42,10 @@
       }
     },
     computed: {
-      rightPhone: function (){
+      isPhone: function (){
         return this.regex.phone.test(this.userAccount)
       },
-      rightEmail: function(){
+      isEmail: function(){
         return this.regex.email.test(this.userAccount)
       }
     },
@@ -54,7 +55,7 @@
         if (!this.userAccount) {
           this.$vux.alert.show({ title: '温馨提示', content: self.placeholder.userAccount })
           return false;
-        }else if(!this.rightPhone && !this.rightEmail){
+        }else if(!this.isPhone && !this.isEmail){
           this.$vux.alert.show({ title: '温馨提示', content: self.placeholder.userAccount })
           return false;
         }else if(!this.password){
@@ -62,7 +63,19 @@
           return false;
         }
 
-        console.log('checklogin...')
+        let phone = this.isPhone ? this.userAccount : '';
+        let email = this.isEmail ? this.userAccount : '';
+        Ajax.post('/data/userinfo/wxLogin',{
+          "phone": phone,
+          "email": email,
+          "pwd": md5(this.password)
+        },function(res){
+          if (res.status == '0') {
+            console.log('success')
+          }else{
+            self.$vux.alert.show({ title: '温馨提示', content: res.msg })
+          }
+        })
       }
     }
   }
