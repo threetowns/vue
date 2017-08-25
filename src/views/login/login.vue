@@ -4,7 +4,7 @@
     <div class="login-form">
       <div class="login-items">
         <i class="icon-card"></i>
-        <input type="text" class="login-text" v-model="username" :placeholder="placeholder.username">
+        <input type="text" class="login-text" v-model="userAccount" :placeholder="placeholder.userAccount">
       </div>
       <div class="login-items">
         <i class="icon-lock"></i>
@@ -24,20 +24,45 @@
 <script>
   import { md5 } from 'vux';
 
+
   export default {
     data(){
       return {
-        username: '',
+        userAccount: '',
         password: '',
         placeholder: {
-          username: '请输入手机号或者邮箱地址',
+          userAccount: '请输入手机号或者邮箱地址',
           password: '请输入密码'
+        },
+        regex: {
+          phone: /^1[3|4|5|7|8][0-9]{9}$/,
+          email: /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
         }
+      }
+    },
+    computed: {
+      rightPhone: function (){
+        return this.regex.phone.test(this.userAccount)
+      },
+      rightEmail: function(){
+        return this.regex.email.test(this.userAccount)
       }
     },
     methods:{
       checkLogin(){
-        console.log(md5(this.username))
+        let self = this;
+        if (!this.userAccount) {
+          this.$vux.alert.show({ title: '温馨提示', content: self.placeholder.userAccount })
+          return false;
+        }else if(!this.rightPhone && !this.rightEmail){
+          this.$vux.alert.show({ title: '温馨提示', content: self.placeholder.userAccount })
+          return false;
+        }else if(!this.password){
+          this.$vux.alert.show({ title: '温馨提示', content: self.placeholder.password })
+          return false;
+        }
+
+        console.log('checklogin...')
       }
     }
   }
