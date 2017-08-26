@@ -17,23 +17,20 @@
       <router-link to="/join" class="to-join">快速注册</router-link>
       <router-link to="/forget" class="to-forget">忘记密码？</router-link>
     </div>
-     <toast v-model="loginSuccess" @on-hide="onHide">登录成功</toast>
+
   </div>
 </template>
 
 <script>
-  import { Toast, md5 } from 'vux';
+  import { md5 } from 'vux';
   import Ajax from 'assets/js/common';
 
+
   export default {
-    components: {
-      Toast
-    },
     data(){
       return {
         userAccount: '',
         password: '',
-        loginSuccess: false,
         placeholder: {
           userAccount: '请输入手机号或者邮箱地址',
           password: '请输入密码'
@@ -53,9 +50,6 @@
       }
     },
     methods:{
-      onHide(){
-        console.log('666')
-      },
       checkLogin(){
         let self = this;
 
@@ -80,7 +74,7 @@
           "pwd": md5(this.password)
         },function(res){
           if (res.status == '0') {
-            self.loginSuccess = true;
+            console.log('success')
           }else{
             self.$vux.alert.show({ title: '温馨提示', content: res.msg })
           }
