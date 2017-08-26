@@ -30,7 +30,7 @@
 
 <script>
   import { md5 } from 'vux';
-  import Ajax from 'assets/js/common';
+  import C from 'assets/js/common';
   export default {
     data() {
       return {
@@ -78,7 +78,7 @@
         let phone = this.isPhone ? this.userAccount : '';
         let email = this.isEmail ? this.userAccount : '';
 
-        Ajax.post('/data/userinfo/wxRetrieve',{
+        C.post('/data/userinfo/wxRetrieve',{
           "phone": phone,
           "email": email,
           "code": self.code,
@@ -124,7 +124,7 @@
         let phone = this.isPhone ? this.userAccount : '';
         let email = this.isEmail ? this.userAccount : '';
 
-        Ajax.post('/data/userinfo/wxSendCode',{
+        C.post('/data/userinfo/wxSendCode',{
           "phone": phone,
           "email": email,
           "type": "2"

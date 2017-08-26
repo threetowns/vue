@@ -10,7 +10,7 @@
       <router-link to="usercenter/reply" class="items"><i class="icon-msg"></i>我的回复</router-link>
       <router-link to="usercenter/favorite" class="items"><i class="icon-favorite"></i>我的收藏</router-link>
     </div>
-    <footer-nav></footer-nav>
+    <footer-nav :nav-a="navA"></footer-nav>
   </div>
 </template>
 
@@ -23,6 +23,7 @@
     },
     data(){
       return {
+        navA: 3,
         face: require('assets/images/face.jpg'),
         userAccount: '13007128888'
       }
@@ -30,13 +31,14 @@
   }
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
   @import "~assets/styles/variables.less";
   @indent: .2rem;
   @right: .32rem;
   @height: 1rem;
 
   .profile{
+    background: #fff;
     &-cover{
       height: 3.76rem;
       width: 100%;

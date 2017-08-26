@@ -9,7 +9,7 @@
     </div>
     <i class="nav_line"></i>
     <div class="nav_d">
-      <router-link to="/precision" class="personalcenter" :class="{'active':navA==3}" @click="navFn(3)"><i></i>个人中心</router-link>
+      <router-link to="/usercenter" class="personalcenter" :class="{'active':navA==3}" @click="navFn(3)"><i></i>个人中心</router-link>
     </div>
   </div>
 </template>
@@ -42,7 +42,7 @@
   body {
     background-color: #ebebeb;
   }
-  
+
   .footer_nav {
     display: flex;
     width: 100%;
