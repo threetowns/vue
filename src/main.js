@@ -1,6 +1,7 @@
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import { AlertPlugin, LoadingPlugin, ToastPlugin } from 'vux'
+import { AlertPlugin, LoadingPlugin, dateFormat } from 'vux'
 
 import Vue from 'vue'
 import VueRouter from 'vue-router'
@@ -26,6 +27,7 @@ router.beforeEach((to, from, next) => {
 Vue.use(AlertPlugin)
 Vue.use(LoadingPlugin)
 Vue.use(ToastPlugin)
+window.dateFormat = dateFormat;
 
 /* eslint-disable no-new */
 new Vue({
