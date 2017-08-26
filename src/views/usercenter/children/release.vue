@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div  class="rating_page">
     <div v-if="!showLoading">
       <h1>发布清单 release</h1>
     </div>
@@ -30,3 +30,15 @@
     }
   }
 </script>
+
+<style>
+  .rating_page{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #fff;
+    z-index: 18;
+  }
+</style>
