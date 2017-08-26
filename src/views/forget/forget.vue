@@ -85,7 +85,11 @@
           "pwd": md5(self.password)
         },function(res){
           if (res.status == '0') {
-
+            self.$vux.toast.show({
+              text: '操作成功', time: 1000,onHide () {
+                self.$router.push('/login');
+              }
+            })
           }else{
             self.$vux.alert.show({ title: '温馨提示', content: res.msg })
           }
@@ -99,6 +103,7 @@
           return false;
         }
         this.isNext = true;
+
       },
       getVerifyCode(){
         let self = this;
