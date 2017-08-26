@@ -74,7 +74,16 @@
           "pwd": md5(this.password)
         },function(res){
           if (res.status == '0') {
-            console.log('success')
+            self.$vux.toast.show({
+              text: '登录成功',
+              time: 1000,
+              onShow () {
+                console.log('Plugin: I\'m showing')
+              },
+              onHide () {
+                console.log('Plugin: I\'m hiding')
+              }
+            })
           }else{
             self.$vux.alert.show({ title: '温馨提示', content: res.msg })
           }
