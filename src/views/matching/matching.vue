@@ -3,7 +3,7 @@
 		<swiper loop auto :list="swiperList" dots-position="center" height="100%" class="swiperList"></swiper>
 		<div class="nav_2">
 			<div class="nav_d">
-				<router-link to="/"><img src="./nav_bg_1.png" /><span>精准营销</span></router-link>
+				<router-link to="/precision"><img src="./nav_bg_1.png" /><span>精准营销</span></router-link>
 			</div>
 			<i class="nav_line"></i>
 			<div class="nav_d">

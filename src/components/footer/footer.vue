@@ -25,7 +25,7 @@
     computed: {},
     props: {
       navA: {
-        required: true
+        default: 0
       }
     },
     methods: { //方法
