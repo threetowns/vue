@@ -103,7 +103,6 @@
           return false;
         }
         this.isNext = true;
-
       },
       getVerifyCode(){
         let self = this;

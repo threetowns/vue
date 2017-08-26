@@ -9,12 +9,13 @@
     <div class="div_2">
       <span class="chakan"><i></i>{{mList.browse_count}}</span>
       <span class="xihuan"><i></i>{{mList.fav_count}}</span>
-      <span class="shijian">{{mList.create_time}}<i></i></span>
+      <span class="shijian">{{createTime}}</span>
     </div>
-    <span class="xujie xu"></span>
-    <!--<span class="xujie jie"></span>-->
-    <span class="jingxingjueshu jingxing"></span>
-    <!--<span class="jingxingjueshu jueshu"></span>-->
+    <span class="xujie xu" v-if="mList.demand_type"></span>
+    <span class="xujie jie" v-else></span>
+    <span class="jingxingjueshu jingxing" v-if="mList.audit_status==1"></span>
+    <span class="jingxingjueshu jueshu" v-if="mList.audit_status==3"></span>
+    <span class="jingxingjueshu jujue" v-if="mList.audit_status==2"></span>
   </div>
 </template>
 
@@ -37,6 +38,11 @@
     props: {
       mList: {
         required: true
+      }
+    },
+    computed: {
+      createTime() {
+        return dateFormat(this.mList.create_time, 'YYYY-MM-DD HH:mm:ss')
       }
     },
     mounted: function() { //类似于回调函数(初次实例化完成后调用)

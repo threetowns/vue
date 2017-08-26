@@ -24,7 +24,7 @@
 		</div>
 		<matching-list :demand-type="demandType" :audit-status="auditStatus"
 			:read-sort="readSort"></matching-list>
-		<footer-nav></footer-nav>
+		<footer-nav :nav-a="navA"></footer-nav>
 	</div>
 </template>
 
@@ -56,6 +56,7 @@
 		},
 		data() {
 			return {
+			  navA:1,
 				swiperList,
 				demandType: '',//---空：全部，0：需求，1：接单"
 				auditStatus:'',//---空：全部，0：进行中，3：结束"
