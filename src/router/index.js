@@ -4,6 +4,7 @@ const index = r => require.ensure([], () => r(require('../views/index/index')), 
 const login = r => require.ensure([], () => r(require('../views/login/login')), 'login')
 const join = r => require.ensure([], () => r(require('../views/join/join')), 'join')
 const forget = r => require.ensure([], () => r(require('../views/forget/forget')), 'forget')
+const usercenter = r => require.ensure([], () => r(require('../views/usercenter/usercenter')), 'usercenter')
 const reply = r => require.ensure([], () => r(require('../views/reply/reply')), 'reply'); //回复页
 const matching = r => require.ensure([], () => r(require('../views/matching/matching')), 'matching'); //需求撮合
 const precision = r => require.ensure([], () => r(require('../views/precisionMarketing/precisionMarketing')), 'precisionMarketing'); //精准营销
@@ -49,6 +50,12 @@ export default [{
       meta: {
         title: '找回密码'
       }
+    },
+    // 个人中心
+    {
+      path: '/usercenter',
+      component: usercenter,
+      meta: { title: '个人中心' }
     },
     //回复页
     {

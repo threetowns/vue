@@ -17,14 +17,12 @@
       <router-link to="/join" class="to-join">快速注册</router-link>
       <router-link to="/forget" class="to-forget">忘记密码？</router-link>
     </div>
-
   </div>
 </template>
 
 <script>
   import { md5 } from 'vux';
-  import Ajax from 'assets/js/common';
-
+  import C from 'assets/js/common';
 
   export default {
     data(){
@@ -47,6 +45,9 @@
       },
       isEmail: function(){
         return this.regex.email.test(this.userAccount)
+      },
+      isAccount: function(){
+        return !(!this.isPhone && !this.isEmail)
       }
     },
     methods:{
@@ -56,7 +57,7 @@
         if (!this.userAccount) {
           this.$vux.alert.show({ title: '温馨提示', content: self.placeholder.userAccount })
           return false;
-        }else if(!this.isPhone && !this.isEmail){
+        }else if(!this.isAccount){
           this.$vux.alert.show({ title: '温馨提示', content: self.placeholder.userAccount })
           return false;
         }else if(!this.password){
@@ -68,7 +69,7 @@
         let email = this.isEmail ? this.userAccount : '';
 
         this.$vux.loading.show()
-        Ajax.post('/data/userinfo/wxLogin',{
+        C.post('/data/userinfo/wxLogin',{
           "phone": phone,
           "email": email,
           "pwd": md5(this.password)
@@ -77,11 +78,10 @@
             self.$vux.toast.show({
               text: '登录成功',
               time: 1000,
-              onShow () {
-                console.log('Plugin: I\'m showing')
-              },
               onHide () {
-                console.log('Plugin: I\'m hiding')
+                let expireDays = 1000 * 60 * 60 * 24 * 15;
+                C.cookie('token', res.token, { expires: expireDays });
+                self.$router.push('usercenter')
               }
             })
           }else{
