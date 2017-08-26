@@ -2,12 +2,26 @@
   <div class="precision">
     <div class="screen">
       <div class="nav_a">
-        <a @click="screenFn(0)" :class="[(screenC==0) ? 'active':'']">类型筛选<i></i></a>
-        <a @click="screenFn(1)" :class="[(screenC==1) ? 'active':'']">状态筛选<i></i></a>
-        <a @click="screenFn(2)" :class="[(screenC==2) ? 'active':'']">排序<i></i></a>
+        <a @click="screenFn(1)" :class="[(screenC==1) ? 'active':'']">类型筛选<i></i></a>
+        <a @click="screenFn(2)" :class="[(screenC==2) ? 'active':'']">状态筛选<i></i></a>
+        <a @click="screenFn(3)" :class="[(screenC==3) ? 'active':'']">排序<i></i></a>
       </div>
-      <div class="nav_d">
-
+      <div class="nav_d" v-if="screenC!=0" @click="navDFn">
+        <div v-if="screenC==1" @click.stop>
+          <a @click="genreFn(0)" :class="[(genreC==0) ? 'active':'']"><i></i>全部</a>
+          <a @click="genreFn(1)" :class="[(genreC==1) ? 'active':'']"><i></i>需求</a>
+          <a @click="genreFn(2)" :class="[(genreC==2) ? 'active':'']"><i></i>接单</a>
+        </div>
+        <div v-if="screenC==2" @click.stop>
+          <a @click="stateFn(0)" :class="[(stateC==0) ? 'active':'']"><i></i>全部</a>
+          <a @click="stateFn(1)" :class="[(stateC==1) ? 'active':'']"><i></i>进行中</a>
+          <a @click="stateFn(2)" :class="[(stateC==2) ? 'active':'']"><i></i>已结束</a>
+        </div>
+        <div v-if="screenC==3" @click.stop>
+          <a @click="sortFn(0)" :class="[(sortC==0) ? 'active':'',sortPx_0 ? 'xia':'shang','sort_a']"><i></i>阅读数</a>
+          <a @click="sortFn(1)" :class="[(sortC==1) ? 'active':'',sortPx_1 ? 'xia':'shang','sort_a']"><i></i>收藏数</a>
+          <a @click="sortFn(2)" :class="[(sortC==2) ? 'active':'',sortPx_2 ? 'xia':'shang','sort_a']"><i></i>时间</a>
+        </div>
       </div>
     </div>
     <matching-list :demand-type="demandType" :audit-status="auditStatus" :read-sort="readSort"></matching-list>
@@ -30,7 +44,17 @@
         demandType: '', //---空：全部，0：需求，1：接单"
         auditStatus: '', //---空：全部，0：进行中，3：结束"
         readSort: '', //---10：阅读排序降序，11：阅读排序升序，20：收藏数排序降序：21：收藏数排序升序，30：时间排序降序，31：时间排序升序;
-        screenC: 0
+        screenC: 0,
+        genreC: 0,
+        oldgenreC: 0,
+        stateC: 0,
+        oldstateC: 0,
+        sortC: 0,
+        sortPx_0: true,
+        sortPx_1: true,
+        sortPx_2: true,
+        sortPx: 10,
+        oldsortPx: 10,
       }
     },
     computed: { //计算
@@ -40,7 +64,43 @@
     methods: {
       screenFn(i) {
         this.screenC = i;
-      }
+      },
+      genreFn(i) {
+        this.genreC = i;
+      },
+      stateFn(i) {
+        this.stateC = i;
+      },
+      sortFn(i) {
+        if(this.sortC == i) {
+          this['sortPx_' + i] = !this['sortPx_' + i];
+        }
+        this.sortC = i;
+        this.sortPx = parseInt((i + 1) + '' + (this['sortPx_' + i] ? '0' : '1'));
+        console.log(this.sortPx);
+      },
+      navDFn() {
+        this.screenC = 0;
+        if((this.oldgenreC != this.genreC) || (this.oldstateC != this.stateC) || (this.oldsortPx != this.sortPx)) {
+          //ajax
+          // 显示loading
+          this.$vux.loading.show({
+            text: 'Loading'
+          })
+          // 隐藏loading
+          setTimeout(() => {
+            this.$vux.loading.hide()
+          }, 3000)
+          console.log('ajax请求')
+          //重置
+          {
+            console.log('重置')
+            this.oldgenreC = this.genreC;
+            this.oldstateC = this.stateC;
+            this.oldsortPx = this.sortPx;
+          };
+        } else {}
+      },
     },
     mounted: function() { //类似于回调函数(初次实例化完成后调用)
     }
