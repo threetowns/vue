@@ -3,12 +3,12 @@
     <div class="profile-cover">
       <div class="face"><img :src="face" alt="头像"></div>
       <div class="account">{{ userAccount }}</div>
-      <router-link to="usercenter/switchAccount" class="action">切换帐号</router-link>
+      <div class="action" @click="logout">切换帐号</div>
     </div>
     <div class="profile-list">
-      <router-link to="usercenter/release" class="items"><i class="icon-order"></i>发布清单</router-link>
-      <router-link to="usercenter/reply" class="items"><i class="icon-msg"></i>我的回复</router-link>
-      <router-link to="usercenter/favorite" class="items"><i class="icon-favorite"></i>我的收藏</router-link>
+      <router-link to="/usercenter/release" class="items"><i class="icon-order"></i>发布清单</router-link>
+      <router-link to="/usercenter/reply" class="items"><i class="icon-msg"></i>我的回复</router-link>
+      <router-link to="/usercenter/favorite" class="items"><i class="icon-favorite"></i>我的收藏</router-link>
     </div>
     <footer-nav :nav-a="navA"></footer-nav>
   </div>
@@ -39,6 +39,9 @@
 
   .profile{
     background: #fff;
+    .footer_nav{
+      border-top-color: #ccc;
+    }
     &-cover{
       height: 3.76rem;
       width: 100%;

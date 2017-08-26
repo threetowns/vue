@@ -5,6 +5,9 @@ const login = r => require.ensure([], () => r(require('../views/login/login')), 
 const join = r => require.ensure([], () => r(require('../views/join/join')), 'join')
 const forget = r => require.ensure([], () => r(require('../views/forget/forget')), 'forget')
 const usercenter = r => require.ensure([], () => r(require('../views/usercenter/usercenter')), 'usercenter')
+const release = r => require.ensure([], () => r(require('../views/usercenter/children/release')), 'release')
+const myreply = r => require.ensure([], () => r(require('../views/usercenter/children/reply')), 'reply')
+const favorite = r => require.ensure([], () => r(require('../views/usercenter/children/favorite')), 'favorite')
 const reply = r => require.ensure([], () => r(require('../views/reply/reply')), 'reply'); //回复页
 const matching = r => require.ensure([], () => r(require('../views/matching/matching')), 'matching'); //需求撮合
 const precision = r => require.ensure([], () => r(require('../views/precisionMarketing/precisionMarketing')), 'precisionMarketing'); //精准营销
@@ -55,7 +58,12 @@ export default [{
     {
       path: '/usercenter',
       component: usercenter,
-      meta: { title: '个人中心' }
+      meta: { title: '个人中心' },
+      children: [
+         { path: 'release', component: release, meta: { title: '发布清单' } }
+        ,{ path: 'reply', component: myreply, meta: { title: '我的回复' } }
+        ,{ path: 'favorite', component: favorite, meta: { title: '我的收藏' } }
+      ]
     },
     //回复页
     {
