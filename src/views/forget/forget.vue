@@ -85,7 +85,7 @@
           "pwd": md5(self.password)
         },function(res){
           if (res.status == '0') {
-
+            console.log('resetPassword')
           }else{
             self.$vux.alert.show({ title: '温馨提示', content: res.msg })
           }
