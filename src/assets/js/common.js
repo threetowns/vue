@@ -1,6 +1,6 @@
 import 'assets/js/info';
 import axios from 'axios';
-import cookieAddStore from 'assets/js/cookie-store';
+import Storage from 'assets/js/storage';
 
 var imitationQuery = {
   /**
@@ -13,7 +13,7 @@ var imitationQuery = {
    * @param {Object} headers		自定义请求headers
    * @param {Function} success	请求成功后，这里会有两个参数,服务器返回数据，返回状态，[data, res]
    * @param {Function} error		发送请求前
-   * @param return 
+   * @param return
    */
   ajax: function(opt) {
     var opts = opt || {};
@@ -168,7 +168,7 @@ var imitationQuery = {
     return "";
 
   },
-  cookie: cookieAddStore.cookie,
-  store: cookieAddStore.store,
+  cookie: Storage.cookie,
+  store: Storage.store,
 };
 export default imitationQuery;
