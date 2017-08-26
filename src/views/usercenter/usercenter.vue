@@ -1,31 +1,66 @@
 <template>
   <div class="profile">
-    <div class="profile-cover">
-      <div class="face"><img :src="face" alt="头像"></div>
-      <div class="account">{{ userAccount }}</div>
-      <div class="action" @click="logout">切换帐号</div>
+    <div v-if="!showLoading">
+      <div class="profile-cover">
+        <div class="face"><img :src="face" alt="头像"></div>
+        <div class="account">{{ userAccount }}</div>
+        <div class="action" @click="logout">切换帐号</div>
+      </div>
+      <div class="profile-list">
+        <router-link to="/usercenter/release" class="items"><i class="icon-order"></i>发布清单</router-link>
+        <router-link to="/usercenter/reply" class="items"><i class="icon-msg"></i>我的回复</router-link>
+        <router-link to="/usercenter/favorite" class="items"><i class="icon-favorite"></i>我的收藏</router-link>
+      </div>
+      <footer-nav :nav-a="navA"></footer-nav>
     </div>
-    <div class="profile-list">
-      <router-link to="/usercenter/release" class="items"><i class="icon-order"></i>发布清单</router-link>
-      <router-link to="/usercenter/reply" class="items"><i class="icon-msg"></i>我的回复</router-link>
-      <router-link to="/usercenter/favorite" class="items"><i class="icon-favorite"></i>我的收藏</router-link>
-    </div>
-    <footer-nav :nav-a="navA"></footer-nav>
+    <loading :show="showLoading"></loading>
+
+    <transition name="router-slid" mode="out-in">
+        <router-view></router-view>
+    </transition>
   </div>
 </template>
 
 <script>
-  import FooterNav from 'components/footer/footer';
+  import FooterNav from 'components/footer/footer'
+  import { Loading } from 'vux'
+  import C from 'assets/js/common'
 
   export default {
     components: {
-      FooterNav
+      FooterNav,
+      Loading
     },
     data(){
       return {
         navA: 3,
+        showLoading: true,
         face: require('assets/images/face.jpg'),
         userAccount: '13007128888'
+      }
+    },
+    mounted(){
+      this.init()
+    },
+    methods: {
+      init(){
+        setTimeout(()=>{
+          this.showLoading = false;
+        },1000)
+      },
+      logout(){
+        /*self.$vux.toast.show({
+
+        })
+        C.post('/data/userinfo/wxLogout',{
+          "token": phone
+        },function(res){
+          if (res.status == '0') {
+
+          }else{
+            self.$vux.alert.show({ title: '温馨提示', content: res.msg })
+          }
+        })*/
       }
     }
   }
@@ -132,5 +167,25 @@
 
 
     }
+  }
+
+  .fade-enter-active, .fade-leave-active {
+    transition: opacity .3s;
+  }
+  .fade-enter, .fade-leave-active {
+    opacity: 0;
+  }
+  .slid_up-enter-active, .slid_up-leave-active {
+    transition: all .3s;
+  }
+  .slid_up-enter, .slid_up-leave-active {
+    transform: translate3d(0,10rem,0)
+  }
+  .router-slid-enter-active, .router-slid-leave-active {
+    transition: all .4s;
+  }
+  .router-slid-enter, .router-slid-leave-active {
+    transform: translate3d(2rem, 0, 0);
+    opacity: 0;
   }
 </style>
