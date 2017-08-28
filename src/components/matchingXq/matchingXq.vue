@@ -1,5 +1,5 @@
 <template>
-  <div class="matching_list_xq">
+  <div class="matching_list_xq" @click="pushFn(mList.id)">
     <h3 class="headline">{{mList.demand_title}}</h3>
     <div class="div_1">
       <span class="leixing">{{demand_category[mList.demand_category]}}</span>
@@ -11,11 +11,11 @@
       <span class="xihuan"><i></i>{{mList.fav_count}}</span>
       <span class="shijian">{{createTime}}</span>
     </div>
-    <span class="xujie xu" v-if="mList.demand_type"></span>
-    <span class="xujie jie" v-else></span>
+    <span class="xujie jie" v-if="mList.demand_type"></span>
+    <span class="xujie xu" v-else></span>
     <span class="jingxingjueshu jingxing" v-if="mList.audit_status==1"></span>
-    <span class="jingxingjueshu jueshu" v-if="mList.audit_status==3"></span>
-    <span class="jingxingjueshu jujue" v-if="mList.audit_status==2"></span>
+    <span class="jingxingjueshu jueshu" v-if="mList.audit_status==2"></span>
+    <span class="jingxingjueshu jujue" v-if="mList.audit_status==3"></span>
   </div>
 </template>
 
@@ -43,6 +43,12 @@
     computed: {
       createTime() {
         return dateFormat(this.mList.create_time, 'YYYY-MM-DD HH:mm:ss')
+      },
+    },
+    methods: { //方法
+      pushFn(id) {
+        //this.$router.push('/home');
+        console.log(id)
       }
     },
     mounted: function() { //类似于回调函数(初次实例化完成后调用)

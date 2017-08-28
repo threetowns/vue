@@ -9,6 +9,7 @@ const release = r => require.ensure([], () => r(require('../views/usercenter/chi
 const myreply = r => require.ensure([], () => r(require('../views/usercenter/children/reply')), 'reply')
 const favorite = r => require.ensure([], () => r(require('../views/usercenter/children/favorite')), 'favorite')
 const reply = r => require.ensure([], () => r(require('../views/reply/reply')), 'reply'); //回复页
+const replyDetails = r => require.ensure([], () => r(require('../views/usercenter/children/replyDetails')), 'replyDetails'); //回复详情
 const matching = r => require.ensure([], () => r(require('../views/matching/matching')), 'matching'); //需求撮合
 const precision = r => require.ensure([], () => r(require('../views/precisionMarketing/precisionMarketing')), 'precisionMarketing'); //精准营销
 
@@ -72,6 +73,15 @@ export default [{
       component: reply,
       meta: {
         title: '回复'
+      }
+    },
+    //回复详情
+    {
+      path: "/usercenter/reply/details",
+      name: "replyDetails",
+      component: replyDetails,
+      meta: {
+        title: '回复详情'
       }
     },
     //需求撮合

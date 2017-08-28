@@ -11,7 +11,7 @@
 			</div>
 			<i class="nav_line"></i>
 			<div class="nav_d">
-				<router-link to="/"><img src="./nav_bg_3.png" /><span>数据报告</span></router-link>
+				<router-link to="/"><img src="./nav_bg_3.png" /><span>数据交易</span></router-link>
 			</div>
 			<i class="nav_line"></i>
 			<div class="nav_d">
