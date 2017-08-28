@@ -39,7 +39,6 @@
   import $$ from '../../assets/js/common';
   export default {
     name: 'reply',
-    directives: {},
     data() {
       return {
         filesA: [],
@@ -243,11 +242,6 @@
     },
     mounted: function() { //类似于回调函数(初次实例化完成后调用)
     },
-    watch: {
-      submitData: function(newV, oldV) {
-        console.log(111)
-      }
-    }
   }
 </script>
 

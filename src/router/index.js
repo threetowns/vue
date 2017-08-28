@@ -14,6 +14,7 @@ const precision = r => require.ensure([], () => r(require('../views/precisionMar
 const replyDetails = r => require.ensure([], () => r(require('../views/usercenter/children/replyDetails')), 'replyDetails'); //回复详情
 const releaseDetails = r => require.ensure([], () => r(require('../views/usercenter/children/releaseDetails')), 'releaseDetails'); //发布详情
 const favoriteDetails = r => require.ensure([], () => r(require('../views/usercenter/children/favoriteDetails')), 'favoriteDetails'); //收藏详情
+const releaseWrite = r => require.ensure([], () => r(require('../views/usercenter/children/releaseWrite')), 'releaseWrite'); //写发布
 
 export default [{
   path: '/',
@@ -95,15 +96,25 @@ export default [{
         title: '发布详情'
       }
     },
+     //写发布
+    {
+      path: "/usercenter/release/write",
+      name: "releaseWrite",
+      component: releaseWrite,
+      meta: {
+        title: '发布'
+      }
+    },
     //收藏详情
     {
       path: "/usercenter/favorite/details",
       name: "favoriteDetails",
       component: favoriteDetails,
       meta: {
-        title: '发布详情'
+        title: '收藏详情'
       }
     },
+    
     //需求撮合
     {
       path: "/matching",
