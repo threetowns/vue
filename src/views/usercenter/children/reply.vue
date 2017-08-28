@@ -1,6 +1,6 @@
 <template>
   <div class="user-reply precision rating_page">
-    <div class="screen">
+    <div class="screen" v-if="!showLoading">
       <div class="nav_a">
         <a @click="screenFn(1)" :class="[(screenC==1) ? 'active':'']">类型筛选<i></i></a>
         <a @click="screenFn(2)" :class="[(screenC==2) ? 'active':'']">状态筛选<i></i></a>
@@ -107,7 +107,7 @@
       },
     },
     mounted: function() { //类似于回调函数(初次实例化完成后调用)
-
+      this.init();
     }
   }
 </script>
