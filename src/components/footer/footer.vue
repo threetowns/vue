@@ -5,7 +5,7 @@
     </div>
     <i class="nav_line"></i>
     <div class="nav_d">
-      <router-link to="/precision" class="issue" :class="{'active':navA==2}" @click="navFn(2)"><i></i>发布</router-link>
+      <router-link to="/release" class="issue" :class="{'active':navA==2}" @click="navFn(2)"><i></i>发布</router-link>
     </div>
     <i class="nav_line"></i>
     <div class="nav_d">

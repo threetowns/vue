@@ -3,45 +3,45 @@
     <div class="name_input_w">
       <div class="name_input name_a" @click="gx_show=true">
         <span class="name">供需类型</span>
-        <div class="_input"><i></i><span>需求</span></div>
+        <div class="_input"><i></i><span>{{ctypeT[submitData.demand_type]}}</span></div>
       </div>
     </div>
     <div class="name_input_w">
       <div class="name_input name_a" @click="gx_show2=true">
         <span class="name">分类</span>
-        <div class="_input"><i></i><span>精准营销</span></div>
+        <div class="_input"><i></i><span>{{classifyT[submitData.demand_category]}}</span></div>
       </div>
     </div>
 
     <div class="name_input_w2">
       <div class="name_input">
-        <span class="name">分类</span>
+        <span class="name">标题</span>
         <div class="_input">
-          <input class="textOverflow" type="text" name="name" id="name" placeholder="必填，请输入2-10个字" />
+          <input class="textOverflow" type="text" v-model="submitData.demand_title" placeholder="必填，请输入2-10个字" @change="nameFn2" />
         </div>
       </div>
       <div class="name_input">
         <span class="name">姓名</span>
         <div class="_input">
-          <input class="textOverflow" type="text" name="name" id="name" placeholder="必填，请输入2-5个字" v-model="submitData.name" @change="nameFn" />
+          <input class="textOverflow" type="text" name="name" id="name" placeholder="必填，请输入2-5个字" v-model="submitData.user_name" @change="nameFn" />
         </div>
       </div>
       <div class="name_input">
         <span class="name">联系方式</span>
         <div class="_input">
-          <input class="textOverflow" type="text" name="" id="" value="" placeholder="必填，请输入手机号码" v-model="submitData.tel" @change="checkPhone" />
+          <input class="textOverflow" type="text" name="" id="" value="" placeholder="必填，请输入手机号码" v-model="submitData.phone" @change="checkPhone" />
         </div>
       </div>
       <div class="name_input">
         <span class="name">报酬（原价）</span>
         <div class="_input">
-          <input class="textOverflow" type="text" placeholder="必填，请输入报酬原价，不可二次修改" style="padding-right: 0;" />
+          <input class="textOverflow" type="number" placeholder="必填，请输入报酬原价，不可二次修改" v-model="submitData.original_cost" style="padding-right: 0;" />
         </div>
       </div>
       <div class="name_input">
         <span class="name">报酬（现价）</span>
         <div class="_input">
-          <input class="textOverflow" type="text" placeholder="必填，请输入报酬金额" />
+          <input class="textOverflow" type="number" placeholder="必填，请输入报酬金额" v-model="submitData.current_price" />
         </div>
       </div>
     </div>
@@ -49,13 +49,14 @@
       <div class="name_input">
         <span class="name">截止日期</span>
         <div class="_input _date">
-          <datetime v-model="dateVal">{{dateVal}}</datetime>
+          <i></i>
+          <datetime v-model="submitData.end_time">{{submitData.end_time}}</datetime>
         </div>
       </div>
     </div>
     <div class="name_textarea_w">
       <div class="name_textarea"> <span class="name">详情描述</span>
-        <div class="_textarea"> <textarea placeholder="必填，请输入500字以内描述。" v-model="submitData.details" @input="detailsFn"></textarea> </div>
+        <div class="_textarea"> <textarea placeholder="必填，请输入500字以内描述。" v-model="submitData.description" @input="detailsFn"></textarea> </div>
       </div>
     </div>
     <input class="_button" type="button" id="" value="立即发布" @click="submitFn" />
@@ -63,11 +64,11 @@
     <popup class="popup_w" v-model="gx_show" position="right" width="100%">
       <div class="margin_bottom"></div>
       <div class="name_input_w">
-        <div class="name_input name_a active">
+        <div class="name_input name_a" :class="{'active':submitData.demand_type==0}" @click="submitData.demand_type=0">
           <span class="name">需求</span>
           <div class="_input"> <i></i> </div>
         </div>
-        <div class="name_input name_a">
+        <div class="name_input name_a" :class="{'active':submitData.demand_type==1}" @click="submitData.demand_type=1">
           <span class="name">接单</span>
           <div class="_input"> <i></i> </div>
         </div>
@@ -77,23 +78,23 @@
     <popup class="popup_w" v-model="gx_show2" position="right" width="100%">
       <div class="margin_bottom"></div>
       <div class="name_input_w">
-        <div class="name_input name_a active">
+        <div class="name_input name_a" :class="{'active':submitData.demand_category==0}" @click="submitData.demand_category=0">
           <span class="name">精准营销</span>
           <div class="_input"> <i></i> </div>
         </div>
-        <div class="name_input name_a">
+        <div class="name_input name_a" :class="{'active':submitData.demand_category==1}" @click="submitData.demand_category=1">
           <span class="name">数据报告</span>
           <div class="_input"> <i></i> </div>
         </div>
-        <div class="name_input name_a">
+        <div class="name_input name_a" :class="{'active':submitData.demand_category==2}" @click="submitData.demand_category=2">
           <span class="name">数据交易</span>
           <div class="_input"> <i></i> </div>
         </div>
-        <div class="name_input name_a">
+        <div class="name_input name_a" :class="{'active':submitData.demand_category==3}" @click="submitData.demand_category=3">
           <span class="name">API</span>
           <div class="_input"> <i></i> </div>
         </div>
-        <div class="name_input name_a">
+        <div class="name_input name_a" :class="{'active':submitData.demand_category==4}" @click="submitData.demand_category=4">
           <span class="name">其他定制</span>
           <div class="_input"> <i></i> </div>
         </div>
@@ -116,13 +117,20 @@
       return {
         gx_show: false,
         gx_show2: false,
-        dateVal: dateFormat(new Date(), 'YYYY-MM-DD'),
+        ctypeT: ['需求', '接单'],
+        classifyT: ['精准营销', '数据报告', '数据交易', 'API', '其他定制'],
         submitData: {
-          name: '',
-          tel: '',
-          details: '',
+          "demand_type": 0,
+          "demand_category": 0,
+          "demand_title": "标题",
+          "user_name": "隔壁老王",
+          "phone": "15871379438",
+          "original_cost": "100",
+          "current_price": "50",
+          "end_time": dateFormat(new Date(), 'YYYY-MM-DD'),
+          "description": "描述"
         },
-        oldDetails: ''
+        oldDescription: ''
       }
     },
     computed: { //计算
@@ -143,45 +151,38 @@
       },
       //名字验证
       nameFn() {
-        if(this.submitData.name.length <= 2 || this.submitData.name.length >= 5) {
-          this.submitData.name = null;
+        if(this.submitData.user_name.length <= 2 || this.submitData.user_name.length >= 5) {
+          this.submitData.user_name = null;
           this.promptFn('', '请输入2-5个字');
+        }
+      },
+      nameFn2() {
+        if(this.submitData.demand_title.length <= 2 || this.submitData.demand_title.length >= 10) {
+          this.submitData.demand_title = null;
+          this.promptFn('', '请输入2-10个字');
         }
       },
       //手机号验证
       checkPhone() {
-        if(!(/^1[34578]\d{9}$/.test(this.submitData.tel))) {
-          this.submitData.tel = null;
+        if(!(/^1[34578]\d{9}$/.test(this.submitData.phone))) {
+          this.submitData.phone = null;
           this.promptFn('', '请输入正确手机号码');
         }
       },
       //请输入500字以内描述
       detailsFn() {
-        if(this.submitData.details.length <= 500) {
-          this.oldDetails = this.submitData.details;
+        if(this.submitData.description.length <= 500) {
+          this.oldDescription = this.submitData.description;
         } else {
-          this.submitData.details = this.oldDetails;
+          this.submitData.description = this.oldDescription;
           this.promptFn('', '请输入500字以内描述');
         }
       },
       //提交
       submitFn() {
-        var v_this = this;
-        var submitOn = true;
-        if(this.submitData.name.length < 2 || this.submitData.name.length > 5) {
-          this.submitData.name = null;
-          submitOn = false;
-        }
-        if(!(/^1[34578]\d{9}$/.test(this.submitData.tel))) {
-          this.submitData.tel = null;
-          submitOn = false;
-        }
-        if(this.submitData.details.length > 500) {
-          this.submitData.details = null;
-          submitOn = false;
-        }
-        if(submitOn) {
-
+        var sd = this.submitData;
+        if(!sd.demand_title && sd.user_name && sd.phone && sd.original_cost && sd.current_price && sd.description) {
+          console.log('可以提交')
         } else {
           this.promptFn('', '信息填写不正确！');
         }
@@ -196,12 +197,28 @@
 <style lang="less">
   @import url("../../assets/styles/less");
   .issue {
-    ._date a {
-      display: block;
-      width: 100%;
-      height: 100%;
-      padding-left: 0.5em;
-      padding-right: 0.5em;
+    ._date {
+      position: relative;
+      i {
+        width: 0.30rem;
+        height: 0.32rem;
+        background: url(./rl.png) no-repeat;
+        background-size: 100% 100%;
+        position: absolute;
+        top: 0.30rem;
+        right: 0;
+        z-index: 1;
+      }
+      a {
+        display: block;
+        width: 100%;
+        height: 100%;
+        padding-left: 0.5em;
+        padding-right: 0.5em;
+        color: @color6;
+        position: relative;
+        z-index: 2;
+      }
     }
     .name_a {
       ._input i {
@@ -299,12 +316,14 @@
         height: @font32*3;
         line-height: @font32*3;
         .font28;
-        [type="text"] {
+        [type="text"],
+        [type="number"] {
           width: 100%;
           height: 100%;
           padding-left: 0.5em;
           padding-right: 0.5em;
           border: none;
+          color: @color6;
         }
       }
     }
@@ -333,6 +352,7 @@
           resize: none;
           .font28;
           .lineH1_5;
+          color: @color6;
         }
       }
     }
