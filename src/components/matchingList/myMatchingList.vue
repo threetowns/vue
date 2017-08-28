@@ -211,6 +211,7 @@
   .my_matching_list {
     background-color: #ebebeb;
     .matching_list_xq {
+      padding-bottom: 0.20rem;
       &:after {
         display: none;
       }
@@ -218,8 +219,15 @@
     .wdhf {
       width: 100%;
       padding-left: 0.30rem;
-      margin-bottom: 0.20rem;
       background-color: @colorf;
+      &:after {
+        content: '';
+        display: block;
+        margin-left: -0.28rem;
+        margin-right: -0.28rem;
+        height: 0.20rem;
+        background-color: #ebebeb;
+      }
       >div {
         border-top: 1px solid @SecondaryText;
         vertical-align: middle;
