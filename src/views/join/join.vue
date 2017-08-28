@@ -32,6 +32,7 @@
 <script>
   import { md5 } from 'vux';
   import C from 'assets/js/common';
+  import { sentVerify } from 'src/service/getData'
 
    export default {
     data(){
@@ -125,23 +126,11 @@
           }, 1000)
 
           //发送验证码
-          this.sentVerify()
-        }
-      },
-      sentVerify(){
-        let self = this;
-        let phone = this.isPhone ? this.userAccount : '';
-        let email = this.isEmail ? this.userAccount : '';
+          let phone = this.isPhone ? this.userAccount : ''
+          let email = this.isEmail ? this.userAccount : ''
+          sentVerify(phone, email, '1')
 
-        C.post('/data/userinfo/wxSendCode',{
-          "phone": phone,
-          "email": email,
-          "type": "1"
-        },function(res){
-          if (res.status != '0') {
-            self.$vux.alert.show({ title: '温馨提示', content: res.msg })
-          }
-        })
+        }
       }
     }
   }

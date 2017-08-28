@@ -13,7 +13,7 @@ var imitationQuery = {
    * @param {Object} headers		自定义请求headers
    * @param {Function} success	请求成功后，这里会有两个参数,服务器返回数据，返回状态，[data, res]
    * @param {Function} error		发送请求前
-   * @param return 
+   * @param return
    */
   ajax: function(opt) {
     var opts = opt || {};
