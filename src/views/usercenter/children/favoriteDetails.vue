@@ -9,6 +9,7 @@
       <span class="scqx sc"></span>
       <span class="scqz xq"></span>
     </div>
+    <div class="margin_bottom"></div>
     <div class="details_xq">
       <div class="name_input">
         <span class="name">姓名</span>
@@ -19,12 +20,14 @@
         <div class="_input">15622224545</div>
       </div>
     </div>
+    <div class="margin_bottom"></div>
     <div class="details_xq">
       <div class="name_textarea">
         <span class="name">详情描述</span>
         <div class="_textarea">需要大量汽车行业数据，并能够精准营销需要大量汽车 行业数据，并能够精准营销需要大量汽车行业数据，并 能够精准营销需要大量汽车行</div>
       </div>
     </div>
+    <div class="margin_bottom"></div>
     <div class="details_xq">
       <div class="name_reply">
         <span class="name">回复的人</span>

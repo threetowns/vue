@@ -4,7 +4,7 @@
       <div>
         <div v-for="list in classifyList">
           <matching-xq :m-list="list"></matching-xq>
-          <div class="wdhf"  @click="pushFn(list.id)">
+          <div class="wdhf" @click="pushFn(list.id)">
             <div>
               <div class="name">我的回复</div>
               <div class="time"><span>回复时间：2017-08-17 12:00</span><i></i></div>
@@ -210,8 +210,10 @@
   
   .my_matching_list {
     background-color: #ebebeb;
-    .matching_list_xq{
-      margin-bottom: 0;
+    .matching_list_xq {
+      &:after {
+        display: none;
+      }
     }
     .wdhf {
       width: 100%;

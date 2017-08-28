@@ -14,8 +14,8 @@
     <span class="xujie jie" v-if="mList.demand_type"></span>
     <span class="xujie xu" v-else></span>
     <span class="jingxingjueshu jingxing" v-if="mList.audit_status==1"></span>
-    <span class="jingxingjueshu jueshu" v-if="mList.audit_status==2"></span>
-    <span class="jingxingjueshu jujue" v-if="mList.audit_status==3"></span>
+    <span class="jingxingjueshu jujue" v-if="mList.audit_status==2"></span>
+    <span class="jingxingjueshu jueshu" v-if="mList.audit_status==3"></span>
   </div>
 </template>
 

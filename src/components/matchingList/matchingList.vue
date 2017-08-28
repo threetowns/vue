@@ -2,6 +2,7 @@
   <div class="matching_list">
     <scroller lock-x height="100%" ref="myscroller" use-pullup use-pulldown @on-pulldown-loading="pulldownFn" @on-pullup-loading="pullupFn" :pulldown-config="pulldownConfig" :pullup-config="pullupConfig" v-model="scrollerStatus" v-show="classifyList">
       <div>
+        <div class="margin_bottom"></div>
         <div v-for="list in classifyList">
           <matching-xq :m-list="list"></matching-xq>
         </div>
@@ -188,6 +189,14 @@
     padding-bottom: 1.0rem;
     .my-container {
       line-height: 40px;
+    }
+    .margin_bottom {
+      &:after {
+        content: '';
+        display: block;
+        height: 0.20rem;
+        background-color: #ebebeb;
+      }
     }
   }
   

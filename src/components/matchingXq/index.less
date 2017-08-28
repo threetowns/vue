@@ -1,10 +1,18 @@
 @import url("../../assets/styles/less");
 .matching_list_xq {
     padding: 0.28rem;
+    padding-bottom: 0;
     background-color: @colorf;
-    margin-top: 0.20rem;
-    margin-bottom: 0.20rem;
     position: relative;
+    &:after {
+        content: '';
+        display: block;
+        margin-left: -0.28rem;
+        margin-right: -0.28rem;
+        height: 0.20rem;
+        background-color: #ebebeb;
+        margin-top: 0.28rem;
+    }
 }
 
 .headline {
@@ -92,16 +100,18 @@
         background-size: 100% 100%;
     }
 }
-.headline2{
+
+.headline2 {
     margin-bottom: 0.22rem;
 }
+
 .jingxingjueshu {
     display: block;
     width: 0.59rem;
     height: 0.47rem;
     position: absolute;
     right: 0.28rem;
-    bottom: 0.30rem;
+    bottom: 0.50rem;
     &.jingxing {
         background: url(./jingxing.png) no-repeat;
         background-size: 100% 100%;
@@ -111,10 +121,11 @@
         background-size: 100% 100%;
     }
     &.jueshu {
-        background: url(./jujue.png) no-repeat;
+        background: url(./jueshu.png) no-repeat;
         background-size: 100% 100%;
     }
 }
+
 .jingxingjueshu2 {
     display: inline-block;
     width: 1.03rem;

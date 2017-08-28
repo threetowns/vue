@@ -7,6 +7,7 @@
         <div class="time2"><span>截止日期：2018-08-17 12：00</span><i></i></div>
       </div>
     </div>
+    <div class="margin_bottom"></div>
     <div class="details_xq">
       <div class="name_input">
         <span class="name">姓名</span>
@@ -17,6 +18,7 @@
         <div class="_input">15622224545</div>
       </div>
     </div>
+    <div class="margin_bottom"></div>
     <div class="details_xq">
       <div class="name_textarea">
         <span class="name">详情描述</span>

@@ -120,7 +120,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: #fff;
     z-index: 18;
+    background-color: #ebebeb;
   }
 </style>

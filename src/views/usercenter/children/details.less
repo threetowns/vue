@@ -1,12 +1,9 @@
 @import url("../../../assets/styles/less");
-body {
-    background: #ebebeb;
-}
-
 .details {
     .matching_list_xq {
-        margin-top: 0;
-        margin-bottom: 0;
+        &:after {
+            display: none;
+        }
     }
     .time {
         padding-left: 0.28rem;
@@ -15,7 +12,7 @@ body {
         line-height: 0.90rem;
         vertical-align: middle;
         background: @colorf;
-        margin-top: -0.6rem;
+        margin-top: -0.3rem;
         position: relative;
     }
     .time2 {
@@ -147,8 +144,16 @@ body {
         background: #15aafb;
         color: @colorf;
         letter-spacing: 0.2em;
-        &.no{
+        &.no {
             background: @color9;
+        }
+    }
+    .margin_bottom {
+        &:after {
+            content: '';
+            display: block;
+            height: 0.20rem;
+            background-color: #ebebeb;
         }
     }
 }
