@@ -1,0 +1,98 @@
+@import url("../../../assets/styles/less");
+body {
+    background: #ebebeb;
+}
+
+.details {
+    .matching_list_xq {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+    .time {
+        padding-left: 0.28rem;
+        font-size: 0.24rem;
+        color: @color9;
+        line-height: 0.90rem;
+        vertical-align: middle;
+        background: @colorf;
+        margin-top: -0.6rem;
+        position: relative;
+    }
+    .div_2 {
+        display: none;
+    }
+    .jingxingjueshu {
+        z-index: 1;
+    }
+    .time_d {
+        margin-bottom: 0.20rem;
+    }
+    .details_xq {
+        padding: 0.16rem 0.32rem;
+        margin-bottom: 0.20rem;
+        background-color: @colorf;
+        .name_input {
+            display: flex;
+            .name {
+                display: inline-block;
+                width: 5em;
+                padding-right: 0.5em;
+                .font32;
+                height: 0.60rem;
+                line-height: 0.60rem;
+            }
+            ._input {
+                flex: 1;
+                height: 0.60rem;
+                line-height: 0.60rem;
+                .font28;
+                color: @colorc;
+            }
+        }
+        .name_textarea {
+            .name {
+                display: inline-block;
+                width: 5em;
+                padding-right: 0.5em;
+                .font32;
+                height: 0.60rem;
+                line-height: 0.60rem;
+            }
+            ._textarea {
+                display: block;
+                width: 100%;
+                line-height: 0.35rem;
+                .font28;
+                color: @color6;
+                padding-top: 0.16rem;
+                padding-bottom: 0.16rem;
+            }
+        }
+        .name_fileImage {
+            .name {
+                width: 5em;
+                padding-right: 0.5em;
+                .font32;
+                height: 0.60rem;
+                line-height: 0.60rem;
+            }
+            .fileImage_w {
+                display: block;
+                padding-bottom: 0.80rem;
+            }
+            ._fileImage_div {
+                width: 1.44rem;
+                height: 1.44rem;
+                margin-right: 0.36rem;
+                margin-top: 0.30rem;
+                background: center no-repeat;
+                background-size: cover;
+                position: relative;
+                &:nth-child(4n) {
+                    margin-right: 0;
+                }
+                
+            }
+        }
+    }
+}

@@ -4,7 +4,38 @@
       <matching-xq :m-list="classifyList[0]"></matching-xq>
       <div class="time"><span>回复时间：2017-08-17 12:00</span><i></i></div>
     </div>
-    11111
+    <div class="details_xq">
+      <div class="name_input">
+        <span class="name">回复详情</span>
+      </div>
+      <div class="name_input">
+        <span class="name">姓名</span>
+        <div class="_input">王先生</div>
+      </div>
+      <div class="name_input">
+        <span class="name">联系方式</span>
+        <div class="_input">15622224545</div>
+      </div>
+    </div>
+    <div class="details_xq">
+      <div class="name_textarea">
+        <span class="name">详情描述</span>
+        <div class="_textarea">需要大量汽车行业数据，并能够精准营销需要大量汽车 行业数据，并能够精准营销需要大量汽车行业数据，并 能够精准营销需要大量汽车行</div>
+      </div>
+    </div>
+    <div class="details_xq">
+      <div class="name_fileImage">
+        <span class="name">附件</span>
+        <div class="fileImage_w floatClear">
+          <div class="_fileImage_div left" style="background-image: url(https://static.vux.li/demo/1.jpg);"></div>
+          <div class="_fileImage_div left" style="background-image: url(https://static.vux.li/demo/1.jpg);"></div>
+          <div class="_fileImage_div left" style="background-image: url(https://static.vux.li/demo/1.jpg);"></div>
+          <div class="_fileImage_div left" style="background-image: url(https://static.vux.li/demo/1.jpg);"></div>
+          <div class="_fileImage_div left" style="background-image: url(https://static.vux.li/demo/1.jpg);"></div>
+          <div class="_fileImage_div left" style="background-image: url(https://static.vux.li/demo/1.jpg);"></div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -66,34 +97,5 @@
 </script>
 
 <style lang="less">
-  @import url("../../../assets/styles/less");
-  body {
-    background: #ebebeb;
-  }
-  
-  .details {
-    .matching_list_xq {
-      margin-top: 0;
-      margin-bottom: 0;
-    }
-    .time {
-      padding-left: 0.28rem;
-      font-size: 0.24rem;
-      color: @color9;
-      line-height: 0.90rem;
-      vertical-align: middle;
-      background: @colorf;
-      margin-top: -0.6rem;
-      position: relative;
-    }
-    .div_2 {
-      display: none;
-    }
-    .jingxingjueshu {
-      z-index: 1;
-    }
-    .time_d{
-      margin-bottom: 0.20rem;
-    }
-  }
+  @import url("./details");
 </style>
