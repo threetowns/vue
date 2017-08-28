@@ -18,14 +18,19 @@ body {
         margin-top: -0.6rem;
         position: relative;
     }
-    .div_2 {
-        display: none;
-    }
-    .jingxingjueshu {
-        z-index: 1;
+    .time2 {
+        padding-left: 0.28rem;
+        font-size: 0.24rem;
+        color: @color9;
+        vertical-align: middle;
+        background: @colorf;
+        position: relative;
+        padding-bottom: 0.33rem;
+        margin-top: -0.20rem;
     }
     .time_d {
         margin-bottom: 0.20rem;
+        position: relative;
     }
     .details_xq {
         padding: 0.16rem 0.32rem;
@@ -65,7 +70,7 @@ body {
                 .font28;
                 color: @color6;
                 padding-top: 0.16rem;
-                padding-bottom: 0.16rem;
+                padding-bottom: 0.36rem;
             }
         }
         .name_fileImage {
@@ -92,8 +97,58 @@ body {
                 &:nth-child(4n) {
                     margin-right: 0;
                 }
-                
             }
+        }
+        .name_reply {
+            .name {
+                display: inline-block;
+                width: 5em;
+                padding-right: 0.5em;
+                .font32;
+                height: 0.60rem;
+                line-height: 0.60rem;
+            }
+            ._textarea {
+                display: block;
+                width: 100%;
+                line-height: 0.35rem;
+                .font28;
+                color: #2e3478;
+                padding-top: 0.16rem;
+                padding-bottom: 0.36rem;
+            }
+        }
+    }
+    .scqx {
+        display: block;
+        width: 0.42rem;
+        height: 0.57rem;
+        position: absolute;
+        right: 0.35rem;
+        bottom: 0.40rem;
+        &.sc {
+            background: url(./sc.png) no-repeat;
+            .bg100;
+        }
+        &.qx {
+            background: url(./qx.png) no-repeat;
+            .bg100;
+        }
+    }
+    ._button {
+        width: 100%;
+        height: 1.0rem;
+        line-height: 1.0rem;
+        .font36;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        border: none;
+        background: #15aafb;
+        color: @colorf;
+        letter-spacing: 0.2em;
+        &.no{
+            background: @color9;
         }
     }
 }

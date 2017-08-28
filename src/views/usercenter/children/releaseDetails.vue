@@ -2,12 +2,12 @@
   <div class="details">
     <div class="time_d">
       <matching-xq :m-list="classifyList[0]"></matching-xq>
-      <div class="time"><span>回复时间：2017-08-17 12:00</span><i></i></div>
+      <div>
+        <div class="time"><span>发布日期：2017-08-17 12:00</span><i></i></div>
+        <div class="time2"><span>截止日期：2018-08-17 12：00</span><i></i></div>
+      </div>
     </div>
     <div class="details_xq">
-      <div class="name_input">
-        <span class="name">回复详情</span>
-      </div>
       <div class="name_input">
         <span class="name">姓名</span>
         <div class="_input">王先生</div>
@@ -21,19 +21,6 @@
       <div class="name_textarea">
         <span class="name">详情描述</span>
         <div class="_textarea">需要大量汽车行业数据，并能够精准营销需要大量汽车 行业数据，并能够精准营销需要大量汽车行业数据，并 能够精准营销需要大量汽车行</div>
-      </div>
-    </div>
-    <div class="details_xq">
-      <div class="name_fileImage">
-        <span class="name">附件</span>
-        <div class="fileImage_w floatClear">
-          <div class="_fileImage_div left" style="background-image: url(https://static.vux.li/demo/1.jpg);"></div>
-          <div class="_fileImage_div left" style="background-image: url(https://static.vux.li/demo/1.jpg);"></div>
-          <div class="_fileImage_div left" style="background-image: url(https://static.vux.li/demo/1.jpg);"></div>
-          <div class="_fileImage_div left" style="background-image: url(https://static.vux.li/demo/1.jpg);"></div>
-          <div class="_fileImage_div left" style="background-image: url(https://static.vux.li/demo/1.jpg);"></div>
-          <div class="_fileImage_div left" style="background-image: url(https://static.vux.li/demo/1.jpg);"></div>
-        </div>
       </div>
     </div>
   </div>
