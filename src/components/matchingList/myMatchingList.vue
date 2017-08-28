@@ -2,6 +2,7 @@
   <div class="matching_list my_matching_list">
     <scroller lock-x height="100%" ref="myscroller" use-pullup @on-pullup-loading="pullupFn" :pullup-config="pullupConfig" v-model="scrollerStatus" v-show="classifyList">
       <div>
+        <div class="margin_bottom"></div>
         <div v-for="list in classifyList">
           <matching-xq :m-list="list"></matching-xq>
           <div class="wdhf" @click="pushFn(list.id)">
@@ -200,6 +201,14 @@
     .my-container {
       line-height: 40px;
     }
+    .margin_bottom {
+      &:after {
+        content: '';
+        display: block;
+        height: 0.20rem;
+        background-color: #ebebeb;
+      }
+    }
   }
   
   .matching_no_data {
@@ -209,7 +218,6 @@
   }
   
   .my_matching_list {
-    background-color: #ebebeb;
     .matching_list_xq {
       padding-bottom: 0.20rem;
       &:after {
