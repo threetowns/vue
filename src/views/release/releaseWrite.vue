@@ -194,7 +194,7 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="less">
-  @import url("../../../assets/styles/less");
+  @import url("../../assets/styles/less");
   .issue {
     ._date a {
       display: block;
