@@ -31,7 +31,6 @@
         </div>
       </div>
     </div>
-    <div class="_button_after"></div>
     <input class="_button" type="button" id="" value="提交回复" @click="submitFn" />
   </div>
 </template>
