@@ -21,3 +21,11 @@ export const sentVerify = (phone, email, type) => Ajax.post('/data/userinfo/wxSe
       alert('温馨提示', res.msg )
     }
 })
+
+/**
+ * 登录
+ * @param {string} phone 手机
+ * @param {string} email 邮箱
+ * @param {string} password  密码
+ **/
+export const Login = (params) => Ajax.fetch('/data/userinfo/wxLogin', params);

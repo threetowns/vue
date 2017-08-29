@@ -5,6 +5,7 @@ import { AlertPlugin, LoadingPlugin, ToastPlugin, dateFormat } from 'vux'
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import routes from './router'
+import store from './store'
 import './assets/js/rem'
 
 Vue.use(VueRouter)
@@ -30,5 +31,6 @@ window.dateFormat = dateFormat;
 
 /* eslint-disable no-new */
 new Vue({
+  store,
   router
 }).$mount('#app')
