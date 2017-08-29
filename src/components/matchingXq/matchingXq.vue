@@ -1,5 +1,5 @@
 <template>
-  <div class="matching_list_xq" @click="pushFn(mList.id)">
+  <div class="matching_list_xq" @click="pushFn(mList.id)" :id="mList.id">
     <h3 class="headline">{{mList.demand_title}}</h3>
     <div class="div_1">
       <span class="leixing">{{demand_category[mList.demand_category]}}</span>
@@ -47,8 +47,8 @@
     },
     methods: { //方法
       pushFn(id) {
-        //this.$router.push('/home');
         console.log(id)
+        this.$router.push('/usercenter/favorite/details?id='+id);
       }
     },
     mounted: function() { //类似于回调函数(初次实例化完成后调用)

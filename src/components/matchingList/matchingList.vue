@@ -34,7 +34,7 @@
         noDataShow: false,
         pageNum: 1,
         pageSize: 5,
-        dataCount:0,
+        dataCount: 0,
       }
     },
     computed: { //计算
@@ -48,19 +48,44 @@
       },
       readSort: {
         default: '', //---10：阅读排序降序，11：阅读排序升序，20：收藏数排序降序：21：收藏数排序升序，30：时间排序降序，31：时间排序升序;
+      },
+      demandCategory: {
+        default: '', //空（””）：全部，0：精准营销，1：数据报告，2：数据交易；3：API,4:其他定制”
       }
     },
     methods: {
       //下拉刷新
       pulldownFn() {
-        pulldownF(this);
+        var v_this = this;
+        pulldownF(this, '/api/wxdemand/getClassifyList', {
+          version: "1.0",
+          pageSize: v_this.pageSize,
+          pageNum: 1,
+          data: {
+            "demandType": v_this.demandType,
+            "auditStatus": v_this.auditStatus,
+            "sort": v_this.readSort,
+            "demandCategory": v_this.demandCategory
+          }
+        });
       },
       //上拉加载更多
       pullupFn() {
-        pullupF(this);
+        var v_this = this;
+        pullupF(this, '/api/wxdemand/getClassifyList', {
+          version: "1.0",
+          pageSize: v_this.pageSize,
+          pageNum: 1,
+          data: {
+            "demandType": v_this.demandType,
+            "auditStatus": v_this.auditStatus,
+            "sort": v_this.readSort
+          }
+        });
       }
     },
     mounted: function() { //类似于回调函数(初次实例化完成后调用)
+      console.log('分类:',this.demandCategory)
       this.$nextTick(() => {
         this.$refs.myscroller.reset({
           top: 0

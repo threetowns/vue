@@ -24,7 +24,7 @@
         </div>
       </div>
     </div>
-    <matching-list :demand-type="demandType" :audit-status="auditStatus" :read-sort="readSort"></matching-list>
+    <matching-list :demand-type="demandType" :audit-status="auditStatus" :read-sort="readSort" :demand-category="demandCategory"></matching-list>
     <footer-nav></footer-nav>
   </div>
 </template>
@@ -58,6 +58,9 @@
       }
     },
     computed: { //计算
+      demandCategory(){
+        return this.$route.query.category;
+      }
     },
     props: { //继承
     },

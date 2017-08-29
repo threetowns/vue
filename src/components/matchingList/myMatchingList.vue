@@ -38,8 +38,9 @@
         classifyList: null,
         noDataText: '暂无数据',
         noDataShow: false,
-        pageNum: 0,
+        pageNum: 1,
         pageSize: 5,
+        dataCount: 0,
       }
     },
     computed: { //计算
@@ -56,18 +57,33 @@
       }
     },
     methods: {
-      //路由跳转
-      pushFn(id) {
-        this.$router.push('/home');
-        console.log(id)
-      },
       //下拉刷新
       pulldownFn() {
-        pulldownF(this);
+        var v_this = this;
+        pulldownF(this, '/api/wxdemand/getClassifyList', {
+          version: "1.0",
+          pageSize: v_this.pageSize,
+          pageNum: 1,
+          data: {
+            "demandType": v_this.demandType,
+            "auditStatus": v_this.auditStatus,
+            "sort": v_this.readSort
+          }
+        });
       },
       //上拉加载更多
       pullupFn() {
-        pullupF(this);
+        var v_this = this;
+        pullupF(this, '/api/wxdemand/getClassifyList', {
+          version: "1.0",
+          pageSize: v_this.pageSize,
+          pageNum: 1,
+          data: {
+            "demandType": v_this.demandType,
+            "auditStatus": v_this.auditStatus,
+            "sort": v_this.readSort
+          }
+        });
       }
     },
     mounted: function() { //类似于回调函数(初次实例化完成后调用)
@@ -76,9 +92,6 @@
           top: 0
         })
       });
-      this.$vux.loading.show({
-        text: 'Loading'
-      })
       //初始数据请求
       this.pulldownFn();
     },

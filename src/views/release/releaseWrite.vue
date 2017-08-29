@@ -182,7 +182,12 @@
       submitFn() {
         var sd = this.submitData;
         if(!sd.demand_title && sd.user_name && sd.phone && sd.original_cost && sd.current_price && sd.description) {
+          alert('没有登录');
           console.log('可以提交')
+          $$.post("/api/wxdemand/saveDemand", sd, function(data) {
+            console.log('提交后', data);
+//          v_this.$router.push('/usercenter/reply/details?id=' + v_this.$route.query.id);
+          });
         } else {
           this.promptFn('', '信息填写不正确！');
         }

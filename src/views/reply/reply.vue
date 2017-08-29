@@ -4,13 +4,13 @@
       <div class="name_input">
         <span class="name">姓名</span>
         <div class="_input">
-          <input class="textOverflow" type="text" name="name" id="name" placeholder="必填，请输入2-5个字" v-model="submitData.name" @change="nameFn"/>
+          <input class="textOverflow" type="text" name="name" id="name" placeholder="必填，请输入2-5个字" v-model="submitData.name" @change="nameFn" />
         </div>
       </div>
       <div class="name_input">
         <span class="name">联系方式</span>
         <div class="_input">
-          <input class="textOverflow" type="text" name="" id="" value="" placeholder="必填，请输入手机号码" v-model="submitData.tel" @change="checkPhone"/>
+          <input class="textOverflow" type="text" name="" id="" value="" placeholder="必填，请输入手机号码" v-model="submitData.tel" @change="checkPhone" />
         </div>
       </div>
     </div>
@@ -41,6 +41,7 @@
     name: 'reply',
     data() {
       return {
+        demand_id: '',
         filesA: [],
         filesALen: 5,
         filesSize: 5 * 1024 * 1024,
@@ -181,7 +182,7 @@
           fd.append("fileImg", v_this.dataURItoBlob(v_this.filesA[i]['base64']), v_this.filesA[i]['file']['name']);
         }
         $$.ajax({
-          url: '/data/file/uploadFiles2Ftp',
+          url: '/api/file/uploadFiles2Ftp',
           method: 'post',
           processData: false, // jq必须
           contentType: false, // jq必须
@@ -219,10 +220,11 @@
             var tsd = v_this.submitData;
             tsd.enclosure = data.path;
             console.log(v_this.submitData);
+            alert('没有判断登录');
             var this_data = {
-              "token": "eewe2345",
+              "token": "9EDF639DAE17F78462E9C1FCEF416DDD",
               "data": {
-                "demand_id": 23,
+                "demand_id": v_this.$route.query.id,
                 "user_name": tsd.name,
                 "phone": tsd.tel,
                 "answer_content": tsd.details,
@@ -231,16 +233,18 @@
             for(var i = 0; i < tsd.enclosure.length; i++) {
               this_data['pic' + (i + 1) + '_id'] = tsd.enclosure[i];
             }
-            $$.post("/data/wxanswer/submitAnswer", this_data, function(data) {
-              console.log(data);
+            $$.post("/api/wxanswer/submitAnswer", this_data, function(data) {
+              console.log('提交后', data);
+              v_this.$router.push('/usercenter/reply/details?id=' + v_this.$route.query.id);
             });
           });
-        }else{
+        } else {
           this.promptFn('', '信息填写不正确！');
         }
       }
     },
     mounted: function() { //类似于回调函数(初次实例化完成后调用)
+      this.demand_id = this.$route.query.id;
     },
   }
 </script>

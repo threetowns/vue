@@ -28,7 +28,7 @@ var scrollerStatus = {
   pullupStatus: 'default'
 }
 //下拉刷新
-var pulldownF = function(e) {
+var pulldownF = function(e, mUrl, mData) {
   var v_this = e;
   v_this.showLoading = true;
   if(v_this.onFetching) {
@@ -39,16 +39,7 @@ var pulldownF = function(e) {
     });
     v_this.onFetching = true;
     v_this.pageNum = 1;
-    $$.post("/api/wxdemand/getClassifyList", {
-      version: "1.0",
-      pageSize: v_this.pageSize,
-      pageNum: 1,
-      data: {
-        "demandType": v_this.demandType,
-        "auditStatus": v_this.auditStatus,
-        "sort": v_this.readSort
-      }
-    }, function(data) {
+    $$.post(mUrl, mData, function(data) {
       console.log('data:', data);
       if(data.status == '0') {
         v_this.classifyList = data.data.classifyList;
@@ -75,7 +66,7 @@ var pulldownF = function(e) {
   }
 }
 //上拉加载更多
-var pullupF = function(e) {
+var pullupF = function(e, mUrl, mData) {
   console.log('上拉');
   var v_this = e;
   if(v_this.onFetching) {
@@ -84,16 +75,7 @@ var pullupF = function(e) {
     v_this.onFetching = true;
     if(v_this.dataCount != v_this.classifyList.length) {
       v_this.pageNum++;
-      $$.post("/api/wxdemand/getClassifyList", {
-        version: "1.0",
-        pageSize: v_this.pageSize,
-        pageNum: v_this.pageNum,
-        data: {
-          "demandType": v_this.demandType,
-          "auditStatus": v_this.auditStatus,
-          "sort": v_this.readSort
-        }
-      }, function(data) {
+      $$.post(mUrl, mData, function(data) {
         console.log(data)
         if(data.status == '0') {
           v_this.classifyList = [...v_this.classifyList, ...(data.data.classifyList)];
@@ -141,6 +123,7 @@ export {
   pullupF,
   watchF
 }
+
 /*export default {
   pulldownConfig1,
   pullupConfig1,
