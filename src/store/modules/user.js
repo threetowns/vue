@@ -4,7 +4,7 @@ import * as types from '../mutation-types'
 const state = {
   // 用户登录状态
   loginStatus: false,
-  // 用户登录信息
+  // 用户token
   userToken: null,
   // 用户数据信息
   userData: [],
@@ -19,6 +19,7 @@ const actions = {
     localStorage.setItem('userToken', JSON.stringify(res.token))
     commit(types.RECORD_USERINFO, res)
   }
+
 }
 
 // getters
@@ -29,10 +30,10 @@ const getters = {
 // mutations
 const mutations = {
   [types.RECORD_USERINFO](state, res) {
-        state.userData = res.data
-        state.userToken = res.token
-        state.loginStatus = true
-    }
+    state.userData = res.data
+    state.userToken = res.token
+    state.loginStatus = true
+  }
 }
 
 export default {
