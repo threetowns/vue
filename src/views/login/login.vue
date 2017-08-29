@@ -21,14 +21,17 @@
 </template>
 
 <script>
+  import { mapActions } from 'vuex'
   import { md5 } from 'vux';
-  import C from 'assets/js/common';
+
+  import { Login,getLogin } from 'src/service/getData'
 
   export default {
     data(){
       return {
         userAccount: '',
         password: '',
+        userInfo: null,
         placeholder: {
           userAccount: '请输入手机号或者邮箱地址',
           password: '请输入密码'
@@ -51,6 +54,9 @@
       }
     },
     methods:{
+      ...mapActions([
+        'recordUserInfo'
+      ]),
       checkLogin(){
         let self = this;
 
@@ -65,30 +71,23 @@
           return false;
         }
 
-        let phone = this.isPhone ? this.userAccount : '';
-        let email = this.isEmail ? this.userAccount : '';
-
-        this.$vux.loading.show()
-        C.post('/data/userinfo/wxLogin',{
-          "phone": phone,
-          "email": email,
-          "pwd": md5(this.password)
-        },function(res){
-          if (res.status == '0') {
-            self.$vux.toast.show({
-              text: '登录成功',
-              time: 1000,
-              onHide () {
-                let expireDays = 1000 * 60 * 60 * 24 * 15;
-                C.cookie('token', res.token, { expires: expireDays });
-                self.$router.push('usercenter')
-              }
-            })
-          }else{
-            self.$vux.alert.show({ title: '温馨提示', content: res.msg })
-          }
-          self.$vux.loading.hide()
-        })
+        let data = {
+            phone: this.isPhone ? this.userAccount : '',
+            email: this.isEmail ? this.userAccount : '',
+            pwd: md5(this.password)
+        }
+        Login(data)
+          .then(res => {
+            if (res.status == '0') {
+              self.recordUserInfo(res)
+              self.$router.push('usercenter')
+            }else{
+              self.$vux.alert.show({ title: '温馨提示', content: res.msg })
+            }
+          })
+          .catch(error => {
+            self.$vux.alert.show({ title: '温馨提示', content: '请稍后再试！' })
+          })
       }
     }
   }
