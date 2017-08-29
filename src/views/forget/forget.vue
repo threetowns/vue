@@ -30,8 +30,7 @@
 
 <script>
   import { md5 } from 'vux';
-  import C from 'assets/js/common';
-  import { sentVerify } from 'src/service/getData'
+  import { forgetPassword,sentVerify } from 'src/service/getData'
 
   export default {
     data() {
@@ -77,26 +76,32 @@
         }
 
         let self = this;
-        let phone = this.isPhone ? this.userAccount : '';
-        let email = this.isEmail ? this.userAccount : '';
 
-        C.post('/data/userinfo/wxRetrieve',{
-          "phone": phone,
-          "email": email,
-          "code": self.code,
-          "pwd": md5(self.password)
-        },function(res){
-          if (res.status == '0') {
-            self.$vux.toast.show({
-              text: '操作成功', time: 1000,onHide () {
-                self.$router.push('/login');
-              }
-            })
-          }else{
-            self.$vux.alert.show({ title: '温馨提示', content: res.msg })
-          }
-        })
 
+        let data = {
+          "phone": this.isPhone ? this.userAccount : '',
+          "email": this.isEmail ? this.userAccount : '',
+          "code": this.code,
+          "pwd": md5(this.password)
+        }
+
+        forgetPassword(data)
+          .then(res => {
+            if (res.status == '0') {
+              self.$vux.toast.show({
+                text: '操作成功',
+                time: 1000,
+                onHide () {
+                  self.$router.push('/login');
+                }
+              })
+            }else{
+              self.$vux.alert.show({ title: '温馨提示', content: res.msg })
+            }
+          })
+          .catch(error => {
+            self.$vux.alert.show({ title: '温馨提示', content: '请稍后再试！' })
+          })
       },
       checkAccount(){
         let self = this;
@@ -118,9 +123,22 @@
           }, 1000)
 
           //发送验证码
-          let phone = this.isPhone ? this.userAccount : '';
-          let email = this.isEmail ? this.userAccount : '';
-          sentVerify(phone, email , '2')
+          let data = {
+            phone: this.isPhone ? this.userAccount : '',
+            email: this.isEmail ? this.userAccount : '',
+            type: '2'
+          }
+          sentVerify(data)
+            .then(res => {
+              if (res.status != '0') {
+                self.computedTime = 0;
+                clearInterval(self.timer)
+                self.$vux.alert.show({ title: '温馨提示', content: res.msg })
+              }
+            })
+            .catch(error => {
+              self.$vux.alert.show({ title: '温馨提示', content: '请稍后再试！' })
+            })
 
         }
       }

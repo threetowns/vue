@@ -97,22 +97,27 @@
       },
       sentRegister(){
         let self = this;
-        let phone = this.isPhone ? this.userAccount : '';
-        let email = this.isEmail ? this.userAccount : '';
 
-        C.post('/data/userinfo/wxRegister',{
-          "phone": phone,
-          "email": email,
-          "real_name": self.username,
-          "code": self.code,
-          "pwd": md5(self.password)
-        },function(res){
-          if (res.status == '0') {
-            console.log('ok')
-          }else{
-            self.$vux.alert.show({ title: '温馨提示', content: res.msg })
-          }
-        })
+        let data = {
+          phone: this.isPhone ? this.userAccount : '',
+          email: this.isEmail ? this.userAccount : '',
+          real_name: this.username,
+          code: this.code,
+          pwd: md5(this.password)
+        }
+
+        Join(data)
+          .then(res => {
+            if (res.status == '0') {
+              console.log('ok')
+            }else{
+              self.$vux.alert.show({ title: '温馨提示', content: res.msg })
+            }
+          })
+          .catch(error => {
+            self.$vux.alert.show({ title: '温馨提示', content: '请稍后再试！' })
+          })
+
       },
       getVerifyCode(){
         let self = this;
@@ -126,9 +131,22 @@
           }, 1000)
 
           //发送验证码
-          let phone = this.isPhone ? this.userAccount : ''
-          let email = this.isEmail ? this.userAccount : ''
-          sentVerify(phone, email, '1')
+          let data = {
+            phone: this.isPhone ? this.userAccount : '',
+            email: this.isEmail ? this.userAccount : '',
+            type: '1'
+          }
+          sentVerify(data)
+            .then(res => {
+              if (res.status != '0') {
+                self.computedTime = 0;
+                clearInterval(self.timer)
+                self.$vux.alert.show({ title: '温馨提示', content: res.msg })
+              }
+            })
+            .catch(error => {
+              self.$vux.alert.show({ title: '温馨提示', content: '请稍后再试！' })
+            })
 
         }
       }
