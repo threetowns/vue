@@ -114,7 +114,7 @@ export default [{
         title: '收藏详情'
       }
     },
-    
+
     //需求撮合
     {
       path: "/matching",
