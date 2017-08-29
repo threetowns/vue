@@ -1,21 +1,21 @@
 <template>
   <div class="user-reply precision rating_page">
-    <div class="screen" v-if="!showLoading">
+    <div class="screen">
       <div class="nav_a">
-        <a @click="screenFn(1)" :class="[(screenC==1) ? 'active':'']">类型筛选<i></i></a>
-        <a @click="screenFn(2)" :class="[(screenC==2) ? 'active':'']">状态筛选<i></i></a>
-        <a @click="screenFn(3)" :class="[(screenC==3) ? 'active':'']">排序<i></i></a>
+        <a @click="screenC=1" :class="{'active':screenC==1}">类型筛选<i></i></a>
+        <a @click="screenC=2" :class="{'active':screenC==2}">状态筛选<i></i></a>
+        <a @click="screenC=3" :class="{'active':screenC==3}">排序<i></i></a>
       </div>
       <div class="nav_d" v-if="screenC!=0" @click="navDFn">
         <div v-if="screenC==1" @click.stop>
-          <a @click="genreFn('')" :class="[(genreC=='') ? 'active':'']"><i></i>全部</a>
-          <a @click="genreFn('0')" :class="[(genreC=='0') ? 'active':'']"><i></i>需求</a>
-          <a @click="genreFn(1)" :class="[(genreC==1) ? 'active':'']"><i></i>接单</a>
+          <a @click="genreC=''" :class="{'active':genreC==''}"><i></i>全部</a>
+          <a @click="genreC='0'" :class="{'active':genreC=='0'}"><i></i>需求</a>
+          <a @click="genreC='1'" :class="{'active':genreC=='1'}"><i></i>接单</a>
         </div>
         <div v-if="screenC==2" @click.stop>
-          <a @click="stateFn('')" :class="[(stateC=='') ? 'active':'']"><i></i>全部</a>
-          <a @click="stateFn(1)" :class="[(stateC==1) ? 'active':'']"><i></i>进行中</a>
-          <a @click="stateFn(3)" :class="[(stateC==3) ? 'active':'']"><i></i>已结束</a>
+          <a @click="stateC=''" :class="{'active':stateC==''}"><i></i>全部</a>
+          <a @click="stateC='1'" :class="{'active':stateC=='1'}"><i></i>进行中</a>
+          <a @click="stateC='3'" :class="{'active':stateC=='3'}"><i></i>已结束</a>
         </div>
         <div v-if="screenC==3" @click.stop>
           <a @click="sortFn(0)" :class="[(sortC==0) ? 'active':'',sortPx_0 ? 'xia':'shang','sort_a']"><i></i>阅读数</a>
@@ -26,25 +26,21 @@
     </div>
     <matching-list :demand-type="demandType" :audit-status="auditStatus" :read-sort="readSort"></matching-list>
     <footer-nav></footer-nav>
-    <loading :show="showLoading"></loading>
   </div>
 </template>
 
 <script>
-  import { Loading } from 'vux'
   import FooterNav from 'components/footer/footer';
   import MatchingList from 'components/matchingList/matchingList';
 
   export default {
     name: 'user-reply',
     components: {
-      Loading,
       MatchingList,
       FooterNav,
     },
     data() {
       return {
-        showLoading: true,
         demandType: '', //---空：全部，0：需求，1：接单"
         auditStatus: '', //---空：全部，0：进行中，3：结束"
         readSort: '', //---10：阅读排序降序，11：阅读排序升序，20：收藏数排序降序：21：收藏数排序升序，30：时间排序降序，31：时间排序升序;
@@ -66,20 +62,6 @@
     props: { //继承
     },
     methods: {
-      init() {
-        setTimeout(() => {
-          this.showLoading = false;
-        }, 1000)
-      },
-      screenFn(i) {
-        this.screenC = i;
-      },
-      genreFn(i) {
-        this.genreC = i;
-      },
-      stateFn(i) {
-        this.stateC = i;
-      },
       sortFn(i) {
         if(this.sortC == i) {
           this['sortPx_' + i] = !this['sortPx_' + i];
@@ -107,12 +89,11 @@
       },
     },
     mounted: function() { //类似于回调函数(初次实例化完成后调用)
-      this.init();
     }
   }
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
   @import url("../../precisionMarketing/index.less");
   .rating_page {
     position: absolute;

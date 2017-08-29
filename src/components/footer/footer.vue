@@ -65,7 +65,6 @@
         line-height: 1;
         color: @color6;
         font-size: 0.20rem;
-        font-weight: bold;
         i {
           display: block;
           width: 0.46rem;

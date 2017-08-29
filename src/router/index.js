@@ -1,6 +1,6 @@
 import App from '../App'
 
-const index = r => require.ensure([], () => r(require('../views/index/index')), 'index')
+const matching = r => require.ensure([], () => r(require('../views/matching/matching')), 'matching'); //需求撮合
 const login = r => require.ensure([], () => r(require('../views/login/login')), 'login')
 const join = r => require.ensure([], () => r(require('../views/join/join')), 'join')
 const forget = r => require.ensure([], () => r(require('../views/forget/forget')), 'forget')
@@ -9,7 +9,6 @@ const release = r => require.ensure([], () => r(require('../views/usercenter/chi
 const myreply = r => require.ensure([], () => r(require('../views/usercenter/children/reply')), 'reply')
 const favorite = r => require.ensure([], () => r(require('../views/usercenter/children/favorite')), 'favorite')
 const reply = r => require.ensure([], () => r(require('../views/reply/reply')), 'reply'); //回复页
-const matching = r => require.ensure([], () => r(require('../views/matching/matching')), 'matching'); //需求撮合
 const precision = r => require.ensure([], () => r(require('../views/precisionMarketing/precisionMarketing')), 'precisionMarketing'); //精准营销
 const replyDetails = r => require.ensure([], () => r(require('../views/usercenter/children/replyDetails')), 'replyDetails'); //回复详情
 const releaseDetails = r => require.ensure([], () => r(require('../views/usercenter/children/releaseDetails')), 'releaseDetails'); //发布详情
@@ -23,16 +22,16 @@ export default [{
     //地址为空时跳转index页面
     {
       path: '',
-      redirect: '/index'
+      redirect: '/matching'
     },
     //首页
-    {
-      path: '/index',
-      component: index,
-      meta: {
-        title: '首页'
-      }
-    },
+//  {
+//    path: '/index',
+//    component: index,
+//    meta: {
+//      title: '首页'
+//    }
+//  },
     //登录注册页
     {
       path: '/login',
@@ -114,7 +113,7 @@ export default [{
         title: '收藏详情'
       }
     },
-
+    
     //需求撮合
     {
       path: "/matching",
