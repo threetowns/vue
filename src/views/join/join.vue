@@ -31,8 +31,8 @@
 
 <script>
   import { md5 } from 'vux';
-  import C from 'assets/js/common';
-  import { sentVerify } from 'src/service/getData'
+  import { mapActions } from 'vuex'
+  import { Join,sentVerify } from 'src/service/getData'
 
    export default {
     data(){
@@ -70,6 +70,9 @@
       }
     },
     methods: {
+      ...mapActions([
+        'recordUserInfo'
+      ]),
       checkJoin(){
         let self = this;
 
@@ -109,7 +112,8 @@
         Join(data)
           .then(res => {
             if (res.status == '0') {
-              console.log('ok')
+              self.recordUserInfo(res)
+              self.$router.push('usercenter')
             }else{
               self.$vux.alert.show({ title: '温馨提示', content: res.msg })
             }

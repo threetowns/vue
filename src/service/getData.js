@@ -1,4 +1,3 @@
-import Vue from 'vue'
 import Ajax from 'assets/js/ajax';
 
 /**
