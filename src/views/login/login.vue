@@ -79,8 +79,12 @@
         Login(data)
           .then(res => {
             if (res.status == '0') {
-              self.recordUserInfo(res)
-              self.$router.push('usercenter')
+              self.$vux.toast.show({
+                text: '登录成功', time: 1000, onHide () {
+                  self.recordUserInfo(res)
+                  self.$router.push('usercenter')
+                }
+              })
             }else{
               self.$vux.alert.show({ title: '温馨提示', content: res.msg })
             }

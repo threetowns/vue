@@ -5,15 +5,15 @@ const state = {
   // 用户登录状态
   loginStatus: false,
   // 用户登录信息
-  userInfo: {},
+  userToken: null,
   // 用户数据信息
-  userData: []
+  userData: [],
 }
 
 // actions
 const actions = {
   /**
-   * 请求用户信息
+   * 记录用户信息
    */
   recordUserInfo({ commit }, res) {
     localStorage.setItem('userToken', JSON.stringify(res.token))
@@ -29,7 +29,9 @@ const getters = {
 // mutations
 const mutations = {
   [types.RECORD_USERINFO](state, res) {
-        state.userInfo = res.data
+        state.userData = res.data
+        state.userToken = res.token
+        state.loginStatus = true
     }
 }
 

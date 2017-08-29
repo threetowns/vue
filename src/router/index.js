@@ -61,7 +61,7 @@ export default [{
     {
       path: '/usercenter',
       component: usercenter,
-      meta: { title: '个人中心' },
+      meta: { title: '个人中心', requireAuth: true },
       children: [
          { path: 'release', component: release, meta: { title: '发布清单' } }
         ,{ path: 'reply', component: myreply, meta: { title: '我的回复' } }

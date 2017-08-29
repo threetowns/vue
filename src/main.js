@@ -15,12 +15,19 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  if(to.meta.title){
-      document.title = to.meta.title
+
+  document.title = to.meta.title ? to.meta.title : '东湖大数据交易中心'
+  if (to.matched.some(r => r.meta.requireAuth)) {
+    if (store.state.userToken) {
+      next()
+    }else {
+      next({ path: '/login', query: { redirect: to.fullPath } })
+    }
   }else{
-      document.title = '东湖大数据交易中心'
+    next()
   }
   next()
+
 })
 
 // 全局注册vux
