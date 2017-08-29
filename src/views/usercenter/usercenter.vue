@@ -24,43 +24,34 @@
 <script>
   import FooterNav from 'components/footer/footer'
   import { Loading } from 'vux'
-  import C from 'assets/js/common'
+  import { mapGetters } from 'vuex'
 
   export default {
     components: {
       FooterNav,
       Loading
     },
+    computed: {
+      ...mapGetters([ 'userToken', 'userData', 'loginStatus' ])
+    },
     data(){
       return {
         navA: 3,
-        showLoading: true,
-        face: require('assets/images/face.jpg'),
-        userAccount: '13007128888'
+        showLoading: false,
+        face: null,
+        userAccount: null
       }
     },
     mounted(){
-      this.init()
+
     },
     methods: {
-      init(){
-        setTimeout(()=>{
-          this.showLoading = false;
-        },1000)
-      },
-      logout(){
-        /*self.$vux.toast.show({
 
-        })
-        C.post('/data/userinfo/wxLogout',{
-          "token": phone
-        },function(res){
-          if (res.status == '0') {
-
-          }else{
-            self.$vux.alert.show({ title: '温馨提示', content: res.msg })
-          }
-        })*/
+    },
+    created() {
+      if (this.loginStatus) {
+        this.userAccount = this.userData.nickname ? this.userData.nickname : '暂未填写';
+        this.face = this.userData.head ? this.userData.head : require('assets/images/face.jpg');
       }
     }
   }

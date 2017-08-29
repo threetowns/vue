@@ -16,7 +16,7 @@ const actions = {
    * 记录用户信息
    */
   recordUserInfo({ commit }, res) {
-    localStorage.setItem('userToken', JSON.stringify(res.token))
+    localStorage.setItem('userToken', res.token)
     commit(types.RECORD_USERINFO, res)
   }
 
@@ -24,7 +24,9 @@ const actions = {
 
 // getters
 const getters = {
-
+  userToken: state => state.userToken,
+  userData: state => state.userData,
+  loginStatus: state => state.loginStatus
 }
 
 // mutations
