@@ -82,7 +82,10 @@
               self.$vux.toast.show({
                 text: '登录成功', time: 1000, onHide () {
                   self.recordUserInfo(res)
-                  self.$router.push('usercenter')
+                  let redirect = decodeURIComponent(self.$route.query.redirect || '/usercenter');
+                  self.$router.push({
+                    path: redirect
+                  })
                 }
               })
             }else{
