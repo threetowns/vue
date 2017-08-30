@@ -16,8 +16,6 @@ const actions = {
    * 记录用户信息
    */
   recordUserInfo({ commit }, res) {
-    localStorage.setItem('userToken', res.token)
-    localStorage.setItem('userData', JSON.stringify(res.data))
     commit(types.RECORD_USERINFO, res)
   },
   userLogout({ commit }) {
@@ -39,6 +37,8 @@ const mutations = {
     state.userToken = res
   },
   [types.RECORD_USERINFO](state, res) {
+    localStorage.setItem('userToken', res.token)
+    localStorage.setItem('userData', JSON.stringify(res.data))
     state.userData = res.data
     state.userToken = res.token
     state.loginStatus = true
