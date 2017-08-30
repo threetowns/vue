@@ -29,14 +29,21 @@ router.beforeEach((to, from, next) => {
     if (token) {
       checkLogin({ 'token': token }).then(res => {
         if (res.status != '0') {
-          commit(types.LOGOUT)
+          store.commit(types.LOGOUT)
           next({ path: '/login', query: { redirect: to.fullPath } })
         }else{
           next()
         }
       })
       .catch(error => {
-        Vue.$vux.alert.show({ title: '温馨提示', content: '错误：'+ error.response.status +'请稍后再试！' })
+        if (error.response) {
+          Vue.$vux.alert.show({ title: '温馨提示', content: '错误：'+ error.response.status +'，请稍后再试！' })
+        } else if (error.request) {
+          Vue.$vux.alert.show({ title: '温馨提示', content: '错误：'+ error.request.status +'，请稍后再试！' })
+        } else {
+          Vue.$vux.alert.show({ title: '温馨提示', content: '错误：'+ error.message +'，请稍后再试！' })
+        }
+
       })
     }else {
       next({ path: '/login', query: { redirect: to.fullPath } })
