@@ -32,7 +32,7 @@
       <div class="name_reply">
         <span class="name">回复的人</span>
         <div class="_textarea">
-          <span v-for="list in classify.answerList" @click="replyXqFn(list.id)">{{list.nickname}}，</span>
+          <span v-for="list in classify.answerList" @click="replyXqFn(list.id)">{{list.nickname}}<i>，</i></span>
         </div>
       </div>
     </div>
