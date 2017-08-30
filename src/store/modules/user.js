@@ -35,6 +35,9 @@ const getters = {
 
 // mutations
 const mutations = {
+  [types.RECORD_USERTOKEN](state, res){
+    state.userToken = res
+  },
   [types.RECORD_USERINFO](state, res) {
     state.userData = res.data
     state.userToken = res.token

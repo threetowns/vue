@@ -1,2 +1,3 @@
 export const RECORD_USERINFO = 'RECORD_USERINFO'
+export const RECORD_USERTOKEN = 'RECORD_USERTOKEN'
 export const LOGOUT = 'LOGOUT'
