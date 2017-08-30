@@ -14,6 +14,7 @@ if (localStorage.getItem('userToken')) {
   store.commit(types.RECORD_USERTOKEN, localStorage.getItem('userToken'))
 }
 
+
 Vue.use(VueRouter)
 const router = new VueRouter({
   routes,

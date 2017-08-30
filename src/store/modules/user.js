@@ -17,6 +17,7 @@ const actions = {
    */
   recordUserInfo({ commit }, res) {
     localStorage.setItem('userToken', res.token)
+    localStorage.setItem('userData', JSON.stringify(res.data))
     commit(types.RECORD_USERINFO, res)
   },
   userLogout({ commit }) {

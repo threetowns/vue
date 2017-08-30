@@ -32,7 +32,7 @@
       Loading
     },
     computed: {
-      ...mapGetters([ 'userToken', 'userData', 'loginStatus' ])
+      ...mapGetters([ 'userToken', 'userData' ])
     },
     data(){
       return {
@@ -41,9 +41,6 @@
         face: null,
         userAccount: null
       }
-    },
-    mounted(){
-
     },
     methods: {
       ...mapActions([ 'userLogout' ]),
@@ -58,8 +55,8 @@
       }
     },
     created() {
-      this.userAccount = this.userData.nickname ? this.userData.nickname : '暂未填写';
-      this.face = this.userData.head ? this.userData.head : require('assets/images/face.jpg');
+      this.userAccount = JSON.parse(localStorage.getItem('userData')).nickname ? JSON.parse(localStorage.getItem('userData')).nickname : '暂未填写';
+      this.face = JSON.parse(localStorage.getItem('userData')).head ? JSON.parse(localStorage.getItem('userData')).head : require('assets/images/face.jpg');
     }
   }
 </script>
