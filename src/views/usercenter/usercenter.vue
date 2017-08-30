@@ -48,8 +48,13 @@
     methods: {
       ...mapActions([ 'userLogout' ]),
       logout(){
+        let self = this;
         this.userLogout()
-        this.$router.push('login')
+        this.$vux.toast.show({
+          text: '退出成功', time: 1000, onHide () {
+            self.$router.push('login')
+          }
+        })
       }
     },
     created() {
