@@ -50,7 +50,7 @@
         <span class="name">截止日期</span>
         <div class="_input _date">
           <i></i>
-          <datetime v-model="submitData.end_time_desc">{{submitData.end_time_desc}}</datetime>
+          <datetime v-model="submitData.end_time_desc" format="YYYY-MM-DD HH:mm">{{submitData.end_time_desc}}</datetime>
         </div>
       </div>
     </div>
@@ -128,7 +128,7 @@
           "phone": "",
           "original_cost": "",
           "current_price": "",
-          "end_time_desc": dateFormat(new Date(), 'YYYY-MM-DD'),
+          "end_time_desc": dateFormat(new Date(), 'YYYY-MM-DD HH:mm:ss'),
           "description": ""
         },
         oldDescription: ''
@@ -183,6 +183,7 @@
         var v_this = this;
         var sd = this.submitData;
         if(sd.demand_title && sd.user_name && sd.phone && sd.original_cost && sd.current_price && sd.description) {
+          sd.end_time_desc = dateFormat(sd.end_time_desc, 'YYYY-MM-DD HH:mm:ss');
           var _data = {
             token: localStorage.getItem('userToken'),
             data: sd,
@@ -191,7 +192,7 @@
             console.log('提交后', data);
             if(data.status == '0') {
               v_this.$router.push('/usercenter/release');
-            }else{
+            } else {
               alert(data.msg);
             }
           });
