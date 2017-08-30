@@ -14,7 +14,6 @@ if (localStorage.getItem('userToken')) {
   store.commit(types.RECORD_USERTOKEN, localStorage.getItem('userToken'))
 }
 
-
 Vue.use(VueRouter)
 const router = new VueRouter({
   routes,
@@ -25,7 +24,7 @@ router.beforeEach((to, from, next) => {
 
   document.title = to.meta.title ? to.meta.title : '东湖大数据交易中心'
   if (to.matched.some(r => r.meta.requireAuth)) {
-    if (localStorage.getItem('userToken')) {
+    if (store.getters.userToken) {
       next()
     }else {
       next({ path: '/login', query: { redirect: to.fullPath } })

@@ -48,7 +48,7 @@
       Logout(){
         let self = this;
         let data = {
-          token: localStorage.getItem('userToken')
+          token: self.userToken
         }
         logout(data)
           .then(res => {
