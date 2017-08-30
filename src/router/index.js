@@ -101,7 +101,8 @@ export default [{
       name: "releaseWrite",
       component: releaseWrite,
       meta: {
-        title: '发布'
+          title: '发布'
+         ,requireAuth: true
       }
     },
     //收藏详情
