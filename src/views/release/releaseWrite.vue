@@ -50,7 +50,7 @@
         <span class="name">截止日期</span>
         <div class="_input _date">
           <i></i>
-          <datetime v-model="submitData.end_time">{{submitData.end_time}}</datetime>
+          <datetime v-model="submitData.end_time_desc">{{submitData.end_time_desc}}</datetime>
         </div>
       </div>
     </div>
@@ -123,13 +123,13 @@
         submitData: {
           "demand_type": 0,
           "demand_category": 0,
-          "demand_title": "标题",
-          "user_name": "隔壁老王",
-          "phone": "15871379438",
-          "original_cost": "100",
-          "current_price": "50",
-          "end_time": dateFormat(new Date(), 'YYYY-MM-DD'),
-          "description": "描述"
+          "demand_title": "",
+          "user_name": "",
+          "phone": "",
+          "original_cost": "",
+          "current_price": "",
+          "end_time_desc": dateFormat(new Date(), 'YYYY-MM-DD'),
+          "description": ""
         },
         oldDescription: ''
       }
@@ -191,6 +191,8 @@
             console.log('提交后', data);
             if(data.status == '0') {
               v_this.$router.push('/usercenter/release');
+            }else{
+              alert(data.msg);
             }
           });
         } else {
