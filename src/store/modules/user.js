@@ -21,7 +21,8 @@ const actions = {
     commit(types.RECORD_USERINFO, res)
   },
   userLogout({ commit }) {
-    localStorage.removeItem('userToken');
+    localStorage.removeItem('userToken')
+    localStorage.removeItem('userData')
     commit(types.LOGOUT)
   }
 

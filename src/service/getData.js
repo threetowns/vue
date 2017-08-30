@@ -22,3 +22,8 @@ export const Join = (params) => Ajax.fetch('/api/userinfo/wxRegister', params)
  * 找回密码
  **/
 export const forgetPassword = (params) => Ajax.fetch('/api/userinfo/wxRetrieve', params)
+
+/**
+ * 退出
+ **/
+export const logout = (params) => Ajax.fetch('/api/userinfo/wxLogout', params)

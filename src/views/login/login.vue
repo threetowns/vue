@@ -24,7 +24,7 @@
   import { mapActions } from 'vuex'
   import { md5 } from 'vux';
 
-  import { Login,getLogin } from 'src/service/getData'
+  import { Login } from 'src/service/getData'
 
   export default {
     data(){

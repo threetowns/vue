@@ -4,7 +4,7 @@
       <div class="profile-cover">
         <div class="face"><img :src="face" alt="头像"></div>
         <div class="account">{{ userAccount }}</div>
-        <div class="action" @click="logout">切换帐号</div>
+        <div class="action" @click="Logout">切换帐号</div>
       </div>
       <div class="profile-list">
         <router-link to="/usercenter/release" class="items"><i class="icon-order"></i>发布清单</router-link>
@@ -25,6 +25,7 @@
   import FooterNav from 'components/footer/footer'
   import { Loading } from 'vux'
   import { mapGetters, mapActions } from 'vuex'
+  import { logout } from 'src/service/getData'
 
   export default {
     components: {
@@ -44,14 +45,28 @@
     },
     methods: {
       ...mapActions([ 'userLogout' ]),
-      logout(){
+      Logout(){
         let self = this;
-        this.userLogout()
-        this.$vux.toast.show({
-          text: '退出成功', time: 1000, onHide () {
-            self.$router.push('login')
-          }
-        })
+        let data = {
+          token: localStorage.getItem('userToken')
+        }
+        logout(data)
+          .then(res => {
+            if (res.status == '0') {
+              self.userLogout()
+              self.$vux.toast.show({
+                text: '退出成功', time: 1000, onHide () {
+                  self.$router.push('login')
+                }
+              })
+            }else{
+              self.$vux.alert.show({ title: '温馨提示', content: res.msg })
+            }
+          })
+          .catch(error => {
+            self.$vux.alert.show({ title: '温馨提示', content: '请稍后再试！' })
+          })
+
       }
     },
     created() {
