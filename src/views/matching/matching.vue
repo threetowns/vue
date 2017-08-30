@@ -33,16 +33,12 @@
   import MatchingList from '../../components/matchingList/matchingList';
   //焦点图片组
   var swiperList = [{
-      url: 'http://m.baidu.com',
-      img: 'https://static.vux.li/demo/1.jpg',
+      //url: 'http://m.baidu.com',
+      img: 'static/img/b1.jpg',
     },
     {
-      url: 'http://m.baidu.com',
-      img: 'https://static.vux.li/demo/1.jpg',
-    },
-    {
-      url: 'http://m.baidu.com',
-      img: 'https://static.vux.li/demo/1.jpg',
+      //url: 'http://m.baidu.com',
+      img: 'static/img/b1.jpg',
     }
   ];
 
@@ -74,4 +70,7 @@
 
 <style lang="less">
   @import url("./index.less");
+  .matching .vux-swiper-desc{
+   display: none;
+  }
 </style>
