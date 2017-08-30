@@ -27,3 +27,8 @@ export const forgetPassword = (params) => Ajax.fetch('/api/userinfo/wxRetrieve',
  * 退出
  **/
 export const logout = (params) => Ajax.fetch('/api/userinfo/wxLogout', params)
+
+/**
+ * 检查是否登录
+ **/
+export const checkLogin = (params) => Ajax.fetch('/api/userinfo/wxCheckLogin', params)

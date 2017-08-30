@@ -7,6 +7,7 @@ import VueRouter from 'vue-router'
 import routes from './router'
 import store from './store'
 import * as types from './store/mutation-types'
+import { checkLogin } from 'src/service/getData'
 import './assets/js/rem'
 
 // 页面刷新时，重新赋值token
@@ -23,9 +24,20 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) => {
 
   document.title = to.meta.title ? to.meta.title : '东湖大数据交易中心'
+  let token = store.getters.userToken
   if (to.matched.some(r => r.meta.requireAuth)) {
-    if (store.getters.userToken) {
-      next()
+    if (token) {
+      checkLogin({ 'token': token }).then(res => {
+        if (res.status != '0') {
+          commit(types.LOGOUT)
+          next({ path: '/login', query: { redirect: to.fullPath } })
+        }else{
+          next()
+        }
+      })
+      .catch(error => {
+        self.$vux.alert.show({ title: '温馨提示', content: '请稍后再试！' })
+      })
     }else {
       next({ path: '/login', query: { redirect: to.fullPath } })
     }
