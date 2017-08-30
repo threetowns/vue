@@ -6,8 +6,8 @@
         <div class="time"><span>发布日期：{{createTime}}</span><i></i></div>
         <div class="time2"><span>截止日期：{{endTime}}</span><i></i></div>
       </div>
-      <span class="scqx sc" v-if="classify.isFav"></span>
-      <span class="scqx qx" v-else></span>
+      <span class="scqx sc" v-if="classify.isFav" @click="noFavFn"></span>
+      <span class="scqx qx" v-else @click="isFavFn"></span>
     </div>
     <div class="margin_bottom"></div>
     <div class="details_xq">
@@ -17,7 +17,7 @@
       </div>
       <div class="name_input">
         <span class="name">联系方式</span>
-        <div class="_input">{{classify.phone}}<i v-if="!myVisible"> （登录后可见）</i></div>
+        <div class="_input">{{classify.phone}}</div>
       </div>
     </div>
     <div class="margin_bottom"></div>
@@ -32,11 +32,11 @@
       <div class="name_reply">
         <span class="name">回复的人</span>
         <div class="_textarea">
-          <span v-for="list in classify.answerList">{{list.id}}</span>
+          <span v-for="list in classify.answerList" @click="replyXqFn(list.id)">{{list.nickname}}，</span>
         </div>
       </div>
     </div>
-    <input class="_button" :class="{'no':(classify.audit_status==3)}" type="button" id="" value="回复" v-if="classify.audit_status==1 || classify.audit_status==3" @click="replyFn" />
+    <!--<input class="_button" :class="{'no':(classify.audit_status==3)}" type="button" id="" value="回复" v-if="classify.audit_status==1 || classify.audit_status==3" @click="replyFn" />-->
   </div>
 </template>
 
@@ -66,21 +66,51 @@
 
     },
     methods: {
-      replyFn() {
+      /*replyFn() {
         if(this.classify.audit_status == 1) {
           alert('没有判断登录状态');
           this.$router.push('/reply?id=' + this.$route.query.id);
         }
+      },*/
+      replyXqFn(id) {
+        this.$router.push('/usercenter/reply/details?id' + id);
+      },
+      noFavFn() {
+        var v_this = this;
+        $$.post('/api/wxdemand/cancelFav', {
+          "token": localStorage.getItem('userToken'),
+          "data": {
+            "demandId": v_this.$route.query.id
+          }
+        }, function(data) {
+          if(data.status == '0') {
+            v_this.classify.isFav = 0;
+          }
+        });
+      },
+      isFavFn() {
+        var v_this = this;
+        $$.post('/api/wxdemand/saveFav', {
+          "token": localStorage.getItem('userToken'),
+          "data": {
+            "demandId": v_this.$route.query.id
+          }
+        }, function(data) {
+          if(data.status == '0') {
+            v_this.classify.isFav = 1;
+          }
+        });
       },
     },
     mounted: function() { //类似于回调函数(初次实例化完成后调用)
       //this.pulldownFn();
       var v_this = this;
       $$.post('/api/wxdemand/demandDetail', {
-        //"token": "ee388li3",
+        "token": localStorage.getItem('userToken'),
         "demandId": v_this.$route.query.id
       }, function(data) {
         if(data.status = '0') {
+          console.log('需求详情:', data);
           v_this.classify = data.data;
           if((v_this.classify.phone).indexOf('*') != -1) {
             v_this.myVisible = false;

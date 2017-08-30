@@ -106,7 +106,7 @@
         "demandId": v_this.$route.query.id
       }, function(data) {
         if(data.status = '0') {
-          console.log('收藏详情:',data);
+          console.log('需求详情:',data);
           v_this.classify = data.data;
           if((v_this.classify.phone).indexOf('*') != -1) {
             v_this.myVisible = false;

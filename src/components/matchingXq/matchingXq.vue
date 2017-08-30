@@ -48,7 +48,19 @@
     methods: { //方法
       pushFn(id) {
         console.log(id)
-        this.$router.push('/usercenter/favorite/details?id='+id);
+        if(this.$route.path == '/usercenter/release') {
+          this.$router.push('/usercenter/release/details?id=' + id);
+          return false;
+        }
+        if(this.$route.path == '/usercenter/favorite') {
+          this.$router.push('/usercenter/favorite/details?id=' + id);
+          return false;
+        }
+        if(this.$route.path == '/usercenter/reply') {
+          this.$router.push('/usercenter/reply/details?id=' + id);
+          return false;
+        }
+        this.$router.push('/details?id=' + id);
       }
     },
     mounted: function() { //类似于回调函数(初次实例化完成后调用)

@@ -73,7 +73,7 @@
       },
       //名字验证
       nameFn() {
-        if(this.submitData.name.length <= 2 || this.submitData.name.length >= 5) {
+        if(this.submitData.name.length < 2 || this.submitData.name.length > 5) {
           this.submitData.name = null;
           this.promptFn('', '请输入2-5个字');
         }
@@ -219,11 +219,8 @@
           this.formImgFn(function(data) {
             var tsd = v_this.submitData;
             tsd.enclosure = data.path;
-            console.log(v_this.submitData);
-            alert('没有判断登录');
-            var _token = localStorage.getItem('userToken');
             var this_data = {
-              "token": _token,
+              "token": localStorage.getItem('userToken'),
               "data": {
                 "demand_id": v_this.$route.query.id,
                 "user_name": tsd.name,
@@ -232,11 +229,13 @@
               }
             };
             for(var i = 0; i < tsd.enclosure.length; i++) {
-              this_data['pic' + (i + 1) + '_id'] = tsd.enclosure[i];
+              this_data['data']['pic' + (i + 1) + '_id'] = tsd.enclosure[i];
             }
             $$.post("/api/wxanswer/submitAnswer", this_data, function(data) {
-              console.log('提交后', data);
-              v_this.$router.push('/usercenter/reply/details?id=' + v_this.$route.query.id);
+              console.log('回复提交后', data);
+              if(data.status = '0') {
+                v_this.$router.push('/usercenter/reply/details?id=' + data.answerId);
+              }
             });
           });
         } else {

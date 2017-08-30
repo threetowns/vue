@@ -48,6 +48,12 @@ var pulldownF = function(e, mUrl, mData) {
         if(data.data.demandUserList) {
           v_this.classifyList = data.data.demandUserList;
         }
+        if(data.data.demandAnswerList) {
+          v_this.classifyList = data.data.demandAnswerList;
+        }
+        if(data.data.demandFavList) {
+          v_this.classifyList = data.data.demandFavList;
+        }
         v_this.dataCount = data.data.count;
         v_this.$nextTick(() => {
           v_this.$refs.myscroller.reset({
@@ -89,7 +95,6 @@ var pullupF = function(e, mUrl, mData) {
   } else {
     v_this.onFetching = true;
     if(v_this.dataCount != v_this.classifyList.length) {
-      v_this.pageNum++;
       $$.post(mUrl, mData, function(data) {
         console.log(data)
         if(data.status == '0') {
@@ -98,6 +103,9 @@ var pullupF = function(e, mUrl, mData) {
           }
           if(data.data.demandUserList) {
             v_this.classifyList = [...v_this.classifyList, ...(data.data.demandUserList)];
+          }
+          if(data.data.demandAnswerList) {
+            v_this.classifyList = [...v_this.classifyList, ...(data.data.demandAnswerList)];
           }
           v_this.dataCount = data.data.count;
           //数据全部加载完了

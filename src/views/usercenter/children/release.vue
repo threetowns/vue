@@ -14,13 +14,15 @@
         </div>
         <div v-if="screenC==2" @click.stop>
           <a @click="stateC=''" :class="{'active':stateC==''}"><i></i>全部</a>
+          <a @click="stateC='0'" :class="{'active':stateC=='0'}"><i></i>审核中</a>
           <a @click="stateC='1'" :class="{'active':stateC=='1'}"><i></i>进行中</a>
+          <a @click="stateC='2'" :class="{'active':stateC=='2'}"><i></i>拒绝</a>
           <a @click="stateC='3'" :class="{'active':stateC=='3'}"><i></i>已结束</a>
         </div>
         <div v-if="screenC==3" @click.stop>
-          <a @click="sortFn(0)" :class="[(sortC==0) ? 'active':'',sortPx_0 ? 'xia':'shang','sort_a']"><i></i>阅读数</a>
-          <a @click="sortFn(1)" :class="[(sortC==1) ? 'active':'',sortPx_1 ? 'xia':'shang','sort_a']"><i></i>收藏数</a>
-          <a @click="sortFn(2)" :class="[(sortC==2) ? 'active':'',sortPx_2 ? 'xia':'shang','sort_a']"><i></i>时间</a>
+          <a @click="sortFn(0)" :class="[(sortC=='0') ? 'active':'',sortPx_0 ? 'xia':'shang','sort_a']"><i></i>阅读数</a>
+          <a @click="sortFn(1)" :class="[(sortC=='1') ? 'active':'',sortPx_1 ? 'xia':'shang','sort_a']"><i></i>收藏数</a>
+          <a @click="sortFn(2)" :class="[(sortC=='2') ? 'active':'',sortPx_2 ? 'xia':'shang','sort_a']"><i></i>时间</a>
         </div>
       </div>
     </div>
@@ -43,19 +45,19 @@
       return {
         myUrl: '/api/personalCenter/demandUserList',
         demandType: '', //---空：全部，0：需求，1：接单"
-        auditStatus: '', //---空：全部，0：进行中，3：结束"
+        auditStatus: '', //---空（””）：全部，0：审核中，1：进行中，2:拒绝，3：结束”
         readSort: '', //---10：阅读排序降序，11：阅读排序升序，20：收藏数排序降序：21：收藏数排序升序，30：时间排序降序，31：时间排序升序;
         screenC: 0,
         genreC: '',
         oldgenreC: '',
         stateC: '',
         oldstateC: '',
-        sortC: 0,
+        sortC: '',
         sortPx_0: true,
         sortPx_1: true,
         sortPx_2: true,
-        sortPx: 10,
-        oldsortPx: 10,
+        sortPx: '',
+        oldsortPx: '',
       }
     },
     computed: { //计算

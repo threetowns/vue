@@ -14,6 +14,7 @@ const replyDetails = r => require.ensure([], () => r(require('../views/usercente
 const releaseDetails = r => require.ensure([], () => r(require('../views/usercenter/children/releaseDetails')), 'releaseDetails'); //发布详情
 const favoriteDetails = r => require.ensure([], () => r(require('../views/usercenter/children/favoriteDetails')), 'favoriteDetails'); //收藏详情
 const releaseWrite = r => require.ensure([], () => r(require('../views/release/releaseWrite')), 'releaseWrite'); //写发布
+const details = r => require.ensure([], () => r(require('../views/usercenter/children/details')), 'details'); //需求详情
 
 export default [{
   path: '/',
@@ -24,14 +25,21 @@ export default [{
       path: '',
       redirect: '/matching'
     },
+    {
+      path: '/details',
+      component: details,
+      meta: {
+        title: '需求详情'
+      }
+    },
     //首页
-//  {
-//    path: '/index',
-//    component: index,
-//    meta: {
-//      title: '首页'
-//    }
-//  },
+    //  {
+    //    path: '/index',
+    //    component: index,
+    //    meta: {
+    //      title: '首页'
+    //    }
+    //  },
     //登录注册页
     {
       path: '/login',
@@ -61,12 +69,29 @@ export default [{
     {
       path: '/usercenter',
       component: usercenter,
-      meta: { title: '个人中心', requireAuth: true },
-      children: [
-         { path: 'release', component: release, meta: { title: '发布清单' } }
-        ,{ path: 'reply', component: myreply, meta: { title: '我的回复' } }
-        ,{ path: 'favorite', component: favorite, meta: { title: '我的收藏' } }
-      ]
+      meta: {
+        title: '个人中心',
+        requireAuth: true
+      },
+      children: [{
+        path: 'release',
+        component: release,
+        meta: {
+          title: '发布清单'
+        }
+      }, {
+        path: 'reply',
+        component: myreply,
+        meta: {
+          title: '我的回复'
+        }
+      }, {
+        path: 'favorite',
+        component: favorite,
+        meta: {
+          title: '我的收藏'
+        }
+      }]
     },
     //回复页
     {
@@ -95,14 +120,14 @@ export default [{
         title: '发布详情'
       }
     },
-     //发布
+    //发布
     {
       path: "/release",
       name: "releaseWrite",
       component: releaseWrite,
       meta: {
-          title: '发布'
-         ,requireAuth: true
+        title: '发布',
+        requireAuth: true
       }
     },
     //收藏详情

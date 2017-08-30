@@ -5,7 +5,7 @@
         <div class="margin_bottom"></div>
         <div v-for="list in classifyList">
           <matching-xq :m-list="list"></matching-xq>
-          <div class="wdhf" @click="pushFn(list.id)">
+          <div class="wdhf" @click="pushFn(list.answerId)">
             <div>
               <div class="name">我的回复</div>
               <div class="time"><span>回复时间：2017-08-17 12:00</span><i></i></div>
@@ -19,7 +19,7 @@
 </template>
 <script>
   import { Scroller } from 'vux';
-  import MatchingXq from '../matchingXq/matchingXq';
+  import MatchingXq from '../matchingXq/matchingXq2';
   import NoData from '../noData/noData';
   import { pulldownConfig, pullupConfig, scrollerStatus, pulldownF, pullupF, watchF } from './index';
 
@@ -58,10 +58,14 @@
       }
     },
     methods: {
+      pushFn(id) {
+        console.log(id)
+        this.$router.push('/usercenter/reply/details?id=' + id);
+      },
       //下拉刷新
       pulldownFn() {
         var v_this = this;
-        pulldownF(this, '/api/wxdemand/getClassifyList', {
+        pulldownF(this, v_this.myUrl, {
           version: "1.0",
           pageSize: v_this.pageSize,
           pageNum: 1,
@@ -76,10 +80,11 @@
       //上拉加载更多
       pullupFn() {
         var v_this = this;
-        pullupF(this, '/api/wxdemand/getClassifyList', {
+        v_this.pageNum++;
+        pullupF(this, v_this.myUrl, {
           version: "1.0",
           pageSize: v_this.pageSize,
-          pageNum: 1,
+          pageNum: v_this.pageNum,
           token: localStorage.getItem('userToken'),
           data: {
             "demandType": v_this.demandType,
@@ -95,15 +100,16 @@
           top: 0
         })
       });
-      if(this.$route.path=='usercenter/release'){
-        this.myUrl='/api/personalCenter/demandUserList';
+      if(this.$route.path == '/usercenter/release') {
+        this.myUrl = '/api/personalCenter/demandUserList';
       }
-      if(this.$route.path=='usercenter/favorite'){
-        this.myUrl='/api/personalCenter/demandFavList';
+      if(this.$route.path == '/usercenter/favorite') {
+        this.myUrl = '/api/personalCenter/demandFavList';
       }
-      if(this.$route.path=='usercenter/reply'){
-        this.myUrl='/api/personalCenter/demandAnswerList';
+      if(this.$route.path == '/usercenter/reply') {
+        this.myUrl = '/api/personalCenter/demandAnswerList';
       }
+      console.log('请求地址:', this.myUrl)
       //初始数据请求
       this.pulldownFn();
     },

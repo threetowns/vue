@@ -74,10 +74,11 @@
       //上拉加载更多
       pullupFn() {
         var v_this = this;
+        v_this.pageNum++;
         pullupF(this, v_this.myUrl, {
           version: "1.0",
           pageSize: v_this.pageSize,
-          pageNum: 1,
+          pageNum: v_this.pageNum,
           token: localStorage.getItem('userToken'),
           data: {
             "demandType": v_this.demandType,
@@ -94,15 +95,16 @@
           top: 0
         })
       });
-      if(this.$route.path=='usercenter/release'){
+      if(this.$route.path=='/usercenter/release'){
         this.myUrl='/api/personalCenter/demandUserList';
       }
-      if(this.$route.path=='usercenter/favorite'){
+      if(this.$route.path=='/usercenter/favorite'){
         this.myUrl='/api/personalCenter/demandFavList';
       }
-      if(this.$route.path=='usercenter/reply'){
+      if(this.$route.path=='/usercenter/reply'){
         this.myUrl='/api/personalCenter/demandAnswerList';
       }
+      console.log('请求地址:', this.myUrl)
       //初始数据请求
       this.pulldownFn();
     },
