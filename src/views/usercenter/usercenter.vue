@@ -24,7 +24,7 @@
 <script>
   import FooterNav from 'components/footer/footer'
   import { Loading } from 'vux'
-  import { mapGetters } from 'vuex'
+  import { mapGetters, mapActions } from 'vuex'
 
   export default {
     components: {
@@ -46,13 +46,15 @@
 
     },
     methods: {
-
+      ...mapActions([ 'userLogout' ]),
+      logout(){
+        this.userLogout()
+        this.$router.push('login')
+      }
     },
     created() {
-      if (this.loginStatus) {
-        this.userAccount = this.userData.nickname ? this.userData.nickname : '暂未填写';
-        this.face = this.userData.head ? this.userData.head : require('assets/images/face.jpg');
-      }
+      this.userAccount = this.userData.nickname ? this.userData.nickname : '暂未填写';
+      this.face = this.userData.head ? this.userData.head : require('assets/images/face.jpg');
     }
   }
 </script>

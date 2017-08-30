@@ -18,6 +18,10 @@ const actions = {
   recordUserInfo({ commit }, res) {
     localStorage.setItem('userToken', res.token)
     commit(types.RECORD_USERINFO, res)
+  },
+  userLogout({ commit }) {
+    localStorage.removeItem('userToken');
+    commit(types.LOGOUT)
   }
 
 }
@@ -35,6 +39,11 @@ const mutations = {
     state.userData = res.data
     state.userToken = res.token
     state.loginStatus = true
+  },
+  [types.LOGOUT](state) {
+    state.userData = []
+    state.userToken = null
+    state.loginStatus = false
   }
 }
 
