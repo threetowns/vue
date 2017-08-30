@@ -6,8 +6,10 @@
         <div class="time"><span>发布日期：{{createTime}}</span><i></i></div>
         <div class="time2"><span>截止日期：{{endTime}}</span><i></i></div>
       </div>
-      <span class="scqx sc" v-if="classify.isFav" @click="noFavFn"></span>
-      <span class="scqx qx" v-else @click="isFavFn"></span>
+      <div v-if="myVisible">
+        <span class="scqx sc" v-if="classify.isFav" @click="noFavFn"></span>
+        <span class="scqx qx" v-else @click="isFavFn"></span>
+      </div>
     </div>
     <div class="margin_bottom"></div>
     <div class="details_xq">

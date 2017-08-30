@@ -6,8 +6,10 @@
         <div class="time"><span>发布日期：{{createTime}}</span><i></i></div>
         <div class="time2"><span>截止日期：{{endTime}}</span><i></i></div>
       </div>
-      <span class="scqx sc" v-if="classify.isFav" @click="noFavFn"></span>
-      <span class="scqx qx" v-else @click="isFavFn"></span>
+      <div v-if="myVisible">
+        <span class="scqx sc" v-if="classify.isFav" @click="noFavFn"></span>
+        <span class="scqx qx" v-else @click="isFavFn"></span>
+      </div>
     </div>
     <div class="margin_bottom"></div>
     <div class="details_xq">
@@ -42,7 +44,7 @@
 
 <script>
   import $$ from 'assets/js/common';
-  import MatchingXq from 'components/matchingXq/matchingXq2';
+  import MatchingXq from 'components/matchingXq/matchingXq';
   export default {
     name: 'matchingList',
     components: {
@@ -72,7 +74,7 @@
         }
       },
       noFavFn() {
-        var v_this=this;
+        var v_this = this;
         $$.post('/api/wxdemand/cancelFav', {
           "token": localStorage.getItem('userToken'),
           "data": {
@@ -85,7 +87,7 @@
         });
       },
       isFavFn() {
-        var v_this=this;
+        var v_this = this;
         $$.post('/api/wxdemand/saveFav', {
           "token": localStorage.getItem('userToken'),
           "data": {
@@ -101,20 +103,51 @@
     mounted: function() { //类似于回调函数(初次实例化完成后调用)
       //this.pulldownFn();
       var v_this = this;
-      $$.post('/api/wxdemand/demandDetail', {
-        "token": localStorage.getItem('userToken'),
-        "demandId": v_this.$route.query.id
-      }, function(data) {
-        if(data.status = '0') {
-          console.log('需求详情:',data);
-          v_this.classify = data.data;
-          if((v_this.classify.phone).indexOf('*') != -1) {
-            v_this.myVisible = false;
+      if(localStorage.getItem('userToken')) {
+        $$.post('/api/wxdemand/demandDetail', {
+          "token": localStorage.getItem('userToken'),
+          "demandId": v_this.$route.query.id
+        }, function(data) {
+          if(data.status = '0') {
+            console.log('需求详情:', data);
+            v_this.classify = data.data;
+            if((v_this.classify.phone).indexOf('*') != -1) {
+              v_this.myVisible = false;
+            } else {
+              v_this.myVisible = true;
+            }
           } else {
-            v_this.myVisible = true;
+            v_this.$vux.loading.show({
+              text: data.msg
+            });
+            setTimeout(() => {
+              v_this.$vux.loading.hide();
+            }, 1000);
           }
-        }
-      });
+        });
+      } else {
+        $$.post('/api/wxdemand/demandDetail', {
+          "demandId": v_this.$route.query.id
+        }, function(data) {
+          if(data.status = '0') {
+            console.log('需求详情:', data);
+            v_this.classify = data.data;
+            if((v_this.classify.phone).indexOf('*') != -1) {
+              v_this.myVisible = false;
+            } else {
+              v_this.myVisible = true;
+            }
+          } else {
+            v_this.$vux.loading.show({
+              text: data.msg
+            });
+            setTimeout(() => {
+              v_this.$vux.loading.hide();
+            }, 1000);
+          }
+        });
+      }
+
     },
     //数据更改后调用
     watch: {

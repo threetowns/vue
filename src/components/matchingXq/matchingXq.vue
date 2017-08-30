@@ -60,6 +60,9 @@
           this.$router.push('/usercenter/reply/details?id=' + id);
           return false;
         }
+        if(this.$route.path == '/details'){
+          return false;
+        }
         this.$router.push('/details?id=' + id);
       }
     },
