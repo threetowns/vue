@@ -50,7 +50,9 @@
         <span class="name">截止日期</span>
         <div class="_input _date">
           <i></i>
-          <datetime v-model="submitData.end_time_desc" format="YYYY-MM-DD HH:mm">{{submitData.end_time_desc}}</datetime>
+          <datetime v-model="submitData.end_time_desc" format="YYYY-MM-DD HH:mm"
+            :start-date="startDate"
+            >{{submitData.end_time_desc}}</datetime>
         </div>
       </div>
     </div>
@@ -120,6 +122,8 @@
         gx_show2: false,
         ctypeT: ['需求', '接单'],
         classifyT: ['精准营销', '数据报告', '数据交易', 'API', '其他定制'],
+        startDate:dateFormat(new Date(), 'YYYY-MM-DD'),
+        //minHour:dateFormat(new Date(), 'HH'),
         submitData: {
           "demand_type": 0,
           "demand_category": 0,
