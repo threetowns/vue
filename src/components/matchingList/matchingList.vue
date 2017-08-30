@@ -26,6 +26,7 @@
     },
     data() {
       return {
+        myUrl: '/api/wxdemand/getClassifyList',
         pulldownConfig,
         pullupConfig,
         scrollerStatus,
@@ -51,16 +52,17 @@
       },
       demandCategory: {
         default: '', //空（””）：全部，0：精准营销，1：数据报告，2：数据交易；3：API,4:其他定制”
-      }
+      },
     },
     methods: {
       //下拉刷新
       pulldownFn() {
         var v_this = this;
-        pulldownF(this, '/api/wxdemand/getClassifyList', {
+        pulldownF(this, v_this.myUrl, {
           version: "1.0",
           pageSize: v_this.pageSize,
           pageNum: 1,
+          token: localStorage.getItem('userToken'),
           data: {
             "demandType": v_this.demandType,
             "auditStatus": v_this.auditStatus,
@@ -72,10 +74,11 @@
       //上拉加载更多
       pullupFn() {
         var v_this = this;
-        pullupF(this, '/api/wxdemand/getClassifyList', {
+        pullupF(this, v_this.myUrl, {
           version: "1.0",
           pageSize: v_this.pageSize,
           pageNum: 1,
+          token: localStorage.getItem('userToken'),
           data: {
             "demandType": v_this.demandType,
             "auditStatus": v_this.auditStatus,
@@ -85,12 +88,21 @@
       }
     },
     mounted: function() { //类似于回调函数(初次实例化完成后调用)
-      console.log('分类:',this.demandCategory)
+      console.log('分类:', this.demandCategory)
       this.$nextTick(() => {
         this.$refs.myscroller.reset({
           top: 0
         })
       });
+      if(this.$route.path=='usercenter/release'){
+        this.myUrl='/api/personalCenter/demandUserList';
+      }
+      if(this.$route.path=='usercenter/favorite'){
+        this.myUrl='/api/personalCenter/demandFavList';
+      }
+      if(this.$route.path=='usercenter/reply'){
+        this.myUrl='/api/personalCenter/demandAnswerList';
+      }
       //初始数据请求
       this.pulldownFn();
     },

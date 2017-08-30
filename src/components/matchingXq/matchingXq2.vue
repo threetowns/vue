@@ -43,8 +43,8 @@
     },
     methods: { //方法
       pushFn(id) {
-        //this.$router.push('/home');
         console.log(id)
+        this.$router.push('/usercenter/reply/details?id='+id);
       }
     },
     mounted: function() { //类似于回调函数(初次实例化完成后调用)

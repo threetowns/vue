@@ -1,30 +1,42 @@
 <template>
   <div class="details">
     <div class="time_d">
-      <matching-xq :m-list="classifyList[0]"></matching-xq>
+      <matching-xq :m-list="classify"></matching-xq>
       <div>
-        <div class="time"><span>发布日期：2017-08-17 12:00</span><i></i></div>
-        <div class="time2"><span>截止日期：2018-08-17 12：00</span><i></i></div>
+        <div class="time"><span>发布日期：{{createTime}}</span><i></i></div>
+        <div class="time2"><span>截止日期：{{endTime}}</span><i></i></div>
       </div>
+      <span class="scqx sc" v-if="classify.isFav"></span>
+      <span class="scqx qx" v-else></span>
     </div>
     <div class="margin_bottom"></div>
     <div class="details_xq">
       <div class="name_input">
         <span class="name">姓名</span>
-        <div class="_input">王先生</div>
+        <div class="_input">{{classify.user_name}}</div>
       </div>
       <div class="name_input">
         <span class="name">联系方式</span>
-        <div class="_input">15622224545</div>
+        <div class="_input">{{classify.phone}}<i v-if="!myVisible"> （登录后可见）</i></div>
       </div>
     </div>
     <div class="margin_bottom"></div>
     <div class="details_xq">
       <div class="name_textarea">
         <span class="name">详情描述</span>
-        <div class="_textarea">需要大量汽车行业数据，并能够精准营销需要大量汽车 行业数据，并能够精准营销需要大量汽车行业数据，并 能够精准营销需要大量汽车行</div>
+        <div class="_textarea">{{classify.description}}</div>
       </div>
     </div>
+    <div class="margin_bottom"></div>
+    <div class="details_xq">
+      <div class="name_reply">
+        <span class="name">回复的人</span>
+        <div class="_textarea">
+          <span v-for="list in classify.answerList">{{list.id}}</span>
+        </div>
+      </div>
+    </div>
+    <input class="_button" :class="{'no':(classify.audit_status==3)}" type="button" id="" value="回复" v-if="classify.audit_status==1 || classify.audit_status==3" @click="replyFn" />
   </div>
 </template>
 
@@ -38,45 +50,45 @@
     },
     data() {
       return {
-        classifyList: ['']
+        classify: {},
+        myVisible: false,
       }
     },
     computed: { //计算
+      createTime() {
+        return dateFormat(this.classify.create_time, 'YYYY-MM-DD HH:mm:ss')
+      },
+      endTime() {
+        return dateFormat(this.classify.end_time, 'YYYY-MM-DD HH:mm:ss')
+      },
     },
     props: { //继承
 
     },
     methods: {
-      //下拉刷新
-      pulldownFn() {
-        var v_this = this;
-        console.log(v_this.demandType, 1234);
-        if(v_this.onFetching) {
-          // do nothing
-        } else {
-
-          $$.post("/data/wxdemand/getClassifyList", {
-            version: "1.0",
-            pageSize: 1,
-            pageNum: 1,
-            data: {
-              "demandType": '',
-              "auditStatus": '',
-              "sort": '10'
-            }
-          }, function(data) {
-            console.log(data);
-            if(!data.status) {
-              v_this.classifyList = data.data.classifyList;
-            } else {
-              alert('服务器错误');
-            }
-          });
+      replyFn() {
+        if(this.classify.audit_status == 1) {
+          alert('没有判断登录状态');
+          this.$router.push('/reply?id=' + this.$route.query.id);
         }
       },
     },
     mounted: function() { //类似于回调函数(初次实例化完成后调用)
-      this.pulldownFn();
+      //this.pulldownFn();
+      var v_this = this;
+      $$.post('/api/wxdemand/demandDetail', {
+        //"token": "ee388li3",
+        "demandId": v_this.$route.query.id
+      }, function(data) {
+        if(data.status = '0') {
+          v_this.classify = data.data;
+          if((v_this.classify.phone).indexOf('*') != -1) {
+            v_this.myVisible = false;
+          } else {
+            v_this.myVisible = true;
+          }
+        }
+      });
     },
     //数据更改后调用
     watch: {

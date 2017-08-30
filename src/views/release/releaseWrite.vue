@@ -106,7 +106,8 @@
 </template>
 <script>
   import $$ from 'assets/js/common';
-  import { Datetime, Popup } from 'vux'
+  import { Datetime, Popup } from 'vux';
+  import { mapGetters } from 'vuex';
   export default {
     name: 'reply',
     components: {
@@ -136,7 +137,6 @@
     computed: { //计算
     },
     props: { //继承
-
     },
     methods: { //方法
       //弹窗
@@ -151,13 +151,13 @@
       },
       //名字验证
       nameFn() {
-        if(this.submitData.user_name.length <= 2 || this.submitData.user_name.length >= 5) {
+        if(this.submitData.user_name.length < 2 || this.submitData.user_name.length > 5) {
           this.submitData.user_name = null;
           this.promptFn('', '请输入2-5个字');
         }
       },
       nameFn2() {
-        if(this.submitData.demand_title.length <= 2 || this.submitData.demand_title.length >= 10) {
+        if(this.submitData.demand_title.length < 2 || this.submitData.demand_title.length > 10) {
           this.submitData.demand_title = null;
           this.promptFn('', '请输入2-10个字');
         }
@@ -180,13 +180,18 @@
       },
       //提交
       submitFn() {
+        var v_this = this;
         var sd = this.submitData;
-        if(!sd.demand_title && sd.user_name && sd.phone && sd.original_cost && sd.current_price && sd.description) {
-          alert('没有登录');
-          console.log('可以提交')
-          $$.post("/api/wxdemand/saveDemand", sd, function(data) {
+        if(sd.demand_title && sd.user_name && sd.phone && sd.original_cost && sd.current_price && sd.description) {
+          var _data = {
+            token: localStorage.getItem('userToken'),
+            data: sd,
+          }
+          $$.post("/api/wxdemand/saveDemand", _data, function(data) {
             console.log('提交后', data);
-//          v_this.$router.push('/usercenter/reply/details?id=' + v_this.$route.query.id);
+            if(data.status == '0') {
+              v_this.$router.push('/usercenter/release');
+            }
           });
         } else {
           this.promptFn('', '信息填写不正确！');

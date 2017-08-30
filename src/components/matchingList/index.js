@@ -42,7 +42,12 @@ var pulldownF = function(e, mUrl, mData) {
     $$.post(mUrl, mData, function(data) {
       console.log('data:', data);
       if(data.status == '0') {
-        v_this.classifyList = data.data.classifyList;
+        if(data.data.classifyList) {
+          v_this.classifyList = data.data.classifyList;
+        }
+        if(data.data.demandUserList) {
+          v_this.classifyList = data.data.demandUserList;
+        }
         v_this.dataCount = data.data.count;
         v_this.$nextTick(() => {
           v_this.$refs.myscroller.reset({
@@ -59,7 +64,17 @@ var pulldownF = function(e, mUrl, mData) {
           v_this.$refs.myscroller.enablePullup();
         }
       } else {
-        alert('服务器错误');
+        v_this.$vux.loading.hide();
+        if(data.status == '-1') {
+          v_this.$vux.loading.show({
+            text: '登录过期'
+          });
+          setTimeout(() => {
+            v_this.$vux.loading.hide();
+            v_this.$router.push('/login');
+          }, 1000);
+        }
+
       }
       v_this.onFetching = false;
     });
@@ -78,7 +93,12 @@ var pullupF = function(e, mUrl, mData) {
       $$.post(mUrl, mData, function(data) {
         console.log(data)
         if(data.status == '0') {
-          v_this.classifyList = [...v_this.classifyList, ...(data.data.classifyList)];
+          if(data.data.classifyList) {
+            v_this.classifyList = [...v_this.classifyList, ...(data.data.classifyList)];
+          }
+          if(data.data.demandUserList) {
+            v_this.classifyList = [...v_this.classifyList, ...(data.data.demandUserList)];
+          }
           v_this.dataCount = data.data.count;
           //数据全部加载完了
           if(v_this.dataCount == v_this.classifyList.length) {

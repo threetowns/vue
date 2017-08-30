@@ -31,7 +31,7 @@
 
 <script>
   import FooterNav from 'components/footer/footer';
-  import MatchingList from 'components/matchingList/matchingList';
+  import MatchingList from 'components/matchingList/myMatchingList';
 
   export default {
     name: 'user-reply',

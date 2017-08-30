@@ -221,8 +221,9 @@
             tsd.enclosure = data.path;
             console.log(v_this.submitData);
             alert('没有判断登录');
+            var _token = localStorage.getItem('userToken');
             var this_data = {
-              "token": "9EDF639DAE17F78462E9C1FCEF416DDD",
+              "token": _token,
               "data": {
                 "demand_id": v_this.$route.query.id,
                 "user_name": tsd.name,
