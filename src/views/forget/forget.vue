@@ -62,8 +62,14 @@
         return !(!this.isPhone && !this.isEmail)
       }
     },
+    watch: {
+      $route () {
+        this.isNext = this.$route.query.from ? true : false
+      }
+    },
     methods: {
       resetPassword(){
+        let self = this;
         if(!this.isAccount){
           this.$vux.alert.show({ title: '温馨提示', content: self.placeholder.userAccount })
           return false;
@@ -74,9 +80,6 @@
           this.$vux.alert.show({ title: '温馨提示', content: self.placeholder.password })
           return false;
         }
-
-        let self = this;
-
 
         let data = {
           "phone": this.isPhone ? this.userAccount : '',
@@ -108,8 +111,10 @@
         if(!this.isAccount){
           this.$vux.alert.show({ title: '温馨提示', content: self.placeholder.userAccount })
           return false;
+        }else{
+          this.$router.push({ path: 'forget', query: { from: 'forget' }})
+          this.isNext = true;
         }
-        this.isNext = true;
       },
       getVerifyCode(){
         let self = this;
