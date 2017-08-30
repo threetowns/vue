@@ -36,7 +36,7 @@ router.beforeEach((to, from, next) => {
         }
       })
       .catch(error => {
-        self.$vux.alert.show({ title: '温馨提示', content: '请稍后再试！' })
+        Vue.$vux.alert.show({ title: '温馨提示', content: '请稍后再试！' })
       })
     }else {
       next({ path: '/login', query: { redirect: to.fullPath } })
