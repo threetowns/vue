@@ -25,7 +25,7 @@
       </div>
     </div>
     <matching-list :demand-type="demandType" :audit-status="auditStatus" :read-sort="readSort" :demand-category="demandCategory"></matching-list>
-    <footer-nav></footer-nav>
+    <footer-nav :nav-a="navA"></footer-nav>
   </div>
 </template>
 
@@ -41,6 +41,7 @@
     },
     data() {
       return {
+        navA: 1,
         demandType: '', //---空：全部，0：需求，1：接单"
         auditStatus: '', //---空：全部，0：进行中，3：结束"
         readSort: '', //---10：阅读排序降序，11：阅读排序升序，20：收藏数排序降序：21：收藏数排序升序，30：时间排序降序，31：时间排序升序;
