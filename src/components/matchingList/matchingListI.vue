@@ -41,7 +41,6 @@
         scrollerStatus,
         classifyList: '',
         noDataText: '暂无数据',
-        noDataShow: false,
         pageNum: 1,
         pageSize: 5,
         dataCount: 0,
@@ -51,6 +50,9 @@
       }
     },
     computed: { //计算
+      noDataShow() {
+        return this.classifyList.length ? false : true;
+      }
     },
     props: { //继承
       demandType: { //需求类型

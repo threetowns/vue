@@ -29,6 +29,7 @@ var scrollerStatus = {
 }
 //下拉刷新
 var pulldownF = function(e, mUrl, mData) {
+  console.log('下拉刷新')
   var v_this = e;
   v_this.showLoading = true;
   if(v_this.onFetching) {
@@ -42,18 +43,23 @@ var pulldownF = function(e, mUrl, mData) {
     $$.post(mUrl, mData, function(data) {
       console.log('data:', data);
       if(data.status == '0') {
-        if(data.data.classifyList) {
-          v_this.classifyList = data.data.classifyList;
+        if(data.data.classifyList || data.data.demandUserList || data.data.demandAnswerList || data.data.demandFavList) {
+          if(data.data.classifyList) {
+            v_this.classifyList = data.data.classifyList;
+          }
+          if(data.data.demandUserList) {
+            v_this.classifyList = data.data.demandUserList;
+          }
+          if(data.data.demandAnswerList) {
+            v_this.classifyList = data.data.demandAnswerList;
+          }
+          if(data.data.demandFavList) {
+            v_this.classifyList = data.data.demandFavList;
+          }
+        } else {
+          v_this.classifyList = '';
         }
-        if(data.data.demandUserList) {
-          v_this.classifyList = data.data.demandUserList;
-        }
-        if(data.data.demandAnswerList) {
-          v_this.classifyList = data.data.demandAnswerList;
-        }
-        if(data.data.demandFavList) {
-          v_this.classifyList = data.data.demandFavList;
-        }
+
         v_this.dataCount = data.data.count;
         v_this.$nextTick(() => {
           v_this.$refs.myscroller.reset({

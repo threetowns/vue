@@ -6,9 +6,9 @@
         <div v-for="list in classifyList">
           <matching-xq :m-list="list"></matching-xq>
         </div>
+        <div class="jzwP" v-if="classifyList.length==dataCount &&classifyList.length!=0">加载完了，共{{dataCount}}条</div>
       </div>
     </scroller>
-    <div class="jzwP" v-if="classifyList.length==dataCount">加载完了，共{{dataCount}}条</div>
     <no-data class="matching_no_data" v-if="noDataShow" :noText="noDataText"></no-data>
   </div>
 </template>
@@ -34,7 +34,6 @@
         scrollerStatus,
         classifyList: '',
         noDataText: '暂无数据',
-        noDataShow: false,
         pageNum: 1,
         pageSize: 5,
         dataCount: 0,
@@ -43,6 +42,9 @@
       }
     },
     computed: { //计算
+      noDataShow() {
+        return this.classifyList.length ? false : true;
+      }
     },
     props: { //继承
       demandType: { //需求类型
