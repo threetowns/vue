@@ -99,7 +99,8 @@ export default [{
       name: "reply",
       component: reply,
       meta: {
-        title: '回复'
+        title: '回复',
+        requireAuth: true
       }
     },
     //回复详情
