@@ -27,7 +27,7 @@
       </div>
     </div>
     <matching-list :demand-type="demandType" :audit-status="auditStatus" :read-sort="readSort"></matching-list>
-    <footer-nav></footer-nav>
+    <footer-nav :nav-a="navA"></footer-nav>
   </div>
 </template>
 
@@ -43,6 +43,7 @@
     },
     data() {
       return {
+        navA: 3,
         myUrl: '/api/personalCenter/demandUserList',
         demandType: '', //---空：全部，0：需求，1：接单"
         auditStatus: '', //---空（””）：全部，0：审核中，1：进行中，2:拒绝，3：结束”
