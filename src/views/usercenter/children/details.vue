@@ -6,7 +6,7 @@
         <div class="time"><span>发布日期：{{createTime}}</span><i></i></div>
         <div class="time2"><span>截止日期：{{endTime}}</span><i></i></div>
       </div>
-      <div v-if="myVisible">
+      <div>
         <span class="scqx sc" v-if="classify.isFav" @click="noFavFn"></span>
         <span class="scqx qx" v-else @click="isFavFn"></span>
       </div>
@@ -76,7 +76,7 @@
           });
           setTimeout(() => {
             this.$vux.alert.hide();
-            this.$router.push('/login');
+            this.$router.push('/reply?id=' + this.$route.query.id);
           }, 2000);
         } else {
           if(this.classify.audit_status == 1) {
@@ -93,29 +93,50 @@
       },
       noFavFn() {
         var v_this = this;
-        $$.post('/api/wxdemand/cancelFav', {
-          "token": localStorage.getItem('userToken'),
-          "data": {
-            "demandId": v_this.$route.query.id
-          }
-        }, function(data) {
-          if(data.status == '0') {
-            v_this.classify.isFav = 0;
-          }
-        });
+        if(localStorage.getItem('userToken')) {
+          $$.post('/api/wxdemand/cancelFav', {
+            "token": localStorage.getItem('userToken'),
+            "data": {
+              "demandId": v_this.$route.query.id
+            }
+          }, function(data) {
+            if(data.status == '0') {
+              v_this.classify.isFav = 0;
+            }
+          });
+        } else {
+          this.$vux.alert.show({
+            content: '登录后才能收藏'
+          });
+          setTimeout(() => {
+            this.$vux.alert.hide();
+            this.$router.push({ path: '/login', query: { redirect: this.$route.fullPath } })
+          }, 2000);
+        }
+
       },
       isFavFn() {
         var v_this = this;
-        $$.post('/api/wxdemand/saveFav', {
-          "token": localStorage.getItem('userToken'),
-          "data": {
-            "demandId": v_this.$route.query.id
-          }
-        }, function(data) {
-          if(data.status == '0') {
-            v_this.classify.isFav = 1;
-          }
-        });
+        if(localStorage.getItem('userToken')) {
+          $$.post('/api/wxdemand/saveFav', {
+            "token": localStorage.getItem('userToken'),
+            "data": {
+              "demandId": v_this.$route.query.id
+            }
+          }, function(data) {
+            if(data.status == '0') {
+              v_this.classify.isFav = 1;
+            }
+          });
+        } else {
+          this.$vux.alert.show({
+            content: '登录后才能收藏'
+          });
+          setTimeout(() => {
+            this.$vux.alert.hide();
+            this.$router.push({ path: '/login', query: { redirect: this.$route.fullPath } })
+          }, 2000);
+        }
       },
     },
     mounted: function() { //类似于回调函数(初次实例化完成后调用)
