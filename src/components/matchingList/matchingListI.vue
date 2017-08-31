@@ -1,14 +1,21 @@
 <template>
   <div class="matching_list">
-    <scroller lock-x height="100%" ref="myscroller" use-pullup @on-pullup-loading="pullupFn" :pullup-config="pullupConfig" v-model="scrollerStatus" v-show="!noDataShow">
+    <div class="noScroller" v-if="!noScroller">
+      <div class="margin_bottom"></div>
+      <div v-for="list in classifyList">
+        <matching-xq :m-list="list"></matching-xq>
+      </div>
+      <div class="jzwP" v-if="classifyList.length==dataCount">加载完了，共{{dataCount}}条</div>
+    </div>
+    <scroller lock-x height="100%" ref="myscroller" use-pullup @on-pullup-loading="pullupFn" :pullup-config="pullupConfig" v-model="scrollerStatus" v-show="!noDataShow && noScroller" @on-scroll="scrollFn">
       <div>
         <div class="margin_bottom"></div>
         <div v-for="list in classifyList">
           <matching-xq :m-list="list"></matching-xq>
         </div>
+        <div class="jzwP" v-if="classifyList.length==dataCount">加载完了，共{{dataCount}}条</div>
       </div>
     </scroller>
-    <div class="jzwP" v-if="classifyList.length==dataCount">加载完了，共{{dataCount}}条</div>
     <no-data class="matching_no_data" v-if="noDataShow" :noText="noDataText"></no-data>
   </div>
 </template>
@@ -40,6 +47,7 @@
         dataCount: 0,
         scrollTop: 0,
         scrollTopMax: 0,
+        noScroller: false,
       }
     },
     computed: { //计算
@@ -59,6 +67,13 @@
       },
     },
     methods: {
+      scrollFn(arg) {
+        if(this.scrollTop < this.scrollTopMax || arg.top <= 0) {
+          this.noScroller = false;
+        } else {
+          this.noScroller = true;
+        }
+      },
       //下拉刷新
       pulldownFn() {
         var v_this = this;
@@ -94,6 +109,15 @@
     },
     mounted: function() { //类似于回调函数(初次实例化完成后调用)
       var v_this = this;
+      var topMax = $$.css($$.query(".swiperList")[0], 'height') + $$.css($$.query(".nav_2")[0], 'height');
+      v_this.scrollTopMax = Math.floor(topMax);
+
+      window.addEventListener('scroll', function(ev) {
+        v_this.scrollTop = Math.floor(this.scrollY);
+        if(v_this.scrollTop == v_this.scrollTopMax) {
+          v_this.noScroller = true;
+        }
+      }, false);
 
       console.log('分类:', this.demandCategory)
       this.$nextTick(() => {
@@ -150,6 +174,13 @@
         background-color: #ebebeb;
       }
     }
+    .mengceng {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
   }
   
   .matching_no_data {
@@ -163,8 +194,7 @@
       background-color: rgba(0, 0, 0, 0.25);
     }
   }
-  
-  .jzwP {
+  .jzwP{
     text-align: center;
     height: 40px;
     line-height: 40px;

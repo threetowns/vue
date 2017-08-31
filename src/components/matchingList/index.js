@@ -12,7 +12,7 @@ const pullupConfig = {
   content: '没有更多内容',
   upContent: '上拉加载更多',
   downContent: '释放后加载',
-  loadingContent: 'Loading...',
+  loadingContent: '加载中...',
   clsPrefix: 'my-'
 }
 //所有数据加载完

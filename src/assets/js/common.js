@@ -103,6 +103,9 @@ var imitationQuery = {
     }
     this.ajax(opts)
   },
+  query: function(_dom) {
+    return document.querySelectorAll(_dom);
+  },
   /*获取样式*/
   css: function(_dom, _style) {
     var __style = getComputedStyle(_dom, false)[_style];

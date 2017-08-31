@@ -69,8 +69,26 @@
     },
     methods: {
       replyFn() {
-        if(this.classify.audit_status == 1) {
-          this.$router.push('/reply?id=' + this.$route.query.id);
+        var v_this = this;
+        if(!localStorage.getItem('userToken')) {
+          this.$vux.alert.show({
+            content: '登陆后才能回复'
+          });
+          setTimeout(() => {
+            this.$vux.alert.hide();
+            this.$router.push('/login');
+          }, 2000);
+        } else {
+          if(this.classify.audit_status == 1) {
+            this.$router.push('/reply?id=' + this.$route.query.id);
+          } else {
+            this.$vux.alert.show({
+              content: '已结束不能回复'
+            });
+            setTimeout(() => {
+              this.$vux.alert.hide();
+            }, 2000);
+          }
         }
       },
       noFavFn() {

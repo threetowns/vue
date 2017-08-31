@@ -47,7 +47,9 @@
     },
     data() {
       return {
-        classify: {},
+        classify: {
+          answer_time: new Date()
+        },
       }
     },
     computed: { //计算
@@ -79,7 +81,7 @@
           "answerId": v_this.$route.query.id
         }
       }, function(data) {
-        console.log('回复详情:',data);
+        console.log('回复详情:', data);
         if(data.status = '0') {
           v_this.classify = data.data;
         }

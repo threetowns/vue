@@ -12,6 +12,7 @@
             </div>
           </div>
         </div>
+        <div class="jzwP" v-if="classifyList.length==dataCount">加载完了，共{{dataCount}}条</div>
       </div>
     </scroller>
     <no-data class="matching_no_data" v-if="!classifyList" :noText="noDataText"></no-data>
@@ -36,7 +37,7 @@
         pulldownConfig,
         pullupConfig,
         scrollerStatus,
-        classifyList: null,
+        classifyList: '',
         noDataText: '暂无数据',
         noDataShow: false,
         pageNum: 1,
@@ -137,6 +138,7 @@
     flex: 1;
     overflow: hidden;
     padding-bottom: 1.0rem;
+    position: relative;
     .my-container {
       line-height: 40px;
     }
@@ -205,5 +207,10 @@
         }
       }
     }
+  }
+  .jzwP{
+    text-align: center;
+    height: 40px;
+    line-height: 40px;
   }
 </style>

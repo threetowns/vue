@@ -30,7 +30,7 @@
 <script>
   import { Swiper } from 'vux';
   import FooterNav from '../../components/footer/footer';
-  import MatchingList from '../../components/matchingList/matchingList';
+  import MatchingList from '../../components/matchingList/matchingListI';
   //焦点图片组
   var swiperList = [{
       //url: 'http://m.baidu.com',
