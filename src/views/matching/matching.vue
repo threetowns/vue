@@ -38,7 +38,7 @@
     },
     {
       //url: 'http://m.baidu.com',
-      img: 'static/img/b1.jpg',
+      img: 'static/img/b2.jpg',
     }
   ];
 
