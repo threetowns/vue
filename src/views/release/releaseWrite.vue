@@ -1,13 +1,13 @@
 <template>
   <div class="issue">
     <div class="name_input_w">
-      <div class="name_input name_a" @click="gx_show=true">
+      <div class="name_input name_a" @click="selectType">
         <span class="name">供需类型</span>
         <div class="_input"><i></i><span>{{ctypeT[submitData.demand_type]}}</span></div>
       </div>
     </div>
     <div class="name_input_w">
-      <div class="name_input name_a" @click="gx_show2=true">
+      <div class="name_input name_a" @click="selectCate">
         <span class="name">分类</span>
         <div class="_input"><i></i><span>{{classifyT[submitData.demand_category]}}</span></div>
       </div>
@@ -75,7 +75,7 @@
           <div class="_input"> <i></i> </div>
         </div>
       </div>
-      <input type="button" value="完成" @click="gx_show=false" />
+      <input type="button" value="完成" @click="goBack" />
     </popup>
     <popup class="popup_w" v-model="gx_show2" position="right" width="100%">
       <div class="margin_bottom"></div>
@@ -101,7 +101,7 @@
           <div class="_input"> <i></i> </div>
         </div>
       </div>
-      <input type="button" value="完成" @click="gx_show2=false" />
+      <input type="button" value="完成" @click="goBack" />
     </popup>
 
   </div>
@@ -152,6 +152,18 @@
     props: { //继承
     },
     methods: { //方法
+      selectType(){
+        this.gx_show = true
+        this.$router.push({ path: 'release', query: { from: 'type' }})
+      },
+      selectCate(){
+        this.gx_show2 = true
+        this.$router.push({ path: 'release', query: { from: 'cate' }})
+      },
+      goBack(){
+        this.gx_show = this.gx_show2 = false;
+        this.$router.push({ path: 'release'})
+      },
       //弹窗
       promptFn(title, content) {
         this.$vux.alert.show({
@@ -214,8 +226,12 @@
         }
       }
     },
-    mounted: function() { //类似于回调函数(初次实例化完成后调用)
-    },
+    watch: {
+      $route () {
+        this.gx_show = this.$route.query.from == 'type' ? true : false
+        this.gx_show2 = this.$route.query.from == 'cate' ? true : false
+      }
+    }
   }
 </script>
 
