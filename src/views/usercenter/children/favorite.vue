@@ -7,20 +7,20 @@
         <a @click="screenC=3" :class="{'active':screenC==3}">排序<i></i></a>
       </div>
       <div class="nav_d" v-if="screenC!=0" @click="navDFn">
-        <div v-if="screenC==1" @click.stop>
+        <div v-if="screenC==1">
           <a @click="genreC=''" :class="{'active':genreC==''}"><i></i>全部</a>
           <a @click="genreC='0'" :class="{'active':genreC=='0'}"><i></i>需求</a>
           <a @click="genreC='1'" :class="{'active':genreC=='1'}"><i></i>接单</a>
         </div>
-        <div v-if="screenC==2" @click.stop>
+        <div v-if="screenC==2">
           <a @click="stateC=''" :class="{'active':stateC==''}"><i></i>全部</a>
           <a @click="stateC='1'" :class="{'active':stateC=='1'}"><i></i>进行中</a>
           <a @click="stateC='3'" :class="{'active':stateC=='3'}"><i></i>已结束</a>
         </div>
-        <div v-if="screenC==3" @click.stop>
-          <a @click="sortFn(0)" :class="[(sortC==0) ? 'active':'',sortPx_0 ? 'xia':'shang','sort_a']"><i></i>阅读数</a>
-          <a @click="sortFn(1)" :class="[(sortC==1) ? 'active':'',sortPx_1 ? 'xia':'shang','sort_a']"><i></i>收藏数</a>
-          <a @click="sortFn(2)" :class="[(sortC==2) ? 'active':'',sortPx_2 ? 'xia':'shang','sort_a']"><i></i>时间</a>
+        <div v-if="screenC==3">
+          <a @click="sortFn(2)" :class="[(sortC=='2') ? 'active':'',sortPx_2 ? 'xia':'shang','sort_a']"><i></i>时间</a>
+          <a @click="sortFn(0)" :class="[(sortC=='0') ? 'active':'',sortPx_0 ? 'xia':'shang','sort_a']"><i></i>阅读数</a>
+          <a @click="sortFn(1)" :class="[(sortC=='1') ? 'active':'',sortPx_1 ? 'xia':'shang','sort_a']"><i></i>收藏数</a>
         </div>
       </div>
     </div>
@@ -50,12 +50,12 @@
         oldgenreC: '',
         stateC: '',
         oldstateC: '',
-        sortC: 0,
-        sortPx_0: true,
-        sortPx_1: true,
-        sortPx_2: true,
-        sortPx: 10,
-        oldsortPx: 10,
+        sortC: 2,
+        sortPx_0: false,
+        sortPx_1: false,
+        sortPx_2: false,
+        sortPx: 31,
+        oldsortPx: 31,
       }
     },
     computed: { //计算
