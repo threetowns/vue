@@ -15,6 +15,7 @@ const releaseDetails = r => require.ensure([], () => r(require('../views/usercen
 const favoriteDetails = r => require.ensure([], () => r(require('../views/usercenter/children/favoriteDetails')), 'favoriteDetails'); //收藏详情
 const releaseWrite = r => require.ensure([], () => r(require('../views/release/releaseWrite')), 'releaseWrite'); //写发布
 const details = r => require.ensure([], () => r(require('../views/usercenter/children/details')), 'details'); //需求详情
+const notfound = r => require.ensure([], () => r(require('components/error/404')), 'notfound'); // 404
 
 export default [{
   path: '/',
@@ -162,9 +163,7 @@ export default [{
     {
       path: "/*",
       name: "error",
-      component: {
-        template: "<h1>error-404</h1>"
-      },
+      component: notfound,
       meta: {
         title: '404'
       }
