@@ -4,19 +4,19 @@
       <div class="name_input">
         <span class="name">姓名</span>
         <div class="_input">
-          <input class="textOverflow" type="text" name="name" id="name" placeholder="必填，请输入2-5个字" v-model="submitData.name" @change="nameFn" />
+          <input class="textOverflow" type="text" name="name" id="name" :placeholder="placeholder.required + placeholder.name" v-model="submitData.name" @change="nameFn" />
         </div>
       </div>
       <div class="name_input">
         <span class="name">联系方式</span>
         <div class="_input">
-          <input class="textOverflow" type="text" name="" id="" value="" placeholder="必填，请输入手机号码" v-model="submitData.tel" @change="checkPhone" />
+          <input class="textOverflow" type="text" name="" id="" value="" :placeholder="placeholder.required + placeholder.phone" v-model="submitData.tel" @change="checkPhone" />
         </div>
       </div>
     </div>
     <div class="name_textarea_w">
       <div class="name_textarea"> <span class="name">详情描述</span>
-        <div class="_textarea"> <textarea placeholder="必填，请输入500字以内描述。" v-model="submitData.details" @input="detailsFn"></textarea> </div>
+        <div class="_textarea"> <textarea :placeholder="placeholder.required + placeholder.details" v-model="submitData.details" @input="detailsFn"></textarea> </div>
       </div>
     </div>
     <div class="name_fileImage_w">
@@ -52,7 +52,13 @@
           details: '',
           enclosure: null,
         },
-        oldDetails: ''
+        oldDetails: '',
+        placeholder: {
+          required: '必填，',
+          name: '请输入2-5个字',
+          phone: '请输入正确手机号码',
+          details: '请输入500字以内描述'
+        }
       }
     },
     computed: { //计算
@@ -74,15 +80,13 @@
       //名字验证
       nameFn() {
         if(this.submitData.name.length < 2 || this.submitData.name.length > 5) {
-          this.submitData.name = null;
-          this.promptFn('', '请输入2-5个字');
+          this.promptFn('', this.placeholder.name);
         }
       },
       //手机号验证
       checkPhone() {
         if(!(/^1[34578]\d{9}$/.test(this.submitData.tel))) {
-          this.submitData.tel = null;
-          this.promptFn('', '请输入正确手机号码');
+          this.promptFn('', this.placeholder.phone);
         }
       },
       //请输入500字以内描述
@@ -91,7 +95,7 @@
           this.oldDetails = this.submitData.details;
         } else {
           this.submitData.details = this.oldDetails;
-          this.promptFn('', '请输入500字以内描述');
+          this.promptFn('', this.placeholder.details);
         }
       },
       //清除上传val
@@ -204,15 +208,12 @@
         var v_this = this;
         var submitOn = true;
         if(this.submitData.name.length < 2 || this.submitData.name.length > 5) {
-          this.submitData.name = null;
           submitOn = false;
         }
         if(!(/^1[34578]\d{9}$/.test(this.submitData.tel))) {
-          this.submitData.tel = null;
           submitOn = false;
         }
         if(this.submitData.details.length > 500) {
-          this.submitData.details = null;
           submitOn = false;
         }
         if(submitOn) {
