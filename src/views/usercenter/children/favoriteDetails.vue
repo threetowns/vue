@@ -33,7 +33,7 @@
     <div class="details_xq">
       <div class="name_reply">
         <span class="name">回复的人</span>
-        <div class="_textarea">
+        <div class="_textarea textQzhh">
           <span v-for="list in classify.answerList">{{list.nickname}}<i>，</i></span>
         </div>
       </div>
