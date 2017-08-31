@@ -162,7 +162,7 @@
       },
       goBack(){
         this.gx_show = this.gx_show2 = false;
-        this.$router.push({ path: 'release'})
+        history.back();
       },
       //弹窗
       promptFn(title, content) {
