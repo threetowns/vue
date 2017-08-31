@@ -17,31 +17,31 @@
       <div class="name_input">
         <span class="name">标题</span>
         <div class="_input">
-          <input class="textOverflow" type="text" v-model="submitData.demand_title" placeholder="必填，请输入2-10个字" @change="nameFn2" />
+          <input class="textOverflow" type="text" v-model="submitData.demand_title" :placeholder="placeholder.required + placeholder.title" @change="nameFn2" />
         </div>
       </div>
       <div class="name_input">
         <span class="name">姓名</span>
         <div class="_input">
-          <input class="textOverflow" type="text" name="name" id="name" placeholder="必填，请输入2-5个字" v-model="submitData.user_name" @change="nameFn" />
+          <input class="textOverflow" type="text" name="name" id="name" :placeholder="placeholder.required + placeholder.username" v-model="submitData.user_name" @change="nameFn" />
         </div>
       </div>
       <div class="name_input">
         <span class="name">联系方式</span>
         <div class="_input">
-          <input class="textOverflow" type="text" name="" id="" value="" placeholder="必填，请输入手机号码" v-model="submitData.phone" @change="checkPhone" />
+          <input class="textOverflow" type="text" name="" id="" value="" :placeholder="placeholder.required + placeholder.phone" v-model="submitData.phone" @change="checkPhone" />
         </div>
       </div>
       <div class="name_input">
         <span class="name">报酬（原价）</span>
         <div class="_input">
-          <input class="textOverflow" type="number" placeholder="必填，请输入报酬原价，不可二次修改" v-model="submitData.original_cost" style="padding-right: 0;" />
+          <input class="textOverflow" type="number" :placeholder="placeholder.required + placeholder.cost" v-model="submitData.original_cost" style="padding-right: 0;" />
         </div>
       </div>
       <div class="name_input">
         <span class="name">报酬（现价）</span>
         <div class="_input">
-          <input class="textOverflow" type="number" placeholder="必填，请输入报酬金额" v-model="submitData.current_price" />
+          <input class="textOverflow" type="number" :placeholder="placeholder.required + placeholder.price" v-model="submitData.current_price" />
         </div>
       </div>
     </div>
@@ -58,7 +58,7 @@
     </div>
     <div class="name_textarea_w">
       <div class="name_textarea"> <span class="name">详情描述</span>
-        <div class="_textarea"> <textarea placeholder="必填，请输入500字以内描述。" v-model="submitData.description" @input="detailsFn"></textarea> </div>
+        <div class="_textarea"> <textarea :placeholder="placeholder.required + placeholder.description" v-model="submitData.description" @input="detailsFn"></textarea> </div>
       </div>
     </div>
     <input class="_button" type="button" id="" value="立即发布" @click="submitFn" />
@@ -135,7 +135,16 @@
           "end_time_desc": dateFormat(new Date(), 'YYYY-MM-DD HH:mm:ss'),
           "description": ""
         },
-        oldDescription: ''
+        oldDescription: '',
+        placeholder: {
+          required: '必填，',
+          title: '请输入2-25个字',
+          username: '请输入2-5个字',
+          phone: '请输入手机号码',
+          cost: '请输入报酬原价，不可二次修改',
+          price: '请输入报酬金额',
+          description: '请输入500字以内描述'
+        }
       }
     },
     computed: { //计算
@@ -157,20 +166,20 @@
       nameFn() {
         if(this.submitData.user_name.length < 2 || this.submitData.user_name.length > 5) {
           this.submitData.user_name = null;
-          this.promptFn('', '请输入2-5个字');
+          this.promptFn('', this.placeholder.username);
         }
       },
       nameFn2() {
-        if(this.submitData.demand_title.length < 2 || this.submitData.demand_title.length > 10) {
-          this.submitData.demand_title = null;
-          this.promptFn('', '请输入2-10个字');
+        if(this.submitData.demand_title.length < 2 || this.submitData.demand_title.length > 25) {
+          // this.submitData.demand_title = null;
+          this.promptFn('', this.placeholder.title);
         }
       },
       //手机号验证
       checkPhone() {
         if(!(/^1[34578]\d{9}$/.test(this.submitData.phone))) {
           this.submitData.phone = null;
-          this.promptFn('', '请输入正确手机号码');
+          this.promptFn('', this.placeholder.phone);
         }
       },
       //请输入500字以内描述
@@ -179,7 +188,7 @@
           this.oldDescription = this.submitData.description;
         } else {
           this.submitData.description = this.oldDescription;
-          this.promptFn('', '请输入500字以内描述');
+          this.promptFn('', this.placeholder.description);
         }
       },
       //提交
