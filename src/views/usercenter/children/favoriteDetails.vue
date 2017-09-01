@@ -34,7 +34,8 @@
       <div class="name_reply">
         <span class="name">回复的人</span>
         <div class="_textarea textQzhh">
-          <span v-for="list in classify.answerList">{{list.nickname}}<i>，</i></span>
+          <span v-for="list in classify.answerList"
+@click="replyXqFn(list.id,list.isMyAnswer)">{{list.nickname}}<i>，</i></span>
         </div>
       </div>
     </div>
@@ -68,6 +69,13 @@
 
     },
     methods: {
+      replyXqFn(id, b) {
+        if(b) {
+          this.$router.push('/usercenter/reply/details?id=' + id);
+        } else if(this.classify.isMe) {
+          this.$router.push('/usercenter/reply/details?id=' + id);
+        }
+      },
       replyFn() {
         if(this.classify.audit_status == 1) {
           this.$router.push('/reply?id=' + this.$route.query.id);

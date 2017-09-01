@@ -51,11 +51,11 @@
         stateC: '',
         oldstateC: '',
         sortC: 2,
-        sortPx_0: false,
-        sortPx_1: false,
-        sortPx_2: false,
-        sortPx: 31,
-        oldsortPx: 31,
+        sortPx_0: true,
+        sortPx_1: true,
+        sortPx_2: true,
+        sortPx: 30,
+        oldsortPx: 30,
       }
     },
     computed: { //计算

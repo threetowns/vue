@@ -75,7 +75,7 @@
         }
       },*/
       replyXqFn(id) {
-        this.$router.push('/usercenter/reply/details?id' + id);
+        this.$router.push('/usercenter/reply/details?id=' + id);
       },
       noFavFn() {
         var v_this = this;

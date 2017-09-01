@@ -35,13 +35,13 @@
       <div class="name_input">
         <span class="name">报酬（原价）</span>
         <div class="_input">
-          <input class="textOverflow" type="number" :placeholder="placeholder.required + placeholder.cost" v-model="submitData.original_cost" style="padding-right: 0;" />
+          <input class="textOverflow" type="number" :placeholder="placeholder.required + placeholder.cost" v-model="submitData.original_cost" style="padding-right: 0;" @change="numberFn('original_cost')" />
         </div>
       </div>
       <div class="name_input">
         <span class="name">报酬（现价）</span>
         <div class="_input">
-          <input class="textOverflow" type="number" :placeholder="placeholder.required + placeholder.price" v-model="submitData.current_price" />
+          <input class="textOverflow" type="number" :placeholder="placeholder.required + placeholder.price" v-model="submitData.current_price" @change="numberFn('current_price')" />
         </div>
       </div>
     </div>
@@ -50,9 +50,7 @@
         <span class="name">截止日期</span>
         <div class="_input _date">
           <i></i>
-          <datetime v-model="submitData.end_time_desc" format="YYYY-MM-DD HH:mm"
-            :start-date="startDate"
-            >{{submitData.end_time_desc}}</datetime>
+          <datetime v-model="submitData.end_time_desc" format="YYYY-MM-DD HH:mm" :start-date="startDate">{{submitData.end_time_desc}}</datetime>
         </div>
       </div>
     </div>
@@ -122,7 +120,7 @@
         gx_show2: false,
         ctypeT: ['需求', '接单'],
         classifyT: ['精准营销', '数据报告', '数据交易', 'API', '其他定制'],
-        startDate:dateFormat(new Date(), 'YYYY-MM-DD'),
+        startDate: dateFormat(new Date(), 'YYYY-MM-DD'),
         //minHour:dateFormat(new Date(), 'HH'),
         submitData: {
           "demand_type": 0,
@@ -152,15 +150,37 @@
     props: { //继承
     },
     methods: { //方法
-      selectType(){
+      numberFn(num) {
+        var reg = new RegExp("^[0-9]+(.[0-9]{1,2})?$");
+        if(!(reg.test(this.submitData[num]))) {
+          this.submitData[num] = '';
+          this.promptFn('', '格式不正确');
+        } else {
+          if(this.submitData[num] < 0.01 || this.submitData[num] > 999999.99) {
+            this.submitData[num] = '';
+            this.promptFn('', '价格超出限制');
+          }
+        }
+      },
+      selectType() {
         this.gx_show = true
-        this.$router.push({ path: 'release', query: { from: 'type' }})
+        this.$router.push({
+          path: 'release',
+          query: {
+            from: 'type'
+          }
+        })
       },
-      selectCate(){
+      selectCate() {
         this.gx_show2 = true
-        this.$router.push({ path: 'release', query: { from: 'cate' }})
+        this.$router.push({
+          path: 'release',
+          query: {
+            from: 'cate'
+          }
+        })
       },
-      goBack(){
+      goBack() {
         this.gx_show = this.gx_show2 = false;
         history.back();
       },
@@ -227,7 +247,7 @@
       }
     },
     watch: {
-      $route () {
+      $route() {
         this.gx_show = this.$route.query.from == 'type' ? true : false
         this.gx_show2 = this.$route.query.from == 'cate' ? true : false
       }
@@ -239,6 +259,7 @@
 <style lang="less">
   @import url("../../assets/styles/less");
   .issue {
+    padding-bottom: 1.00rem;
     ._date {
       position: relative;
       i {
@@ -349,7 +370,7 @@
       }
       .name {
         display: inline-block;
-        width: 6em;
+        width: 7em;
         .font32;
         .lineH3;
       }
@@ -376,7 +397,7 @@
       }
       .name {
         display: inline-block;
-        width: 4.5em;
+        width: 7em;
         padding-right: 0.5em;
         .font32;
         .lineH3;
@@ -410,6 +431,7 @@
       background: #15aafb;
       color: @colorf;
       letter-spacing: 0.2em;
+      z-index: 10;
     }
   }
 </style>

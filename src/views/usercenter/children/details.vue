@@ -34,11 +34,11 @@
       <div class="name_reply">
         <span class="name">回复的人</span>
         <div class="_textarea textQzhh">
-          <span v-for="list in classify.answerList">{{list.nickname}}<i>，</i></span>
+          <span v-for="list in classify.answerList" @click="replyXqFn(list.id,list.isMyAnswer)">{{list.nickname}}<i>，</i></span>
         </div>
       </div>
     </div>
-    <input class="_button" :class="{'no':(classify.audit_status==3)}" type="button" id="" value="回复" v-if="classify.audit_status==1 || classify.audit_status==3" @click="replyFn" />
+    <input class="_button" :class="{'no':(classify.audit_status==3||classify.isMe)}" type="button" id="" value="回复" v-if="classify.audit_status==1 || classify.audit_status==3" @click="replyFn" />
   </div>
 </template>
 
@@ -68,26 +68,44 @@
 
     },
     methods: {
+      replyXqFn(id, b) {
+        if(b) {
+          this.$router.push('/usercenter/reply/details?id=' + id);
+        } else if(this.classify.isMe) {
+          this.$router.push('/usercenter/reply/details?id=' + id);
+        }
+      },
       replyFn() {
         var v_this = this;
         if(!localStorage.getItem('userToken')) {
           this.$vux.alert.show({
-            content: '登陆后才能回复'
+            content: '登录后才能回复'
           });
           setTimeout(() => {
             this.$vux.alert.hide();
             this.$router.push('/reply?id=' + this.$route.query.id);
           }, 2000);
         } else {
-          if(this.classify.audit_status == 1) {
-            this.$router.push('/reply?id=' + this.$route.query.id);
-          } else {
-            this.$vux.alert.show({
-              content: '已结束不能回复'
-            });
-            setTimeout(() => {
-              this.$vux.alert.hide();
-            }, 2000);
+          var b = true;
+          for(var i = 0; i < this.classify.answerList.length; i++) {
+            if(this.classify.answerList[i]["isMyAnswer"] == 1) {
+              b = false;
+              this.$vux.alert.show({
+                content: '您已经回复过'
+              });
+            }
+          };
+          if(b) {
+            if(this.classify.audit_status == 1) {
+              this.$router.push('/reply?id=' + this.$route.query.id);
+            } else {
+              this.$vux.alert.show({
+                content: '已结束不能回复'
+              });
+              setTimeout(() => {
+                this.$vux.alert.hide();
+              }, 2000);
+            }
           }
         }
       },
@@ -110,7 +128,12 @@
           });
           setTimeout(() => {
             this.$vux.alert.hide();
-            this.$router.push({ path: '/login', query: { redirect: this.$route.fullPath } })
+            this.$router.push({
+              path: '/login',
+              query: {
+                redirect: this.$route.fullPath
+              }
+            })
           }, 2000);
         }
 
@@ -134,7 +157,12 @@
           });
           setTimeout(() => {
             this.$vux.alert.hide();
-            this.$router.push({ path: '/login', query: { redirect: this.$route.fullPath } })
+            this.$router.push({
+              path: '/login',
+              query: {
+                redirect: this.$route.fullPath
+              }
+            })
           }, 2000);
         }
       },

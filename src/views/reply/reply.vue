@@ -91,7 +91,7 @@
       },
       //请输入500字以内描述
       detailsFn() {
-        if(this.submitData.details.length <= 500) {
+        if(this.submitData.details.length <= 500 && this.submitData.details.length > 0) {
           this.oldDetails = this.submitData.details;
         } else {
           this.submitData.details = this.oldDetails;
@@ -213,7 +213,7 @@
         if(!(/^1[34578]\d{9}$/.test(this.submitData.tel))) {
           submitOn = false;
         }
-        if(this.submitData.details.length > 500) {
+        if(this.submitData.details.length > 500 || this.submitData.details.length <= 0) {
           submitOn = false;
         }
         if(submitOn) {
@@ -235,7 +235,8 @@
             $$.post("/api/wxanswer/submitAnswer", this_data, function(data) {
               console.log('回复提交后', data);
               if(data.status = '0') {
-                v_this.$router.push('/usercenter/reply/details?id=' + data.answerId);
+                // v_this.$router.push('/usercenter/reply/details?id=' + data.answerId);
+                v_this.$router.push('/details?id=' + v_this.$route.query.id);
               }
             });
           });

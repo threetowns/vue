@@ -51,15 +51,15 @@
         stateC: '',
         oldstateC: '',
         sortC: 2,
-        sortPx_0: false,
-        sortPx_1: false,
-        sortPx_2: false,
-        sortPx: 31,
-        oldsortPx: 31,
+        sortPx_0: true,
+        sortPx_1: true,
+        sortPx_2: true,
+        sortPx: 30,
+        oldsortPx: 30,
       }
     },
     computed: { //计算
-      demandCategory(){
+      demandCategory() {
         return this.$route.query.category;
       }
     },
@@ -93,6 +93,27 @@
       },
     },
     mounted: function() { //类似于回调函数(初次实例化完成后调用)
+      setTimeout(() => {
+        switch(this.$route.query.category) {
+          case 0:
+            document.title = "精准营销"
+            break;
+          case 1:
+            document.title = "数据报告"
+            break;
+          case 2:
+            document.title = "数据交易"
+            break;
+          case 3:
+            document.title = "API"
+            break;
+          case 4:
+            document.title = "其他定制"
+            break;
+          default:
+          ;
+        }
+      }, 100);
     }
   }
 </script>
