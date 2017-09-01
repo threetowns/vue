@@ -47,7 +47,8 @@
         },
         regex: {
           phone: /^1[3|4|5|7|8][0-9]{9}$/,
-          email: /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+          email: /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+          password: /^\S{6,12}$/
         }
       }
     },
@@ -60,6 +61,9 @@
       },
       isAccount: function(){
         return !(!this.isPhone && !this.isEmail)
+      },
+      isPassword: function(){
+        return this.regex.password.test(this.password)
       }
     },
     watch: {
@@ -78,6 +82,9 @@
           return false;
         }else if(!this.password){
           this.$vux.alert.show({ title: '温馨提示', content: self.placeholder.password })
+          return false;
+        }else if(!this.isPassword){
+          this.$vux.alert.show({ title: '温馨提示', content: '请输入密码长度为6-12位之间，且不含空格' })
           return false;
         }
 
