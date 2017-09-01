@@ -4,11 +4,19 @@
       <div>
         <div class="margin_bottom"></div>
         <div v-for="list in classifyList">
-          <matching-xq :m-list="list"></matching-xq>
+          <matching-xq :m-list="list">
+            <div slot="meta">
+               <div class="div_2">
+                <span class="chakan"><i></i>{{list.browse_count}}</span>
+                <span class="xihuan"><i></i>{{list.fav_count}}</span>
+                <span class="shijian">{{ list.create_time | formatDate }}</span>
+              </div>
+            </div>
+          </matching-xq>
           <div class="wdhf" @click="pushFn(list.answerId)">
             <div>
               <div class="name">我的回复</div>
-              <div class="time"><span>回复时间：2017-08-17 12:00</span><i></i></div>
+              <div class="time"><span>回复时间：{{ list.answer_time | formatDate }}</span><i></i></div>
             </div>
           </div>
         </div>
@@ -153,13 +161,13 @@
       }
     }
   }
-  
+
   .matching_no_data {
     margin-top: 0.20rem;
     width: 100%;
     height: 100%;
   }
-  
+
   .my_matching_list {
     .matching_list_xq {
       padding-bottom: 0.20rem;
@@ -210,7 +218,7 @@
       }
     }
   }
-  
+
   .jzwP {
     text-align: center;
     height: 40px;

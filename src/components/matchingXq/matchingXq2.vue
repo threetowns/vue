@@ -12,6 +12,7 @@
     </div>
     <span class="xujie jie" v-if="mList.demand_type"></span>
     <span class="xujie xu" v-else></span>
+    <slot name="meta"></slot>
   </div>
 </template>
 
@@ -35,11 +36,6 @@
       mList: {
         required: true
       }
-    },
-    computed: {
-      createTime() {
-        return dateFormat(this.mList.create_time, 'YYYY-MM-DD HH:mm:ss')
-      },
     },
     methods: { //方法
       pushFn(id) {
