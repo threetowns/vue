@@ -113,6 +113,9 @@ var pullupF = function(e, mUrl, mData) {
           if(data.data.demandAnswerList) {
             v_this.classifyList = [...v_this.classifyList, ...(data.data.demandAnswerList)];
           }
+          if(data.data.demandFavList) {
+            v_this.classifyList = [...v_this.classifyList, ...(data.data.demandFavList)];
+          }
           v_this.dataCount = data.data.count;
           //数据全部加载完了
           if(v_this.dataCount == v_this.classifyList.length) {
