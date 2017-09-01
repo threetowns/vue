@@ -138,6 +138,7 @@
         color: #666;
         text-indent: @indent;
         display: block;
+        overflow: hidden;
         &:after{
           position: absolute;
           bottom: 0;

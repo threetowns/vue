@@ -38,7 +38,7 @@
         </div>
       </div>
     </div>
-    <input class="_button" :class="{'no':(classify.audit_status==3)}" type="button" id="" value="回复" v-if="(classify.audit_status==1 || classify.audit_status==3) && !classify.isMe" @click="replyFn" />
+    <input class="_button" :class="{'no':(classify.audit_status==3)}" type="button" id="" value="回复" v-if="(classify.audit_status==1 || classify.audit_status==3) && !classify.isMe" @click="replyFn" v-show="classify.audit_status!=3"/>
   </div>
 </template>
 
