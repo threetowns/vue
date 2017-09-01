@@ -13,6 +13,9 @@ import './assets/js/rem'
 import vuePlus from './assets/js/vue-plus';
 Vue.use(vuePlus);
 
+import filters from 'src/filters'
+Object.keys(filters).forEach(key => Vue.filter(key, filters[key]))
+
 // 页面刷新时，重新赋值token
 if(localStorage.getItem('userToken')) {
   store.commit(types.RECORD_USERTOKEN, localStorage.getItem('userToken'))
