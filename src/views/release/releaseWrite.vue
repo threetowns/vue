@@ -50,7 +50,7 @@
         <span class="name">截止日期</span>
         <div class="_input _date">
           <i></i>
-          <datetime v-model="submitData.end_time_desc" format="YYYY-MM-DD HH:mm" :start-date="startDate">{{submitData.end_time_desc}}</datetime>
+          <datetime v-model="submitData.end_time_desc" format="YYYY-MM-DD HH:mm" @on-change="dataFn"></datetime>
         </div>
       </div>
     </div>
@@ -120,7 +120,6 @@
         gx_show2: false,
         ctypeT: ['需求', '接单'],
         classifyT: ['精准营销', '数据报告', '数据交易', 'API', '其他定制'],
-        startDate: dateFormat(new Date(), 'YYYY-MM-DD'),
         //minHour:dateFormat(new Date(), 'HH'),
         submitData: {
           "demand_type": 0,
@@ -151,6 +150,15 @@
     props: { //继承
     },
     methods: { //方法
+      dataFn(value) {
+        function CompareDate(d1, d2) {
+          return((new Date(d1.replace(/-/g, "\/"))) > (new Date(d2.replace(/-/g, "\/"))));
+        }
+        if(CompareDate(dateFormat(new Date(), 'YYYY-MM-DD HH:mm:ss'), value)) {
+          this.submitData.end_time_desc = dateFormat(new Date(), 'YYYY-MM-DD HH:mm:ss');
+          this.promptFn('', '结束时间不能大于当前时间');
+        }
+      },
       numberFn(num) {
         var reg = new RegExp("^[0-9]+(.[0-9]{1,2})?$");
         if(!(reg.test(this.submitData[num]))) {

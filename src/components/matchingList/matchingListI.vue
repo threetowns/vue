@@ -1,13 +1,15 @@
 <template>
   <div class="matching_list">
-    <div class="noScroller" v-if="!noScroller" v-touch:swipeup="swipeupFn">
+    <div class="noScroller" v-if="!noScroller" v-touch:swipeup="swipeupFn"
+       v-touch:swipedown="swipedownFn">
       <div class="margin_bottom"></div>
       <div v-for="list in classifyList">
         <matching-xq :m-list="list"></matching-xq>
       </div>
       <div class="jzwP" v-if="classifyList.length==dataCount">加载完了，共{{dataCount}}条</div>
     </div>
-    <scroller lock-x height="100%" ref="myscroller" use-pullup @on-pullup-loading="pullupFn" :pullup-config="pullupConfig" v-model="scrollerStatus" v-show="!noDataShow && noScroller" @on-scroll="scrollFn">
+    <scroller lock-x height="100%" ref="myscroller" use-pullup @on-pullup-loading="pullupFn" :pullup-config="pullupConfig" v-model="scrollerStatus" v-show="!noDataShow && noScroller" @on-scroll="scrollFn"
+      >
       <div>
         <div class="margin_bottom"></div>
         <div v-for="list in classifyList">
@@ -25,7 +27,6 @@
   import MatchingXq from '../matchingXq/matchingXq';
   import NoData from '../noData/noData';
   import { pulldownConfig, pullupConfig, scrollerStatus, pulldownF, pullupF, watchF } from './index';
-
 
   export default {
     name: 'matchingList',
@@ -70,9 +71,15 @@
       },
     },
     methods: {
-      swipeupFn() {
+      swipeupFn(ev) {
         var v_this = this;
-        if(v_this.scrollTop == v_this.scrollTopMax){
+        if(v_this.scrollTop == v_this.scrollTopMax) {
+          v_this.noScroller = true;
+        }
+      },
+      swipedownFn(ev){
+        var v_this = this;
+        if(v_this.scrollTop == v_this.scrollTopMax) {
           v_this.noScroller = true;
         }
       },
@@ -123,7 +130,7 @@
 
       window.addEventListener('scroll', function(ev) {
         v_this.scrollTop = Math.floor(this.scrollY);
-        if(v_this.scrollTop == v_this.scrollTopMax) {
+        if(v_this.scrollTop >= v_this.scrollTopMax) {
           v_this.noScroller = true;
         }
       }, false);
