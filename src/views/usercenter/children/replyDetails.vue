@@ -30,7 +30,10 @@
       <div class="name_fileImage">
         <span class="name">附件</span>
         <div class="fileImage_w floatClear">
-          <div class="_fileImage_div left" v-for="picL in picData" :style="{'background-image': 'url(http://image.dhbigdata.cn/dfun//'+picL+')'}"></div>
+          <div class="_fileImage_div left J_previewer-img" v-for="(picL, index) in list" :style="{'background-image': 'url('+picL.src+')'}" @click="show(index)"></div>
+        </div>
+        <div v-transfer-dom>
+          <previewer :list="list" ref="previewer" :options="options"></previewer>
         </div>
       </div>
     </div>
@@ -40,28 +43,34 @@
 <script>
   import $$ from 'assets/js/common';
   import MatchingXq from 'components/matchingXq/matchingXq2';
+  import { Previewer, TransferDom } from 'vux'
+
   export default {
     name: 'matchingList',
     components: {
-      MatchingXq
+      MatchingXq,
+      Previewer
+    },
+    directives: {
+      TransferDom
     },
     data() {
       return {
         classify: {
           answer_time: new Date()
         },
+        options: {
+          getThumbBoundsFn (index) {
+            let thumbnail = document.querySelectorAll('.J_previewer-img')[index]
+            let pageYScroll = window.pageYOffset || document.documentElement.scrollTop
+            let rect = thumbnail.getBoundingClientRect()
+            return {x: rect.left, y: rect.top + pageYScroll, w: rect.width}
+          }
+        },
+        list: []
       }
     },
     computed: { //计算
-      picData() {
-        var picAll = [];
-        for(var n in this.classify) {
-          if(n.indexOf('pic') != -1) {
-            picAll.push(this.classify[n])
-          }
-        }
-        return picAll;
-      },
       answerTime() {
         return dateFormat(this.classify.answer_time, 'YYYY-MM-DD HH:mm:ss')
       },
@@ -70,7 +79,9 @@
 
     },
     methods: {
-
+      show (index) {
+        this.$refs.previewer.show(index)
+      }
     },
     mounted: function() { //类似于回调函数(初次实例化完成后调用)
       //this.pulldownFn();
@@ -83,7 +94,15 @@
       }, function(data) {
         console.log('回复详情:', data);
         if(data.status = '0') {
-          v_this.classify = data.data;
+          let res = data.data
+          v_this.classify = res;
+          for(let n in res) {
+            if(n.indexOf('pic') != -1) {
+              v_this.list.push({
+                src:'http://image.dhbigdata.cn/dfun/' + res[n]
+              });
+            }
+          }
         }
       });
     },

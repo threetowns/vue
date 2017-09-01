@@ -95,19 +95,19 @@
     mounted: function() { //类似于回调函数(初次实例化完成后调用)
       setTimeout(() => {
         switch(this.$route.query.category) {
-          case 0:
+          case "0":
             document.title = "精准营销"
             break;
-          case 1:
+          case "1":
             document.title = "数据报告"
             break;
-          case 2:
+          case "2":
             document.title = "数据交易"
             break;
-          case 3:
+          case "3":
             document.title = "API"
             break;
-          case 4:
+          case "4":
             document.title = "其他定制"
             break;
           default:
