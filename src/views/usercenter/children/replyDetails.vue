@@ -43,7 +43,9 @@
 <script>
   import $$ from 'assets/js/common';
   import MatchingXq from 'components/matchingXq/matchingXq2';
-  import { Previewer, TransferDom } from 'vux'
+  import { TransferDom } from 'vux'
+
+  import Previewer from 'components/previewer/previewer'
 
   export default {
     name: 'matchingList',
