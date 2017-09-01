@@ -17,7 +17,7 @@
       <div class="name_input">
         <span class="name">标题</span>
         <div class="_input">
-          <input class="textOverflow" type="text" v-model="submitData.demand_title" :placeholder="placeholder.required + placeholder.title" @change="nameFn2" />
+          <input class="textOverflow" type="text" v-model="submitData.demand_title" :placeholder="placeholder.required + placeholder.title" @change="nameFn2" @input="nameFnInput2" />
         </div>
       </div>
       <div class="name_input">
@@ -134,6 +134,7 @@
           "description": ""
         },
         oldDescription: '',
+        oldDemandTitle: '',
         placeholder: {
           required: '必填，',
           title: '请输入2-25个字',
@@ -207,6 +208,14 @@
           this.promptFn('', this.placeholder.title);
         }
       },
+      nameFnInput2() {
+        if(this.submitData.demand_title.length <= 25) {
+          this.oldDemandTitle = this.submitData.demand_title;
+        } else {
+          this.submitData.demand_title = this.oldDemandTitle;
+          this.promptFn('', this.placeholder.title);
+        }
+      },
       //手机号验证
       checkPhone() {
         if(!(/^1[34578]\d{9}$/.test(this.submitData.phone))) {
@@ -227,7 +236,7 @@
       submitFn() {
         var v_this = this;
         var sd = this.submitData;
-        if(sd.demand_title && sd.user_name && sd.phone && sd.original_cost && sd.current_price && sd.description) {
+        if(sd.demand_title && sd.user_name && sd.phone && sd.original_cost && sd.current_price && sd.description && (sd.demand_title.length >= 2 && sd.demand_title.length <= 25)) {
           sd.end_time_desc = dateFormat(sd.end_time_desc, 'YYYY-MM-DD HH:mm:ss');
           var _data = {
             token: localStorage.getItem('userToken'),

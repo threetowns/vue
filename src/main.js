@@ -10,8 +10,11 @@ import * as types from './store/mutation-types'
 import { checkLogin } from 'src/service/getData'
 import './assets/js/rem'
 
+import vuePlus from './assets/js/vue-plus';
+Vue.use(vuePlus);
+
 // 页面刷新时，重新赋值token
-if (localStorage.getItem('userToken')) {
+if(localStorage.getItem('userToken')) {
   store.commit(types.RECORD_USERTOKEN, localStorage.getItem('userToken'))
 }
 
@@ -25,30 +28,51 @@ router.beforeEach((to, from, next) => {
 
   document.title = to.meta.title ? to.meta.title : '东湖大数据交易中心'
   let token = store.getters.userToken
-  if (to.matched.some(r => r.meta.requireAuth)) {
-    if (token) {
-      checkLogin({ 'token': token }).then(res => {
-        if (res.status != '0') {
-          store.commit(types.LOGOUT)
-          next({ path: '/login', query: { redirect: to.fullPath } })
-        }else{
-          next()
-        }
-      })
-      .catch(error => {
-        if (error.response) {
-          Vue.$vux.alert.show({ title: '温馨提示', content: '错误：'+ error.response.status +'，请稍后再试！' })
-        } else if (error.request) {
-          Vue.$vux.alert.show({ title: '温馨提示', content: '错误：'+ error.request.status +'，请稍后再试！' })
-        } else {
-          Vue.$vux.alert.show({ title: '温馨提示', content: '错误：'+ error.message +'，请稍后再试！' })
-        }
+  if(to.matched.some(r => r.meta.requireAuth)) {
+    if(token) {
+      checkLogin({
+          'token': token
+        }).then(res => {
+          if(res.status != '0') {
+            store.commit(types.LOGOUT)
+            next({
+              path: '/login',
+              query: {
+                redirect: to.fullPath
+              }
+            })
+          } else {
+            next()
+          }
+        })
+        .catch(error => {
+          if(error.response) {
+            Vue.$vux.alert.show({
+              title: '温馨提示',
+              content: '错误：' + error.response.status + '，请稍后再试！'
+            })
+          } else if(error.request) {
+            Vue.$vux.alert.show({
+              title: '温馨提示',
+              content: '错误：' + error.request.status + '，请稍后再试！'
+            })
+          } else {
+            Vue.$vux.alert.show({
+              title: '温馨提示',
+              content: '错误：' + error.message + '，请稍后再试！'
+            })
+          }
 
+        })
+    } else {
+      next({
+        path: '/login',
+        query: {
+          redirect: to.fullPath
+        }
       })
-    }else {
-      next({ path: '/login', query: { redirect: to.fullPath } })
     }
-  }else{
+  } else {
     next()
   }
 })

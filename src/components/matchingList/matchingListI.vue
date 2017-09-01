@@ -1,6 +1,6 @@
 <template>
   <div class="matching_list">
-    <div class="noScroller" v-if="!noScroller">
+    <div class="noScroller" v-if="!noScroller" v-touch:swipeup="swipeupFn">
       <div class="margin_bottom"></div>
       <div v-for="list in classifyList">
         <matching-xq :m-list="list"></matching-xq>
@@ -25,6 +25,7 @@
   import MatchingXq from '../matchingXq/matchingXq';
   import NoData from '../noData/noData';
   import { pulldownConfig, pullupConfig, scrollerStatus, pulldownF, pullupF, watchF } from './index';
+
 
   export default {
     name: 'matchingList',
@@ -69,8 +70,14 @@
       },
     },
     methods: {
+      swipeupFn() {
+        var v_this = this;
+        if(v_this.scrollTop == v_this.scrollTopMax){
+          v_this.noScroller = true;
+        }
+      },
       scrollFn(arg) {
-        if(this.scrollTop < this.scrollTopMax || arg.top <= 0) {
+        if(arg.top <= 0) {
           this.noScroller = false;
         } else {
           this.noScroller = true;
@@ -196,7 +203,8 @@
       background-color: rgba(0, 0, 0, 0.25);
     }
   }
-  .jzwP{
+  
+  .jzwP {
     text-align: center;
     height: 40px;
     line-height: 40px;

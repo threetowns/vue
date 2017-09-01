@@ -16,6 +16,7 @@
     <span class="jingxingjueshu jingxing" v-if="mList.audit_status==1"></span>
     <span class="jingxingjueshu jujue" v-if="mList.audit_status==2"></span>
     <span class="jingxingjueshu jueshu" v-if="mList.audit_status==3"></span>
+    <span class="jingxingjueshu shenghe" v-if="mList.audit_status==0"></span>
   </div>
 </template>
 
