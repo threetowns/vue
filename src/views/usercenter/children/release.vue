@@ -2,9 +2,9 @@
   <div class="user-reply precision rating_page">
     <div class="screen">
       <div class="nav_a">
-        <a @click="screenC=1" :class="{'active':screenC==1}">类型筛选<i></i></a>
-        <a @click="screenC=2" :class="{'active':screenC==2}">状态筛选<i></i></a>
-        <a @click="screenC=3" :class="{'active':screenC==3}">排序<i></i></a>
+        <a @click="screenC==1?screenC=0:screenC=1" :class="{'active':screenC==1}">类型筛选<i></i></a>
+        <a @click="screenC==2?screenC=0:screenC=2" :class="{'active':screenC==2}">状态筛选<i></i></a>
+        <a @click="screenC==3?screenC=0:screenC=3" :class="{'active':screenC==3}">排序<i></i></a>
       </div>
       <div class="nav_d" v-if="screenC!=0" @click="navDFn">
         <div v-if="screenC==1">
@@ -20,7 +20,7 @@
           <a @click="stateC='3'" :class="{'active':stateC=='3'}"><i></i>已结束</a>
         </div>
         <div v-if="screenC==3">
-           <a @click="sortFn(2)" :class="[(sortC=='2') ? 'active':'',sortPx_2 ? 'xia':'shang','sort_a']"><i></i>时间</a>
+          <a @click="sortFn(2)" :class="[(sortC=='2') ? 'active':'',sortPx_2 ? 'xia':'shang','sort_a']"><i></i>时间</a>
           <a @click="sortFn(0)" :class="[(sortC=='0') ? 'active':'',sortPx_0 ? 'xia':'shang','sort_a']"><i></i>阅读数</a>
           <a @click="sortFn(1)" :class="[(sortC=='1') ? 'active':'',sortPx_1 ? 'xia':'shang','sort_a']"><i></i>收藏数</a>
         </div>

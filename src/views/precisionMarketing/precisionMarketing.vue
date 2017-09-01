@@ -2,9 +2,9 @@
   <div class="precision">
     <div class="screen">
       <div class="nav_a">
-        <a @click="screenC=1" :class="{'active':screenC==1}">类型筛选<i></i></a>
-        <a @click="screenC=2" :class="{'active':screenC==2}">状态筛选<i></i></a>
-        <a @click="screenC=3" :class="{'active':screenC==3}">排序<i></i></a>
+        <a @click="screenC==1?screenC=0:screenC=1" :class="{'active':screenC==1}">类型筛选<i></i></a>
+        <a @click="screenC==2?screenC=0:screenC=2" :class="{'active':screenC==2}">状态筛选<i></i></a>
+        <a @click="screenC==3?screenC=0:screenC=3" :class="{'active':screenC==3}">排序<i></i></a>
       </div>
       <div class="nav_d" v-if="screenC!=0" @click="navDFn">
         <div v-if="screenC==1">

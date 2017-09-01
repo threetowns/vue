@@ -175,7 +175,7 @@
 <style lang="less">
   @import url("../../assets/styles/less");
   .matching_list {
-    flex: 1;
+    height: 100vh;
     overflow: hidden;
     padding-bottom: 1.0rem;
     position: relative;
