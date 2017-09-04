@@ -91,7 +91,7 @@
       },
       //请输入500字以内描述
       detailsFn() {
-        if(this.submitData.details.length <= 500 && this.submitData.details.length > 0) {
+        if(this.submitData.details.length <= 500) {
           this.oldDetails = this.submitData.details;
         } else {
           this.submitData.details = this.oldDetails;
