@@ -145,7 +145,7 @@
 <style lang="less">
   @import url("../../assets/styles/less");
   .matching_list {
-    height: calc(100vh - 0.60rem);
+    height: ~'calc(100vh - 0.60rem)';
     overflow: hidden;
     padding-bottom: 1.0rem;
     position: relative;

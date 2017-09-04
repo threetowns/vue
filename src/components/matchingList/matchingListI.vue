@@ -1,15 +1,13 @@
 <template>
-  <div class="matching_list">
-    <div class="noScroller" v-if="!noScroller" v-touch:swipeup="swipeupFn"
-       v-touch:swipedown="swipedownFn">
+  <div class="matching_list" :style="{height: noDataShow ? 'calc(100vh - 6.4rem)':''}">
+    <div class="noScroller" v-if="!noScroller&&!noDataShow" v-touch:swipeup="swipeupFn" v-touch:swipedown="swipedownFn">
       <div class="margin_bottom"></div>
       <div v-for="list in classifyList">
         <matching-xq :m-list="list"></matching-xq>
       </div>
       <div class="jzwP" v-if="classifyList.length==dataCount">加载完了，共{{dataCount}}条</div>
     </div>
-    <scroller lock-x height="100%" ref="myscroller" use-pullup @on-pullup-loading="pullupFn" :pullup-config="pullupConfig" v-model="scrollerStatus" v-show="!noDataShow && noScroller" @on-scroll="scrollFn"
-      >
+    <scroller lock-x height="100%" ref="myscroller" use-pullup @on-pullup-loading="pullupFn" :pullup-config="pullupConfig" v-model="scrollerStatus" v-show="!noDataShow && noScroller" @on-scroll="scrollFn">
       <div>
         <div class="margin_bottom"></div>
         <div v-for="list in classifyList">
@@ -77,7 +75,7 @@
           v_this.noScroller = true;
         }
       },
-      swipedownFn(ev){
+      swipedownFn(ev) {
         var v_this = this;
         if(v_this.scrollTop == v_this.scrollTopMax) {
           v_this.noScroller = true;
