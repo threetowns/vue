@@ -244,22 +244,31 @@
       submitFn() {
         var v_this = this;
         var sd = this.submitData;
-        if(sd.demand_title && sd.user_name && sd.phone && sd.original_cost && sd.current_price && sd.description && (sd.demand_title.length >= 2 && sd.demand_title.length <= 25)) {
-          sd.end_time_desc = dateFormat(sd.end_time_desc, 'YYYY-MM-DD HH:mm:ss');
-          var _data = {
-            token: localStorage.getItem('userToken'),
-            data: sd,
-          }
-          $$.post("/api/wxdemand/saveDemand", _data, function(data) {
-            console.log('提交后', data);
-            if(data.status == '0') {
-              v_this.$router.push('/usercenter/release');
-            } else {
-              alert(data.msg);
-            }
-          });
+
+        function CompareDate(d1, d2) {
+          return((new Date(d1.replace(/-/g, "\/"))) > (new Date(d2.replace(/-/g, "\/"))));
+        }
+        if(CompareDate(dateFormat(new Date(), 'YYYY-MM-DD HH:mm:ss'), this.submitData.end_time_desc)) {
+          this.submitData.end_time_desc = dateFormat(new Date(), 'YYYY-MM-DD HH:mm:ss');
+          this.promptFn('', '结束时间需大于当前时间');
         } else {
-          this.promptFn('', '信息填写不正确！');
+          if(sd.demand_title && sd.user_name && sd.phone && sd.original_cost && sd.current_price && sd.description && (sd.demand_title.length >= 2 && sd.demand_title.length <= 25)) {
+            sd.end_time_desc = dateFormat(sd.end_time_desc, 'YYYY-MM-DD HH:mm:ss');
+            var _data = {
+              token: localStorage.getItem('userToken'),
+              data: sd,
+            }
+            $$.post("/api/wxdemand/saveDemand", _data, function(data) {
+              console.log('提交后', data);
+              if(data.status == '0') {
+                v_this.$router.push('/usercenter/release');
+              } else {
+                alert(data.msg);
+              }
+            });
+          } else {
+            this.promptFn('', '信息填写不正确！');
+          }
         }
       }
     },
