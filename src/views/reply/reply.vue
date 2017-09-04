@@ -217,6 +217,9 @@
           submitOn = false;
         }
         if(submitOn) {
+          this.$vux.loading.show({
+            text: 'Loading'
+          });
           this.formImgFn(function(data) {
             var tsd = v_this.submitData;
             tsd.enclosure = data.path;
@@ -234,6 +237,7 @@
             }
             $$.post("/api/wxanswer/submitAnswer", this_data, function(data) {
               console.log('回复提交后', data);
+              v_this.$vux.loading.hide();
               if(data.status = '0') {
                 // v_this.$router.push('/usercenter/reply/details?id=' + data.answerId);
                 v_this.$router.push('/details?id=' + v_this.$route.query.id);
