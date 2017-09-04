@@ -56,7 +56,7 @@
         placeholder: {
           required: '必填，',
           name: '请输入2-5个字',
-          phone: '请输入正确手机号码',
+          phone: '请输入手机号码',
           details: '请输入500字以内描述'
         }
       }
@@ -86,7 +86,8 @@
       //手机号验证
       checkPhone() {
         if(!(/^1[34578]\d{9}$/.test(this.submitData.tel))) {
-          this.promptFn('', this.placeholder.phone);
+          this.submitData.tel = null;
+          this.promptFn('', '手机号码格式不正确');
         }
       },
       //请输入500字以内描述

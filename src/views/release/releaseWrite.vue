@@ -228,7 +228,7 @@
       checkPhone() {
         if(!(/^1[34578]\d{9}$/.test(this.submitData.phone))) {
           this.submitData.phone = null;
-          this.promptFn('', this.placeholder.phone);
+          this.promptFn('', '手机号码格式不正确');
         }
       },
       //请输入500字以内描述
