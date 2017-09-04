@@ -43,9 +43,7 @@
 <script>
   import $$ from 'assets/js/common';
   import MatchingXq from 'components/matchingXq/matchingXq2';
-  import { TransferDom } from 'vux'
-
-  import Previewer from 'components/previewer/previewer'
+  import { Previewer, TransferDom } from 'vux'
 
   export default {
     name: 'matchingList',
@@ -67,6 +65,9 @@
             let pageYScroll = window.pageYOffset || document.documentElement.scrollTop
             let rect = thumbnail.getBoundingClientRect()
             return {x: rect.left, y: rect.top + pageYScroll, w: rect.width}
+          },
+          isClickableElement : function(el){
+            return true;
           }
         },
         list: []
@@ -94,7 +95,6 @@
           "answerId": v_this.$route.query.id
         }
       }, function(data) {
-        console.log('回复详情:', data);
         if(data.status = '0') {
           let res = data.data
           v_this.classify = res;
