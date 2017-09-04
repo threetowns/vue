@@ -21,6 +21,7 @@
           <a @click="sortFn(2)" :class="[(sortC=='2') ? 'active':'',sortPx_2 ? 'xia':'shang','sort_a']"><i></i>时间</a>
           <a @click="sortFn(0)" :class="[(sortC=='0') ? 'active':'',sortPx_0 ? 'xia':'shang','sort_a']"><i></i>阅读数</a>
           <a @click="sortFn(1)" :class="[(sortC=='1') ? 'active':'',sortPx_1 ? 'xia':'shang','sort_a']"><i></i>收藏数</a>
+          <a @click="sortFn(3)" :class="[(sortC=='3') ? 'active':'',sortPx_3 ? 'xia':'shang','sort_a']"><i></i>回复时间</a>
         </div>
       </div>
     </div>
@@ -54,6 +55,7 @@
         sortPx_0: true,
         sortPx_1: true,
         sortPx_2: true,
+        sortPx_3: true,
         sortPx: 30,
         oldsortPx: 30,
       }
