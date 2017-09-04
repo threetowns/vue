@@ -156,7 +156,7 @@
         }
         if(CompareDate(dateFormat(new Date(), 'YYYY-MM-DD HH:mm:ss'), value)) {
           this.submitData.end_time_desc = dateFormat(new Date(), 'YYYY-MM-DD HH:mm:ss');
-          this.promptFn('', '结束时间不能小于当前时间');
+          this.promptFn('', '结束时间需大于当前时间');
         }
       },
       numberFn(num) {

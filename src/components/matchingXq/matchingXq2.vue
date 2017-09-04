@@ -2,8 +2,9 @@
   <div class="matching_list_xq" @click="pushFn(mList.answerId)">
     <h3 class="headline headline2">{{mList.demand_title}}
       <span class="jingxingjueshu2 jingxing" v-if="mList.audit_status==1"></span>
-      <span class="jingxingjueshu2 jueshu" v-if="mList.audit_status==2"></span>
-      <span class="jingxingjueshu2 jujue" v-if="mList.audit_status==3"></span>
+      <span class="jingxingjueshu2 jujue" v-if="mList.audit_status==2"></span>
+      <span class="jingxingjueshu2 jueshu" v-if="mList.audit_status==3"></span>
+      <span class="jingxingjueshu2 shenghe" v-if="mList.audit_status==0"></span>
     </h3>
     <div class="div_1">
       <span class="leixing">{{demand_category[mList.demand_category]}}</span>

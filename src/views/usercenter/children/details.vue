@@ -44,7 +44,7 @@
 
 <script>
   import $$ from 'assets/js/common';
-  import MatchingXq from 'components/matchingXq/matchingXq';
+  import MatchingXq from 'components/matchingXq/matchingXq2';
   export default {
     name: 'matchingList',
     components: {
