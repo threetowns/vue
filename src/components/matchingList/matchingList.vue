@@ -89,7 +89,8 @@
           data: {
             "demandType": v_this.demandType,
             "auditStatus": v_this.auditStatus,
-            "sort": v_this.readSort
+            "sort": v_this.readSort,
+            "demandCategory": v_this.demandCategory
           }
         });
       }
