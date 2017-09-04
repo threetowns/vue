@@ -34,8 +34,7 @@
       <div class="name_reply">
         <span class="name">回复的人</span>
         <div class="_textarea textQzhh">
-          <span v-for="list in classify.answerList"
-@click="replyXqFn(list.id,list.isMyAnswer)">{{list.nickname}}<i>，</i></span>
+          <span v-for="list in classify.answerList" @click="replyXqFn(list.id,list.isMyAnswer)">{{list.nickname}}<i>，</i></span>
         </div>
       </div>
     </div>
@@ -77,12 +76,26 @@
         }
       },
       replyFn() {
-        if(this.classify.audit_status == 1) {
-          this.$router.push('/reply?id=' + this.$route.query.id);
+        var b = true;
+        for(var i = 0; i < this.classify.answerList.length; i++) {
+          if(this.classify.answerList[i]["isMyAnswer"] == 1) {
+            b = false;
+            this.$vux.alert.show({
+              content: '您已经回复过'
+            });
+            setTimeout(() => {
+              this.$vux.alert.hide();
+            }, 2000);
+          }
+        };
+        if(b) {
+          if(this.classify.audit_status == 1) {
+            this.$router.push('/reply?id=' + this.$route.query.id);
+          }
         }
       },
       noFavFn() {
-        var v_this=this;
+        var v_this = this;
         $$.post('/api/wxdemand/cancelFav', {
           "token": localStorage.getItem('userToken'),
           "data": {
@@ -95,7 +108,7 @@
         });
       },
       isFavFn() {
-        var v_this=this;
+        var v_this = this;
         $$.post('/api/wxdemand/saveFav', {
           "token": localStorage.getItem('userToken'),
           "data": {
@@ -116,7 +129,7 @@
         "demandId": v_this.$route.query.id
       }, function(data) {
         if(data.status = '0') {
-          console.log('收藏详情:',data);
+          console.log('收藏详情:', data);
           v_this.classify = data.data;
           if((v_this.classify.phone).indexOf('*') != -1) {
             v_this.myVisible = false;
