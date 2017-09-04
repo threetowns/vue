@@ -110,7 +110,8 @@ export default [{
       name: "replyDetails",
       component: replyDetails,
       meta: {
-        title: '回复详情'
+        title: '回复详情',
+        requireAuth: true
       }
     },
     //发布详情
@@ -138,7 +139,8 @@ export default [{
       name: "favoriteDetails",
       component: favoriteDetails,
       meta: {
-        title: '收藏详情'
+        title: '收藏详情',
+        requireAuth: true
       }
     },
 
