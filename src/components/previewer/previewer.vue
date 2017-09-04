@@ -23,7 +23,7 @@
           <button class="pswp__button pswp__button--share" title="Share"></button>
           <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
           <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
-          <a :href="pic" class="pswp__button pswp__button--download" title="Download" target="_blank" download></a>
+          <a :href="pic" class="pswp__button pswp__button--download" title="Download" :download="pic"></a>
           <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
           <!-- element will get class pswp__preloader--active when preloader is running -->
           <div class="pswp__preloader">
@@ -155,6 +155,7 @@ export default {
 <style>
 @import '~photoswipe/dist/photoswipe.css';
 @import '~photoswipe/dist/default-skin/default-skin.css';
+.pswp img{pointer-events: none;}
 .pswp__button--download{
   background: url(./download.png) center no-repeat;
 }
