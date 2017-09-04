@@ -214,4 +214,7 @@
     height: 40px;
     line-height: 40px;
   }
+  .noScroller{
+    padding-bottom: 1rem;
+  }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div class="matching_list_xq" @click="pushFn(mList.answerId)">
+  <div class="matching_list_xq">
     <h3 class="headline headline2">{{mList.demand_title}}
       <span class="jingxingjueshu2 jingxing" v-if="mList.audit_status==1"></span>
       <span class="jingxingjueshu2 jujue" v-if="mList.audit_status==2"></span>
